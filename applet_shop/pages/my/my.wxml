@@ -1,0 +1,259 @@
+<view class='page'>
+    
+    <view wx:if="{{islogin}}" class='user_info'>
+        <view class='weui-cells mt0'>
+            <view class='weui-cell'>
+                <view class='weui-cell__hd'>
+                    <navigator url='/pages/personalData/personalData' class='avatar'>
+                        <image src="{{memberinfo.headimgurl ? memberinfo.headimgurl : '/images/df_tx.png'}}"></image>
+                    </navigator>
+                </view>
+                <view class='weui-cell__bd'>
+                    <navigator url='/pages/personalData/personalData' class='fs34 fw600'>{{memberinfo.nick_name}}
+                        <text class='badge'>{{memberinfo.role.role_name}}</text>
+                    </navigator>
+                    <view class='text-muted mt10'><!-- 用户描述 --></view>
+                </view>
+                <view class='weui-cell__ft'>
+                    <navigator url="/pages/message/message" class="icon icon_msg">
+                        <view class='dot'></view>
+                        <image src='/images/myIcon01.png' />
+                    </navigator>
+                    <view bindtap='goSetting' class="icon icon_set">
+                        <image src='/images/myIcon02.png' />
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class='card-flex grid4'>
+            <navigator url='/pages/myBalance/myBalance' style='width: 50%;' class='flex_item'>
+                <view class='fs46 ff'>{{memberinfo.account.balance_money}}</view>
+                <view class='text'>可用金额</view>
+            </navigator>
+            <!-- <navigator url='/pages/myBalance/myBalance' class='flex_item'>
+                <view class='fs46 ff'>{{memberinfo.account.total_dividend}}</view>
+                <view class='text'>总佣金</view>
+            </navigator>
+            <navigator url='/pages/myBalance/myBalance' class='flex_item'>
+                <view class='fs46 ff'>{{memberinfo.account.total_integral}}</view>
+                <view class='text'>总积分</view>
+            </navigator> -->
+            <navigator url='/pages/myBalance/myBalance' style='width: 50%;' class='flex_item'>
+                <view class='fs46 ff'>{{memberinfo.account.use_integral}}</view>
+                <view class='text'>可用积分</view>
+            </navigator>
+        </view>
+    </view>
+    <view wx:else class='user_info'>
+      <view class="auth_box">
+      <image src='/images/df_tx.png'></image>
+      <view class="loginORregist" bindtap='godologin'>授权登录</view>
+      </view>
+    </view>
+
+    <view class='weui-panel my_order'>
+        <view class='weui-panel__hd border_none'>
+            <view class='fs28 title'>我的订单</view>
+            <navigator url='/pages/myorders/myorders?orderstauts=all' class='more arrow_r'>查看全部</navigator>
+        </view>
+        <view class='weui-panel__bd'>
+            <view class='card-flex grid5'>
+                <navigator url='/pages/myorders/myorders?orderstauts=waitPay' class='flex_item'>
+                    <view wx:if='{{wait_pay_num>0}}' class='dot'></view>
+                    <view class='icon'>
+                        <image src="/images/myIcon03.png" />
+                    </view>
+                    <view class='text'>待付款</view>
+                </navigator>
+                <navigator url='/pages/myorders/myorders?orderstauts=waitShipping' class='flex_item'>
+                    <view wx:if='{{wait_shipping_num>0}}' class='dot'></view>
+                    <view class='icon'>
+                        <image src="/images/myIcon04.png" />
+                    </view>
+                    <view class='text'>待发货</view>
+                </navigator>
+                <navigator url='/pages/myorders/myorders?orderstauts=waitSign' class='flex_item'>
+                    <view wx:if='{{wait_sign_num>0}}' class='dot'></view>
+                    <view class='icon'>
+                        <image src="/images/myIcon05.png" />
+                    </view>
+                    <view class='text'>待收货</view>
+                </navigator>
+                <navigator url='/pages/myorders/myorders?orderstauts=sign' class='flex_item'>
+                    <view class='icon'>
+                        <image src="/images/myIcon06.png" />
+                    </view>
+                    <view class='text'>已完成</view>
+                </navigator>
+                <navigator url='/pages/sales/sales' class='flex_item'>
+                    <view class='icon'>
+                        <image src="/images/myIcon07.png" />
+                    </view>
+                    <view class='text'>退换货</view>
+                </navigator>
+            </view>
+        </view>
+    </view>
+
+    <view class='display_none'>
+        <view class='weui-cells menu_cells'>
+            <navigator url='/pages/mygroupBuy/mygroupBuy' class='weui-cell weui-cell__ft_in-access'>
+                <view class='weui-cell__hd'>
+                    <image src='/images/myIcon08.png' />
+                </view>
+                <view class='weui-cell__bd'>我的拼团</view>
+                <view class='weui-cell__ft'></view>
+            </navigator>
+            <navigator url='/pages/myfans/myfans' class='weui-cell weui-cell__ft_in-access'>
+                <view class='weui-cell__hd'>
+                    <image src='/images/myIcon09.png' />
+                </view>
+                <view class='weui-cell__bd'>我的粉丝</view>
+                <view class='weui-cell__ft'></view>
+            </navigator>
+            <navigator url='/pages/mycoupons/mycoupons' class='weui-cell weui-cell__ft_in-access'>
+                <view class='weui-cell__hd'>
+                    <image src='/images/myIcon10.png' />
+                </view>
+                <view class='weui-cell__bd'>优惠券</view>
+                <view class='weui-cell__ft'>
+                    <text class='badge'>3张可用</text>
+                </view>
+            </navigator>
+        </view>
+
+        <view class='weui-cells menu_cells'>
+            <navigator url='/pages/myfavorite/myfavorite' class='weui-cell weui-cell__ft_in-access'>
+                <view class='weui-cell__hd'>
+                    <image src='/images/myIcon11.png' />
+                </view>
+                <view class='weui-cell__bd'>我的收藏</view>
+                <view class='weui-cell__ft'></view>
+            </navigator>
+            <navigator url='/pages/evaluate/evaluate' class='weui-cell weui-cell__ft_in-access'>
+                <view class='weui-cell__hd'>
+                    <image src='/images/myIcon12.png' />
+                </view>
+                <view class='weui-cell__bd'>我的评价</view>
+                <view class='weui-cell__ft'></view>
+            </navigator>
+            <navigator url='/pages/sign/sign' class='weui-cell weui-cell__ft_in-access' wx:if="{{sign_in==1}}">
+                <view class='weui-cell__hd'>
+                    <image src='/images/myIcon12.png' />
+                </view>
+                <view class='weui-cell__bd'>我的签到</view>
+                <view class='weui-cell__ft'></view>
+            </navigator>
+            <navigator url='/pages/withdrawManage/withdrawManage' class='weui-cell weui-cell__ft_in-access'>
+                <view class='weui-cell__hd'>
+                    <image src='/images/myIcon16.png' />
+                </view>
+                <view class='weui-cell__bd'>提现管理</view>
+                <view class='weui-cell__ft'>
+                </view>
+            </navigator>
+            <navigator url='/pages/address/address' class='weui-cell weui-cell__ft_in-access'>
+                <view class='weui-cell__hd'>
+                    <image src='/images/myIcon13.png' />
+                </view>
+                <view class='weui-cell__bd'>收货地址</view>
+                <view class='weui-cell__ft'>
+                </view>
+            </navigator>
+
+        </view>
+        <view class='weui-cells menu_cells'>
+            <navigator class='weui-cell weui-cell__ft_in-access'>
+                <view class='weui-cell__hd'>
+                    <image src='/images/myIcon14.png' />
+                </view>
+                <view class='weui-cell__bd'>意见需求</view>
+                <view class='weui-cell__ft'></view>
+            </navigator>
+            <navigator class='weui-cell weui-cell__ft_in-access'>
+                <view class='weui-cell__hd'>
+                    <image src='/images/myIcon15.png' />
+                </view>
+                <view class='weui-cell__bd'>关于我们</view>
+                <view class='weui-cell__ft'>
+                    <text>可更新</text>
+                </view>
+            </navigator>
+        </view>
+    </view>
+    <view class='card-flex grid4 my_grids'>
+        <navigator url='/pages/mygroupBuy/mygroupBuy' class='flex_item'>
+            <view class='icon'>
+                <image src='/images/myIcon08.png' />
+            </view>
+            <view class='text'>我的拼团</view>
+        </navigator>
+        <navigator url='/pages/myfans/myfans' class='flex_item'>
+            <view class='icon'>
+                <image src='/images/myIcon09.png' />
+            </view>
+            <view class='text'>我的粉丝</view>
+        </navigator>
+        <navigator url='/pages/mycoupons/mycoupons' class='flex_item'>
+            <view class='icon'>
+                <image src='/images/myIcon10.png' />
+            </view>
+            <view class='text'>优惠券</view>
+        </navigator>
+        <navigator url='/pages/myfavorite/myfavorite' class='flex_item'>
+            <view class='icon'>
+                <image src='/images/myIcon11.png' />
+            </view>
+            <view class='text'>我的收藏</view>
+        </navigator>
+        <navigator url='/pages/evaluate/evaluate' class='flex_item'>
+            <view class='icon'>
+                <image src='/images/myIcon12.png' />
+            </view>
+            <view class='text'>我的评价</view>
+        </navigator>
+        <navigator url='/pages/sign/sign' class='flex_item' wx:if="{{sign_in==1}}">
+            <view class='icon'>
+                <image src='/images/myIcon12.png' />
+            </view>
+            <view class='text'>我的签到</view>
+        </navigator>
+        <navigator url='/pages/address/address' class='flex_item'>
+            <view class='icon'>
+                <image src='/images/myIcon13.png' />
+            </view>
+            <view class='text'>收货地址</view>
+        </navigator>
+        <navigator url='/pages/withdrawManage/withdrawManage' class='flex_item'>
+            <view class='icon'>
+                <image src='/images/myIcon13.png' />
+            </view>
+            <view class='text'>提现管理</view>
+        </navigator>
+                <navigator url='/pages/couponCenter/couponCenter' class='flex_item'>
+            <view class='icon'>
+                <image src='/images/myIcon10.png' />
+            </view>
+            <view class='text'>领卷中心</view>
+        </navigator>
+        <!-- <navigator url='' class='flex_item'>
+            <view class='icon'>
+                <image src='/images/myIcon14.png' />
+            </view>
+            <view class='text'>意见需求</view>
+        </navigator> -->
+        <!-- <navigator url='' class='flex_item'>
+            <view class='icon'>
+                <image src='/images/myIcon15.png' />
+            </view>
+            <view class='text'>关于我们</view>
+        </navigator> -->
+
+    </view>
+
+    <!-- <view class='weui-cells'>
+        <view class='weui-cell logout'>
+            <view class='weui-cell__bd tc'>退出登录</view>
+        </view>
+    </view> -->
+</view>

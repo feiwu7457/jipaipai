@@ -1,0 +1,50 @@
+<form class="form-horizontal form-validate form-modal" method="post" enctype="multipart/form-data"  action="{:url('add')}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">添加素材</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="control-label">上传素材</label>
+                    <div class="col-sm-9">
+                        <input type="file" name="file">
+
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label class="control-label">备注</label>
+                    <div class="col-sm-7 must">
+                        <input name="remark" type="text" data-rule-required="true" data-msg-required="请填写素材备注"  class="input-max">
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label class="control-label"></label>
+                    <div class="col-sm-9">
+                        图片（image）: 2M，支持PNG\JPEG\JPG\GIF格式<br>
+                        语音（voice）：2M，播放长度不超过60s，支持AMR\MP3格式<br>
+                        视频（video）：10MB，支持MP4格式<br>
+                        缩略图（thumb）：64KB，支持JPG格式<br>
+                        <span class="red">素材存时间为3天，即3天后media_id失效</span>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input  type="hidden" name="id" value="{$row.id|intval}"/>
+                <button type="submit" class="btn btn-primary" data-fun="addMediaBack" data-loading-text="保存中..." disabled>保存</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+    function addMediaBack(res){
+        if (typeof(assigBack) == 'function'){
+            assigBack(res.data.file,res.data.media_id,'{$back_dom}');
+        }
+    }
+</script>

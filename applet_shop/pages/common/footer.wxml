@@ -1,0 +1,25 @@
+<view style="height: {{$Menu$FixBox$height}}rpx;" wx:if="{{Menu&&!Menu.data}}">
+    <view class="fix-box" style="">
+        <view class="app-tabbar" style="height: 120rpx;">
+            <view bindtap="{{item.type=='tabbar'?'footNavigate':'redirectto'}}" class="item {{curPage==item.url?'active':''}}"  style="line-height: 18rpx;" data-url="{{item.url}}" wx:for="{{Menu}}" wx:key="{{index}}">
+                <image src="{{item.pic?item.pic:curPage==item.url?item.selectedIconPath:item.iconPath}}" style="width:46rpx!important;height:46rpx!important;"></image>
+                <text >
+                    {{item.title}}
+                </text>
+                  
+            </view>
+        </view>
+        <view class="is-ipxa" wx:if="{{isIPX}}"></view>
+    </view>
+</view>
+<view style="height: {{$Menu$FixBox$height}}rpx;" wx:elif="{{Menu&&Menu.data}}">
+    <view class="fix-box">
+        <view class="app-tabbar" style="height: 120rpx;">
+            <view bindtap="{{item.type=='tabbar'?'footNavigate':'redirectto'}}" class="item {{curPage==item.url?'active':''}}" style="line-height: 18rpx;" data-url="{{index==0?'/zofui_sales/pages/index/index':item.url}}" wx:for="{{Menu.data}}" wx:key="{{index}}">
+                <image src="{{curPage==item.url?item.actimg:item.img}}" style="width:46rpx!important;height:46rpx!important;margin-bottom: 12rpx;"></image>
+                <view  style="color:{{curPage==item.url?Menu.actcolor:Menu.color}}">{{item.name}}</view>
+            </view>
+        </view>
+        <view class="is-ipxa" wx:if="{{isIPX}}"></view>
+    </view>
+</view>

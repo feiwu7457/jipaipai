@@ -1,0 +1,87 @@
+<view wx:if="{{!params.isjoin||params.isjoin==0}}">
+    <form reportSubmit bindsubmit="subformid">
+        <button formType="submit">
+            <button formType="submit">
+                <button formType="submit">
+                    <button formType="submit">
+                        <button formType="submit">
+                            <button formType="submit">
+                                <button formType="submit">
+                                    <button formType="submit">
+                                        <button formType="submit">
+                                            <button class="btn-formid" formType="submit">
+                                                <button bindtap="{{params.jointype==0?'navigateto':'showJoin'}}" class="shop-join" data-copy="{{params.joinwx}}" data-tel="{{params.jointel}}" data-url="/zofui_sales/shop/join" hoverClass="none" hoverStopPropagation="{{true}}">
+                                                    <image src="{{params.joinbg?params.joinbg:'https://ui.fhcloudapi.cn/xcx_urm/img/fixbtn-ruzhu.png?v=1.0'}}"></image>
+                                                </button>
+                                            </button>
+                                        </button>
+                                    </button>
+                                </button>
+                            </button>
+                        </button>
+                    </button>
+                </button>
+            </button>
+        </button>
+    </form>
+    <view class="m-pop pop-container--visible" wx:if="{{Joinanimation}}">
+        <view class="pop-shade"></view>
+        <view class="pop-modal {{Joinanimation?'bounceInUp':''}}">
+            <view class="infopop-wrap">
+                <form reportSubmit bindsubmit="subformid">
+                    <button formType="submit">
+                        <button formType="submit">
+                            <button formType="submit">
+                                <button formType="submit">
+                                    <button formType="submit">
+                                        <button formType="submit">
+                                            <button formType="submit">
+                                                <button formType="submit">
+                                                    <button formType="submit">
+                                                        <button class="btn-formid" formType="submit" hoverClass="none" hoverStopPropagation="{{true}}">
+                                                            <view class="infopop-content">
+                                                                <view class="pop-join">
+                                                                    <image class="topimg" src="https://ui.fhcloudapi.cn/xcx_urm/img/pop-ruzhu.png"></image>
+                                                                    <view class="area">
+                                                                        <view class="tit">商家申请入驻好店</view>
+                                                                        <view class="txt">
+                                                                            {{params.jointype==1?'请拨打电话联系客服开店':''}}
+                                                                            {{params.jointype==2?'请点击下方按钮联系客服说明开店':''}}
+                                                                            {{params.jointype==3?'复制下方客服微信号，添加客服微信号并联系开店':''}}
+                                                                        </view>
+                                                                        <view class="more">
+                                                                            <view class="more_item" wx:if="{{params.jointype==1}}">
+                                                                                <view class="icon iconfont"></view>
+                                                                                <view class="ct">{{params.jointel}}</view>
+                                                                                <button bindtap="callphone" class="btn" data-tel="{{params.jointel}}">拨打</button>
+                                                                            </view>
+                                                                            <view class="more_item" wx:if="{{params.jointype==2}}">
+                                                                                <button class="btn btn-pri" openType="contact">联系客服</button>
+                                                                            </view>
+                                                                            <view class="more_item" wx:if="{{params.jointype==3}}">
+                                                                                <view class="icon iconfont"></view>
+                                                                                <view class="ct">{{params.joinwx}}</view>
+                                                                                <button bindtap="copy" class="btn" data-copy="{{params.joinwx}}">复制</button>
+                                                                            </view>
+                                                                        </view>
+                                                                    </view>
+                                                                </view>
+                                                            </view>
+                                                        </button>
+                                                    </button>
+                                                </button>
+                                            </button>
+                                        </button>
+                                    </button>
+                                </button>
+                            </button>
+                        </button>
+                    </button>
+                </form>
+                <button bindtap="showJoin" class="infopop-close">
+                    <text class="iconfont"></text>
+                </button>
+            </view>
+        </view>
+    </view>
+</view>

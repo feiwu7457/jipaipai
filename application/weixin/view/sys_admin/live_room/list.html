@@ -1,0 +1,44 @@
+<table class="table table-bordered  table-hover ">
+<thead class="flip-content bordered-palegreen">
+<thead>
+<tr>
+	<th width="70">房间ID</th>
+    <th width="120">房间名称</th>
+    <th width="120">计划开播时间</th>
+    <th width="120">计划结束时间</th>
+    <th width="120">当前状态</th>
+    <th width="120">主播名</th>
+    <th width="120">主播会员</th>
+    <th width="60">回播</th>
+    <th width="60">显示</th>
+    <th width="100">操作</th>
+</tr>
+</thead>
+<tbody>
+
+{volist name="data.list" id="vo" }
+<tr>
+	<td>{$vo.roomid}</td>
+    <td>{$vo.name}</td>
+    <td>{$vo.start_time|dateTpl}</td>
+    <td>{$vo.end_time|dateTpl}</td>
+    <td>{$live_status[$vo['live_status']]}</td>
+    <td>{$vo.anchor_name}</td>
+    <td>{$vo.anchor_user_id} - {$vo.anchor_user_id|userInfo}</td>
+    <td><a href="#" data-remote="{:url('setReplay',['id'=>$vo.id])}"  data-toggle="class" data-ajax="true" class="{$vo.is_replay|tplckval='=1','active'}"><i class="fa fa-check text-success text-active"></i><i class="fa fa-times text-danger text"></i></a></td>
+    <td><a href="#" data-remote="{:url('setIsShow',['id'=>$vo.id])}"  data-toggle="class" data-ajax="true" class="{$vo.is_show|tplckval='=1','active'}"><i class="fa fa-check text-success text-active"></i><i class="fa fa-times text-danger text"></i></a></td>
+    <td>
+        <a title="绑定主播会员" class="m-xs" data-remote="{:url('editAnchor',['id'=>$vo['id']])}" data-toggle="ajaxModal"><i class="fa fa-user text-muted"></i></a>
+        <a title="修改直播商品" class="m-xs" data-remote="{:url('editGoods',['id'=>$vo['id']])}" data-toggle="ajaxModal"><i class="fa fa-gift text-muted"></i></a>
+        <a title="查看详情" class="m-xs" data-remote="{:url('showInfo',['id'=>$vo['id']])}" data-toggle="ajaxModal"><i class="fa fa-line-chart text-muted"></i></a>
+    </td>
+</tr>
+
+{/volist}
+</tbody>
+</table>
+{empty name="data.list"}
+<table width="100%" >
+ 	<tr><td height="300" colspan="8" align="center" valign="middle" >没有相关数据！</td></tr>
+</table>
+{/empty}

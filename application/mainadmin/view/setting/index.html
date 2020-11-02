@@ -1,0 +1,248 @@
+{extend name="mainadmin@layouts/base" /}
+{block name="main" }
+<header class="header  b-b clearfix">
+    <div class="page-breadcrumbs">
+        <ul class="breadcrumb">
+            <li>
+                <i class="fa fa-ellipsis-v"></i>
+                <strong>基本信息</strong>
+            </li>
+        </ul>
+    </div>
+</header>
+<form class="form-horizontal form-validate form_vbox" method="post" action="{:url('save')}">
+    <section class="vbox">
+        <section class="scrollable  wrapper w-f">
+            <section class="panel panel-default">
+                <header>
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#basic" data-toggle="tab">基本配置</a></li>
+                        <li><a href="#about_us" data-toggle="tab">关于我们</a></li>
+                        <li><a href="#app" data-toggle="tab">APP设置</a></li>
+                        <li><a href="#payment" data-toggle="tab">收款方式</a></li>
+                    </ul>
+                </header>
+
+                <div class="tab-content">
+                    <div class="tab-pane active" id="basic">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">网站名称：</label>
+                            <div class="controls col-sm-4 ">
+                                <input type="text" name="setting[shop_title]" placeholder="请输入商城名称" class="input-max"
+                                       data-rule-required="true"
+                                       value="{$setting.shop_title}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">LOGO：</label>
+                            <div class="controls col-sm-6">
+                                <span class="help-inline">建议图片尺寸：320*320像素</span><br>
+                                <img class="thumb_img" src="{$setting.logo}" style="max-height: 100px;"/><br>
+                                <input class="hide" type="text" name="setting[logo]" value="{$setting.logo}"/>
+                                <button class="btn btn-default" type="button" data-toggle="selectimg">选择logo</button>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">版权：</label>
+                            <div class="controls col-sm-6">
+                                <input type="text" data-rule-maxlength="25" class="input-max" name="setting[copyright]"
+                                       value="{$setting.copyright}"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">备案编号：</label>
+                            <div class="controls">
+                                <input type="text" data-rule-maxlength="25" class="input-max" name="setting[ipc_no]"
+                                       value="{$setting.ipc_no}"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">联系电话：</label>
+                            <div class="controls ">
+                                <input type="text" data-rule-maxlength="15" class="input-max" name="setting[tel]"
+                                       value="{$setting.tel}"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">公司地址：</label>
+                            <div class="controls col-sm-6 ">
+                                <input type="text" class="input-max" name="setting[address]"
+                                       value="{$setting.address}"/>
+                            </div>
+                        </div>
+
+                        <div class="line line-dashed line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">默认关键字：</label>
+                            <div class="controls col-xs-7 ">
+                                <input type="text" class="input-max" data-rule-maxlength="200" name="setting[keywords]"
+                                       value="{$setting.keywords}">
+                                <span class="help-inline">用空格分隔</span></div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">默认简单描述：</label>
+                            <div class="controls col-xs-7">
+                                <textarea name="setting[description]" class="input-max" style="height:100px;">{$setting.description}</textarea>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="tab-pane " id="about_us">
+                        <div class="form-group">
+                            <label class="control-label">是否显示：</label>
+                            <div class="controls">
+                                <label class="radio-inline">
+                                    <input name="setting[about_us_status]" value="0" class="js_undertake"
+                                           type="radio" {$setting['about_us_status']|tplckval='=0','checked',true}>隐藏
+                                </label>
+                                <label class="radio-inline">
+                                    <input name="setting[about_us_status]" value="1" class="js_undertake "
+                                           type="radio" {$setting['about_us_status']|tplckval='=1','checked'}>
+                                    显示
+                                </label>
+                                <label class="radio-inline">
+                                    <span>(隐藏或者显示在手机端个人中心页面)</span>
+                                </label>
+
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <div class="form-group publicnote_status">
+                            <label class="control-label">关于我们：</label>
+                            <div class="col-sm-9 " style="padding-left:0px;">
+                            <textarea rows="8" class="input-max hd" data-toggle="kindeditor" data-config="simple"
+                                      data-kdheight="150" data-tongji="remain"
+                                      data-tongji-target=".js_kindeditor_tongji" data-rule-rangelength="[0,50000]" d
+                                      name="setting[about_us]"
+                                      style="visibility:hidden;">{$setting.about_us|raw}</textarea>
+                                <p class="pull-right js_kindeditor_tongji">还可输入{0}字</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane " id="app">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">app名称：</label>
+                            <div class="controls col-sm-4">
+                                <input type="text" data-rule-maxlength="25" class="input-max" name="setting[app_name]"
+                                       value="{$setting.app_name}"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">app图标：</label>
+                            <div class="controls col-sm-6">
+                                <span class="help-inline">建议图片尺寸：100*100像素</span><br>
+                                <img class="thumb_img" src="{$setting.app_logo}" style="max-height: 100px;"/><br>
+                                <input class="hide" type="text" name="setting[app_logo]" value="{$setting.app_logo}"/>
+                                <button class="btn btn-default" type="button" data-toggle="selectimg">选择logo</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">背景图片：</label>
+                            <div class="controls col-sm-6">
+                                <span class="help-inline">建议图片尺寸：380*800像素</span><br>
+                                <img class="thumb_img" src="{$setting.app_bg}" style="max-height: 100px;"/><br>
+                                <input class="hide" type="text" name="setting[app_bg]" value="{$setting.app_bg}"/>
+                                <button class="btn btn-default" type="button" data-toggle="selectimg">选择背景</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">ios链接：</label>
+                            <div class="controls col-sm-4">
+                                <input type="text" data-rule-maxlength="25" class="input-max"
+                                       name="setting[app_ios_path]" value="{$setting.app_ios_path}"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">安卓链接：</label>
+                            <div class="controls col-sm-4">
+                                <div class="js_upload_container">
+                                    <input type="text" name="setting[app_apk_path]" class="input-max"
+                                           value="{$setting.app_apk_path}"/>
+                                    <button type="button" class="btn btn-default js_file_upload"
+                                            data-uploadpath="{:url('uploadApp')}"
+                                            style="position: relative; z-index: 1;">点击上传app
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">下载页面：</label>
+                            <div class="controls col-sm-4 help-inline">
+                                <a href="{:_url('publics/download/app',false,true,true)}" target="_blank">{:_url('publics/download/app',false,true,true)}</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane " id="payment">
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">微信收款二维码：</label>
+                            <div class="controls col-sm-6">
+                                <span class="help-inline">建议图片尺寸：150*150像素</span><br>
+                                <img class="thumb_imgs" src="{$setting.weixin}" style="max-height: 100px;"/><br>
+                                <input class="hide" type="text" name="setting[weixin]" value="{$setting.weixin}"/>
+                                <button class="btn btn-default" type="button" data-toggle="selectimg">选择微信收款二维码</button>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">支付宝收款二维码：</label>
+                            <div class="controls col-sm-6">
+                                <span class="help-inline">建议图片尺寸：150*150像素</span><br>
+                                <img class="thumb_imgs" src="{$setting.alipaycode}" style="max-height: 100px;"/><br>
+                                <input class="hide" type="text" name="setting[alipaycode]"
+                                       value="{$setting.alipaycode}"/>
+                                <button class="btn btn-default" type="button" data-toggle="selectimg">选择支付宝收款二维码
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">持卡人姓名：</label>
+                            <div class="controls col-sm-4 ">
+                                <input type="text" name="setting[bank_name]" placeholder="持卡人姓名" class="input-max"
+                                       data-rule-required="true"
+                                       value="{$setting.bank_name}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">银行卡号：</label>
+                            <div class="controls col-sm-4 ">
+                                <input type="text" name="setting[bank_card]" placeholder="银行卡号" class="input-max"
+                                       data-rule-required="true"
+                                       value="{$setting.bank_card}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">开户行：</label>
+                            <div class="controls col-sm-4 ">
+                                <input type="text" name="setting[bank_address]" placeholder="开户行" class="input-max"
+                                       data-rule-required="true"
+                                       value="{$setting.bank_address}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+        <footer class="footer bg-white b-t p-t">
+            <div class="form-group">
+                <div class="col-sm-4 col-sm-offset-1">
+                    <button type="submit" class="btn btn-primary js_save_submit" data-loading-text="保存中...">保存
+                    </button>
+                    <button type="button" class="btn btn-default" data-toggle="back">取消</button>
+                </div>
+            </div>
+        </footer>
+    </section>
+</form>
+{/block}
+{block name="footer"}
+<script type="text/javascript">
+    seajs.use("dist/plupload/file.js")
+</script>
+{/block}

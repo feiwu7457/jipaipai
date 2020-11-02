@@ -1,0 +1,42 @@
+{extend name="mainadmin@layouts/base" /}
+{block name="main" }
+<header class="header  b-b clearfix">
+    <form id="forms" class="talbe-search form-inline "  method="post" action="{:url('getList')}" >
+     <div class="page-breadcrumbs">
+            <ul class="breadcrumb " >
+                <li>
+                    <i class="fa fa-ellipsis-v"></i>
+                    <strong>{$title}</strong>
+                </li>                                  
+            </ul><input type="hidden" name="sel_status" value="{$sel_status}">
+         选择月份：<div class="input-group " id="month_div" style="width: 120px;"> <input type="text" name="selmonth" class="form-control input-max" readonly="readonly" value="{$selmonth}" data-enddate="{$settl_month}" data-bytype="month"  data-toggle="datetimepicker" data-change="submit" /><span class="input-group-addon"><i class="fa fa-calendar"></i></span></div>
+         <button class="btn btn-sm btn-default-iq" type="submit" title="搜索"><i class="fa fa-search"></i></button> <a class="btn btn-sm fa fa-refresh m-t-md fr" type="button" title="搜索" onclick="evalSettlement()"> 生成月结算单</a>
+    </div>
+</form>
+</header>
+
+<section class="scrollable wrapper w-f ">
+    <section class="panel panel-default ">
+        <div class="table-responsive " id="list_box">
+            {include file="sys_admin/settlement/list" /}
+        </div>
+
+    </section>
+</section>
+
+{/block}
+
+{block name="footer" }
+<script type="text/javascript">
+    function evalSettlement(){
+        var selmonth = $('#month_div').find("input").val();
+        jq_ajax('{:url("evalSettlement")}','selmonth='+selmonth,function (res) {
+            if (res.code == 0){
+                _alert(res.msg);
+                return false;
+            }
+            $('#forms').find('button').click();
+        });
+    }
+</script>
+{/block}

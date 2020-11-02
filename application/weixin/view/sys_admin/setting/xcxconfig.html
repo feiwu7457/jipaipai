@@ -1,0 +1,57 @@
+{extend name="mainadmin@layouts/base" /}
+{block name="main" }
+<header class="header  b-b clearfix">
+    <div class="page-breadcrumbs">
+        <ul class="breadcrumb">
+            <li>
+                <i class="fa fa-ellipsis-v"></i>
+                <strong>小程序配置</strong>
+            </li>
+        </ul>
+    </div>
+</header>
+<form class="form-horizontal form-validate form-modal form_vbox" method="post" action="{:url('save')}">
+    <section class="vbox">
+        <section class="scrollable  wrapper">
+            <section class="panel panel-default">
+                <div class="widget-body">
+                    <div class="collapse in">
+                        <div class="form-group">
+                            <label class="control-label">小程序名称：</label>
+                            <div class="controls">
+                                <input type="text" name="setting[xcx_name]" class="input-xlarge"
+                                       data-rule-required="true" value="{$setting.xcx_name}">
+                                <span class="maroon">*</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">AppId：</label>
+                            <div class="controls">
+                                <input type="text" name="setting[xcx_appid]" class="input-xxlarge"
+                                       data-rule-required="true" value="{$setting.xcx_appid}">
+                                <span class="maroon">*</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">AppSecret：</label>
+                            <div class="controls">
+                                <input type="text" name="setting[xcx_appsecret]" class="input-xxlarge"
+                                       data-rule-required="true" value="{$setting.xcx_appsecret}">
+                                <span class="maroon">*</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+        <footer class="footer bg-white b-t p-t">
+            <div class="form-group">
+                <div class="col-sm-4 col-sm-offset-1">
+                    <button type="submit" class="btn btn-primary js_save_submit" data-loading-text="保存中...">保存</button>
+                    <button type="button" class="btn btn-default" data-toggle="back">取消</button>
+                </div>
+            </div>
+        </footer>
+    </section>
+</form>
+{/block}

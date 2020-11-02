@@ -1,0 +1,391 @@
+.page-bg{
+  height: 100%;
+  background-image: url(../images/myteam/distributorBg.png);
+  background-size: contain;
+  background-repeat: repeat-y;
+  padding-top: 0.3rem;
+}
+
+.top {
+  padding: 0 0.2rem;
+  background-image: url(../images/myteam/team_BG.png);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  min-height: 3rem;
+  margin-bottom: -1.6rem;
+}
+
+.top .info{
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  margin-top: 0.3rem;
+}
+
+.top .info .userimg{
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 50%;
+  background-color: #fff;
+  padding: 0.013333rem;
+}
+
+.top .info .userInfo{
+  margin-left: 0.133333rem;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  justify-content: center;
+}
+
+.top .info .userInfo div{
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  margin-bottom: 0.026667rem;
+}
+
+.top .info .userInfo div em{
+  text-align: center;
+  margin-left: 0.066667rem;
+  padding: 1px 6px 0;
+  border-radius: 0.3rem;
+}
+
+.rankBox{
+  margin: 0 0.133333rem;
+  background: linear-gradient(328deg,rgba(218,179,124,1) 0%,rgba(227,194,145,1) 40%,rgba(255,243,213,1) 100%);
+  border-radius: 0.11rem;
+  width: -webkit-fill-available;
+}
+
+.rankBox .block .info{
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+}
+
+.rankBox .block .info .userimg{
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 50%;
+  background-color: #fff;
+  padding: 0.013333rem;
+}
+
+.rankBox .block .info .userInfo{
+  margin-left: 0.133333rem;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  justify-content: center;
+}
+
+.rankBox .block .info .userInfo .superior{
+  padding: 0.04rem 0.2rem;
+  margin-top: 0.05rem;
+}
+
+.rankBox .block .info .userInfo div{
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  margin-bottom: 0.026667rem;
+}
+
+.rankBox .block .info .userInfo div em{
+  text-align: center;
+  margin-left: 0.066667rem;
+  padding: 1px 6px 0;
+  background: linear-gradient(to right,#f7d17d, #f8c75b);
+  border-radius: 0.3rem;
+}
+
+.rankBox .agentLevel{
+  font-size: 0.21rem;
+  font-family: PingFangSC-Semibold,PingFang SC;
+  font-weight: 600;
+  color: rgba(126,83,32,1);
+  margin-bottom: 0.05rem;
+}
+
+.rankBox .moneyInfo{
+  display: flex;
+  justify-content: space-around;
+}
+
+.moneyInfo div{
+  height: 1.333333rem;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-flex: 1;
+  flex: 1;
+}
+
+.nextlv{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 0.8rem;
+}
+
+.nextlv .left{
+  display: flex;
+  align-items: center;
+  font-size: 0.18rem;
+  font-family: PingFangSC-Regular,PingFang SC;
+  font-weight: 400;
+  color: rgba(126,83,32,.7);
+}
+
+.nextlv .left img{
+  width: 0.146667rem;
+  height: 0.146667rem;
+  margin-right: 0.053333rem;
+}
+
+.nextlv .right{
+  margin-right: -.25rem;
+  width: 1.9rem;
+  height: 0.37rem;
+  line-height: 0.32rem;
+  background: linear-gradient(90deg,rgba(255,232,176,1) 0%,rgba(221,184,131,1) 100%);
+  border-radius: 0.39rem 0rem 0rem 0.39rem;
+  font-size: 0.19rem;
+  font-family: PingFangSC-Semibold,PingFang SC;
+  font-weight: 600;
+  color: rgba(126,83,32,1);
+  padding-left: 0.4rem;
+  display: flex;
+  align-items: center;
+}
+
+.nextlv .right img{
+  display: block;
+  width: 0.22rem;
+  height: 0.22rem;
+}
+
+.scale{
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-top: 0.3rem;
+}
+
+.scale > img{
+  width: 0.33rem;
+  height: 0.33rem;
+  display: block;
+  margin-right: 0.1rem;
+  margin-left: 0.1rem;
+}
+
+/* .scale > div{
+  -webkit-box-flex: 1;
+  flex: 1;
+  margin: 0 0.12rem 0 0.053333rem;
+  position: relative;
+} */
+
+.scale .lineBG{
+  width: 100%;
+  height: 0.04rem;
+  background-color: #C8A56F;
+  border-radius: 0.026667rem;
+  position: relative;
+}
+
+.scale .lineBG span{
+  padding-top: 0.08rem;
+  font-size: 0.186667rem;
+  font-family: DINMedium;
+  color: rgba(157,120,66,1);
+}
+
+.scale .lineBG .min{
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.scale .lineBG .max{
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.scale .line{
+  position: absolute;
+  left: 0;
+  height: 0.04rem;
+  background-color: #A27837;
+  border-radius: 0.026667rem;
+  top: 0;
+}
+
+.scaleTips{
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+  -webkit-box-align: center;
+  position: absolute;
+  top: -0.36rem;
+}
+
+.scaleTips .move{
+  width: auto;
+  display: flex;
+  height: 0.33rem;
+  justify-content: space-between;
+}
+
+.scaleTips .move .left{
+  margin-top: 0.02rem;
+  width: 0.15rem;
+  height: 0.33rem;
+  background-image: url(../images/myteam/left1.png);
+  background-repeat: no-repeat;
+  background-size: .17rem .33rem;
+}
+
+.scaleTips .move .center{
+  flex: 1;
+  height: 0.33rem;
+  background-image: url(../images/myteam/left2.png);
+  background-size: auto .33rem;
+  line-height: .33rem;
+  color: #fff;
+  text-align: center;
+}
+
+.scaleTips .move .right{
+  width: 0.19rem;
+  height: 0.33rem;
+  background-image: url(../images/myteam/left3.png);
+  background-repeat: no-repeat;
+  background-size: .19rem .33rem;
+}
+
+.scaleTips em{
+  width: 0.106667rem;
+  height: 0.106667rem;
+  background-color: #ffffff;
+  border: 0.03rem solid rgba(246,195,76,1);
+  border-radius: 50%;
+  margin-top: 0;
+  margin-right: 0;
+}
+
+.girdBox{
+  background-color: #fff;
+  margin: 0.133333rem 0.133333rem 0.133333rem;
+  border-radius: 0.133333rem;
+}
+
+.list{
+  display: flex;
+  justify-content: space-around;
+  height: 1.133333rem;
+  -webkit-box-align: center;
+  align-items: center;
+}
+
+.girdBox .list a{
+  width: 25%;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  height: 1.04rem;
+}
+
+.girdBox .list a img{
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-bottom: 0.08rem;
+}
+
+.page-bg .box{
+  margin: 0.266667rem 0.2rem 0;
+  border-radius: 0.133333rem;
+  position: relative;
+  border: solid 0.006667rem #ffd6ac;
+  padding: 0.2rem 0;
+}
+
+.page-bg .title{
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, -50%);
+  background-color: #343233;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  border-radius: 3.5rem;
+}
+
+.page-bg .title i{
+  width: 0.04rem;
+  height: 0.04rem;
+  background-color: #e4cfb7;
+  border-radius: 50%;
+}
+
+.page-bg .title span{
+  padding: 0 0.12rem;
+  display: block;
+  color: #e4cfb7;
+}
+
+.page-bg .equity .equityList{
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+}
+
+.page-bg .equity .equityList div{
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+  -webkit-box-flex: 1;
+  flex: 1;
+  padding: 0.2rem 0;
+}
+
+.page-bg .equity .equityList div img{
+  width: 0.466667rem;
+  height: 0.466667rem;
+  margin-bottom: 0.08rem;
+}
+
+.page-bg .equity .equityList div span{
+  color: #e4cfb7;
+}
+
+.page-bg .equity p{
+  color: #fff7f6;
+  text-align: center;
+}

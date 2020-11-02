@@ -1,0 +1,113 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/goodsList/goodsList",
+    "pages/promoteList/promoteList",
+    "pages/productDetails/productDetails",
+    "pages/myorders/myorders",
+    "pages/orderDetails/orderDetails",
+    "pages/express/express",
+    "pages/saleAfter/saleAfter",
+    "pages/sales/sales",
+    "pages/mycoupons/mycoupons",
+    "pages/myfavorite/myfavorite",
+    "pages/withdrawManage/withdrawManage",
+    "pages/joinBuy/joinBuy",
+    "pages/joinBuySuccee/joinBuySuccee",
+    "pages/groupBuyNow/groupBuyNow",
+    "pages/groupBuySuccee/groupBuySuccee",
+    "pages/groupBuyFail/groupBuyFail",
+    "pages/groupBuying/groupBuying",
+    "pages/groupBuy/groupBuy",
+    "pages/mygroupBuy/mygroupBuy",
+    "pages/classify/classify",
+    "pages/qrcode/qrcode",
+    "pages/cart/cart",
+    "pages/my/my",
+    "pages/message/message",
+    "pages/messageDetail/messageDetail",
+    "pages/login/login",
+    "pages/register/register",
+    "pages/search/search",
+    "pages/goodsQR/goodsQR",
+    "pages/address/address",
+    "pages/coupons/coupons",
+    "pages/payResult/payResult",
+    "pages/evaluate/evaluate",
+    "pages/bindReferrer/bindReferrer",
+    "pages/seckill/seckill",
+    "pages/evaluates/evaluates",
+    "pages/evaluateDetail/evaluateDetail",
+    "pages/changePassword/changePassword",
+    "pages/forgetPassword/forgetPassword",
+    "pages/personalData/personalData",
+    "pages/bankInfo/bankInfo",
+    "pages/addBank/addBank",
+    "pages/zfbAccount/zfbAccount",
+    "pages/addAddress/addAddress",
+    "pages/editAddress/editAddress",
+    "pages/set/set",
+    "pages/question/question",
+    "pages/questionDetail/questionDetail",
+    "pages/myBalance/myBalance",
+    "pages/balanceDetail/balanceDetail",
+    "pages/withdrawCash/withdrawCash",
+    "pages/topup/topup",
+    "pages/myfans/myfans",
+    "pages/topupDetails/topupDetails",
+    "pages/rank/rank",
+    "pages/fansDetais/fansDetais",
+    "pages/selectFans/selectFans",
+    "pages/payment/payment",
+    "pages/payorder/payorder",
+    "pages/sign/sign",
+    "pages/signInRecord/signInRecord",
+    "pages/authorizeLogin/authorizeLogin",
+    "pages/couponCenter/couponCenter"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F2F2F2",
+    "navigationBarTitleText": "集拍拍",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#666666",
+    "selectedColor": "#313131",
+    "borderStyle": "white",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "images/sywxz.png",
+        "selectedIconPath": "images/syxzt.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/classify/classify",
+        "iconPath": "images/flwxz.png",
+        "selectedIconPath": "images/flxzt.png",
+        "text": "分类"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "iconPath": "images/fxqwxz.png",
+        "selectedIconPath": "images/fxqxzt.png",
+        "text": "会员中心"
+      },
+      {
+        "pagePath": "pages/cart/cart",
+        "iconPath": "images/gwcwxz.png",
+        "selectedIconPath": "images/gwcxzt.png",
+        "text": "购物车"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "iconPath": "images/grzxwxz.png",
+        "selectedIconPath": "images/grzxxzt.png",
+        "text": "个人中心"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}

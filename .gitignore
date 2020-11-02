@@ -1,0 +1,14 @@
+.idea
+composer.lock
+*.log
+/.idea
+*.DS_Store
+/public/upload
+/config/database.php
+/public/test.php
+/public/a
+/public/1
+/public/demo/Blockchain
+/Data
+/runtime/log
+/runtime/temp

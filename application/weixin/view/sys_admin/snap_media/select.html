@@ -1,0 +1,41 @@
+<form class="form-horizontal form-validate form-modal" method="post" enctype="multipart/form-data"  action="{:url('add')}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">选择素材</h4>
+            </div>
+            <div class="modal-body">
+                <div class="dd">
+                    <ol class="dd-list">
+                        {volist name="list" id="vo"}
+                        <li class="dd-item">
+                            <div class="dd-handle">
+                                <img src="{$vo.file}" style="width:25px; height:18px;"> {$vo.remark}
+                                <span class="pull-right">
+                                    <a title="查看" class="btn btn-default btn-sm" href="{$vo.file}" target="_blank"><i class="fa fa-eye"></i>查看</a>
+                                    <nav title="选择" class="btn btn-default btn-sm" data-file="{$vo.file}" data-media_id="{$vo.media_id}"><i class="fa fa-thumbs-o-up"></i> 选择</nav>
+                                </span>
+                            </div>
+                        </li>
+                        {/volist}
+                        {empty name="list"}
+                        <table width="100%" >
+                            <tr><td height="300" colspan="8" align="center" valign="middle" >没有相关数据，临时素材只能保存三天！</td></tr>
+                        </table>
+                        {/empty}
+                    </ol>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="{:url('add',['back_dom'=>$back_dom])}" data-toggle="ajaxModal" class="btn btn-sm btn-primary  ">上传素材</a>
+            </div>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+    $(document).off('click',".modal-body nav");
+    $(document).on('click','.modal-body nav',function(){
+        assigBack($(this).data('file'),$(this).data('media_id'),'{$back_dom}');
+    })
+</script>

@@ -1,0 +1,280 @@
+.page-bd,
+body {
+  background-color: #fff;
+}
+
+.top {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  height: 2.5rem;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+  background-image: url(../images/login/Blob_BG@2x.png);
+  background-repeat: no-repeat;
+  background-size: 100% 1.81rem;
+  /* height: 100%;
+  overflow-y: auto; */
+}
+
+.top img {
+  width: 2.3rem;
+  height: 0.82rem;
+  margin: 1.7rem auto 0;
+}
+
+.top span {
+  margin-top: 0.2rem;
+}
+
+.inputBlock {
+  height: 0.6rem;
+  background-color: #fff;
+  margin: 0.1rem 0.493333rem 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  position: relative;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+          border-bottom: 1px solid rgba(29,29,38,.1);
+}
+
+.inputBlock input {
+  position: relative;
+  z-index: 99;
+  width: 90%;
+}
+
+.inputBlock .imgIcon {
+  width: 0.226667rem;
+  height: 0.226667rem;
+  margin-right: 0.12rem;
+}
+
+.inputBlock .ereBox {
+  width: 10%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+          justify-content: flex-end;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  height: 100%;
+}
+
+.inputBlock .ereBox img {
+  width: 0.226667rem;
+  height: 0.16rem;
+  float: right;
+}
+
+.inputBlock .code {
+  width: 50%;
+}
+
+.inputBlock .codeBox {
+  width: 50%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+          justify-content: flex-end;
+}
+
+.inputBlock .codeBox input {
+  width: 100%;
+  text-align: end;
+  padding-right: 0.026667rem;
+}
+.remPassword {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 0.05rem;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  height: 0.666667rem;
+}
+
+.loginbutton {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  margin: 0 0.493133rem;
+  margin-top: 0.4rem;
+  height: 0.533333rem;
+  border-radius: 3.5rem;
+}
+.loginbuttondl {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  margin-top: 0.2rem;
+  height: 0.533333rem;
+  border-radius: 3.5rem;
+}
+
+.loginbuttondl{
+  display: flex;
+  align-items: center;
+  margin-top: 0.45rem;
+}
+.btn {
+  margin: 0 0.493333rem;
+}
+
+.goregister {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  margin-top: 0.1rem;
+}
+
+label > * {
+  pointer-events: none;
+}
+
+label {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  touch-action: none;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+}
+
+label .check {
+  position: absolute;
+  left: -9999em;
+}
+
+label .iconBox {
+  position: relative;
+  margin: 0 .026667rem 0 0;
+}
+
+label .check[type=checkbox] + i {
+  display: inline-block;
+  vertical-align: middle;
+  font: normal normal normal 0.093333rem/1 weui;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+label .check + i:after {
+  content: "\EA01";
+  color: #c9c9c9;
+  font-size: .24rem;
+  display: block;
+  margin: 0 1px;
+}
+
+label .check[type=checkbox]:checked + i:after {
+  content: "\EA06";
+  color: #f65236;
+}
+
+.rulesBox {
+  padding: 0 0.493333rem;
+  margin: 0.2rem 0 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+}
+.rulesBox .rules {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+}
+.footerBg{
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: .89rem;
+  background-image: url('../images/login/loginFooter2x.png');
+  background-repeat:no-repeat;
+  background-size: 100% auto;
+}
+.changeBtnsxz{
+  position: relative;
+  z-index: 9999;
+  width: 4.2rem;
+  /* height: 0.69rem; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.4rem;
+  justify-content: flex-end;
+  margin-top: 0.15rem;
+}
+.changeBtnszc{
+  position: relative;
+  z-index: 9999;
+  width: 4.2rem;
+  /* height: 0.69rem; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.changeBtnszcym{
+  position: relative;
+  z-index: 9999;
+  /* width: 4.2rem; */
+  /* height: 0.69rem; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.xiazaiapp{
+  border-radius: 3.5rem;
+  padding: 0.04rem 0.38rem 0.04rem 0.15rem;
+  border: 1px solid red;
+}
+.qwxzimgIcon{
+  width: 0.3rem;
+  height: 0.26rem;
+  position: absolute;
+  right: 0.09rem;
+  top: 0.18rem;
+}

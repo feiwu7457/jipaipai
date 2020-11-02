@@ -1,0 +1,155 @@
+<script src="__STATIC__/js/webuploader/webuploader.js"></script>
+<link href="__STATIC__/main/css/stylesheets/uploadify/uploadify.min.css" rel="stylesheet"/>
+
+<script type="text/javascript">//upload
+var ratio = window.devicePixelRatio || 1,
+    thumbnailWidth = 100 * ratio,// 优化retina, 在retina下这个值是2
+    thumbnailHeight = 100 * ratio,
+    uploader = null, uploader_pick = null,uploadering = 0;
+function WebUploaderDiy(_pick){
+    if (typeof(_pick) == 'undefined'){
+        _pick = '.upload-file';
+    }
+    uploader = WebUploader.create({
+        // swf文件路径
+        swf: '/static/js/webuploader/Uploader.swf',
+        // 文件接收服务端。
+        server: '',
+        // 选择文件的按钮。可选。
+        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+        pick: _pick,
+        resize: false,
+        auto: false,
+        duplicate :true
+    });
+
+    uploader.on('fileQueued', function (file) {
+        var _this = uploader_pick;
+        uploader_pick.find('div.error').remove();
+        if (uploadering == 1){
+            _alert('有文件正在上传，不能同时操作.');
+            return false;
+        }
+        uploadering = 1;
+        if (_this.hasClass('el-upload')){ //单个图片上传
+            if (_this.find('.info').length < 1){
+                _this.append('<div class="info"></div>');
+            }
+            _this.find('.info').data('text',_this.find('.info').text());
+            _this.find('.info').text('上传0%...');
+            uploader.makeThumb( file, function( error, src ) {
+                if ( error ) {
+                    $('<div class="error">不能预览</div>').appendTo(uploader_pick);
+                    return;
+                }
+                _this.css("background-image","url("+src+")");
+            }, 1, 1 );
+            uploader.upload();//执行上传
+            return;
+        }else if (_this.hasClass('goods_sku')){ //商品SKU上传
+            _this.find('.info').data('text',_this.find('.info').text());
+            _this.find('.info').text('上传0%...');
+            uploader.makeThumb( file, function( error, src ) {
+                if ( error ) {
+                    $('<div class="error">不能预览</div>').appendTo(uploader_pick);
+                    return;
+                }
+                _this.find('.goods_sku').css("background-image","url("+src+")");
+            }, 1, 1 );
+            uploader.upload();//执行上传
+            return ;
+        }
+        _alert('无法识别上传类型',true);
+        return false;
+    });
+    uploader.on( 'uploadProgress', function( file, percentage ) {
+        var _this = uploader_pick;
+        if (_this.find('.info').length > 0){
+            _this.find('.info').text('上传中'+percentage * 100 + '%');
+            return false;
+        }
+        var $li = $( '.uploadify-queue'),
+            $percent = $li.find('.uploadify-queue-item');
+        if ($li.length < 1 ) return false;
+        // 避免重复创建
+        if ( !$percent.length ) {
+            $percent = $('<div  class="uploadify-queue-item"><span class="fileName">'+file.name+' </span>	<span class="data"></span><div class="uploadify-progress"><div class="uploadify-progress-bar" style="width: 1%;"><!--Progress Bar--></div></div></div>').appendTo( $li ).find('.progress-bar');
+        }
+
+        $li.find('.data').html('上传中'+percentage * 100 + '%');
+        $li.find('.uploadify-progress-bar').css( 'width', percentage * 100 + '%' );
+        if (percentage == 1){
+            $percent.remove();
+        }
+    });
+    uploader.on('uploadSuccess', function (file, data) {
+        uploadering = 0;
+        if (data.code == 1){
+            _alert(data.msg);
+            return false;
+        }
+        var _this =  uploader_pick;
+        if (_this.hasClass('el-upload')){ //单个图片上传
+            _this.css("background-image","url("+data.src+")");
+            _this.find('.fa-plus').addClass('hide');
+            _this.find('.webuploader-container-div').addClass('hide');
+            _this.find('.webuploader-pick input').val(data.src);
+            _this.find('.info').remove();
+            var fun = _this.data('fun');
+            if (typeof(fun) != 'undefined'){
+                return eval(fun+'(data.src)');
+            }
+        }else if (_this.hasClass('goods_sku')){ //商品SKU上传
+            _this.css("background-image","url("+data.src+")");
+            _this.parent().find('.info').text($(_this).find('.info').data('text'));
+            _this.parent().find('.file_path').val(data.src);
+            _this.parent().find('.item_close').data("id",data.image.id);
+            _this.parent().find('.info').html('上传成功！');
+            if (_this.data('sku')){
+                var c = _this.find('.file_path').data("id"),
+                    d = _this.find('.file_path').data("name"),
+                    ic = _this.find('.item_close').data("name"),
+                    f = {};
+                f[d] = data.src;
+                f[ic] = data.image.id;
+                window.goods_data.products[c] = f;
+            }
+            return false;
+        }
+
+    });
+
+    // 文件上传失败，显示上传出错。
+    uploader.on('uploadError', function (file) {
+        uploadering = 0;
+        var _this = uploader_pick;
+        if (_this.find('.info').length > 0){
+            _this.find('.info').text('上传失败');
+            return false;
+        }
+        var $error = _this.find('div.error');
+        // 避免重复创建
+        if ( !$error.length ) {
+            $error = $('<div class="error"></div>').appendTo(uploader_pick);
+        }
+
+        $error.text('上传失败');
+    });
+}
+$(function () {
+    WebUploaderDiy();
+    $(document).on('click',".upload-file input", function () {
+        uploader_pick = $(this).parents('.upload-file');
+        if (typeof (uploader_pick.data('server')) != 'undefined' ){
+            uploader.options.server = uploader_pick.data('server');
+        }
+    });
+    $(document).on('click',".el-upload-delete", function () {
+        var _this = $(this).parents('.el-upload');
+        _this.find('input').val('');
+        _this.css("background-image","");
+        _this.find('.fa-plus').removeClass('hide');
+        _this.find('.webuploader-container-div').removeClass('hide');
+    });
+})
+</script>

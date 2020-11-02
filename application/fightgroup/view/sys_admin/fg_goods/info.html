@@ -1,0 +1,342 @@
+{extend name="mainadmin@layouts/base" /}
+{block name="head" }
+<link href="__STATIC__/main/css/stylesheets/uploadify/uploadify.min.css" rel="stylesheet"/>
+<link href="__STATIC__/main/css/stylesheets/page/goods.css?v=1" rel="stylesheet"/>
+{/block}
+{block name="main" }
+{literal}
+<script type="text/html" id="goods_info">
+    <table class="table table-bordered">
+        {{if goods.is_spec==1}}
+        <thead>
+        <tr>
+            <th>商品规格</th>
+            <th>当前库存</th>
+            <th>商品售价</th>
+            <th>活动库存</th>
+            <th>活动价格</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{each goods.sub_goods as item index}}
+        <tr>
+            <td><label><input type="checkbox" name="sku_ids[{{item.sku_id}}]" value="{{item.sku_id}}" checked><span class="diy--checkbox diy--radioInput"></span>{{item.sku_name}}</label>
+            </td>
+            <td>{{item.goods_number}}</td>
+            <td>{{item.shop_price}}</td>
+            <td><input type="text" name="fg_number[{{item.sku_id}}]" min=0 class="input-small" value=""></td>
+            <td>
+                <input type="text" name="fg_price[{{item.sku_id}}]" min=0.01 class="input-small"
+                       data-rule-ismoney="true" value="">
+            </td>
+        </tr>
+        {{/each}}
+        </tbody>
+        {{else}}
+        <thead>
+        <tr>
+            <th>当前库存</th>
+            <th>商品售价</th>
+            <th>活动库存</th>
+            <th>活动价格</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>{{goods.goods_number}}</td>
+            <td>{{goods.shop_price}}</td>
+            <td><input type="text" name="fg_number" min=0 class="input-small" value=""></td>
+            <td>
+                <input type="text" name="fg_price" min=0.01 class="input-small" data-rule-ismoney="true" value="">
+            </td>
+        </tr>
+        </tbody>
+        {{/if}}
+    </table>
+</script>
+{/literal}
+
+<header>
+    <div class="page-breadcrumbs">
+        <ul class="breadcrumb">
+            <li>
+                <i class="fa fa-ellipsis-v"></i>
+                <strong>{$row['goods_id']>0?"编辑拼团商品":"添加拼团商品"}</strong>
+            </li>
+        </ul>
+
+        <a class="pull-right pointer p-r" data-toggle="back" title="返回"><i class="fa fa-reply"></i></a>
+    </div>
+</header>
+<form class="form-horizontal form-validate form_vbox" method="post" action="{:url('info')}">
+    <section class="vbox">
+        <section class="scrollable wrapper w-f">
+            <input type="hidden" id="goods_id" name="goods_id" value="{$row.goods_id}">
+            <section class="panel panel-default">
+                {if condition="$row['goods_id'] == 0"}
+                <div class="form-group m-t">
+                    <label class="col-sm-2 control-label">选择商品：</label>
+                    <div class="col-sm-8 ">
+                        <input id="goods_keyword" type="text" class="input-medium " placeholder="商品名称/SN"
+                               aria-invalid="false">
+
+                        <a class="btn btn-default fa fa-search" title="搜索" onclick="searchGoods()"></a>
+
+                        <select id="goods_select" class="m-r" style="width:250px;" data-toggle="select2"
+                                onChange="goodsSelect()">
+                            <option value="">选择商品</option>
+                        </select>
+                        <span class="help-inline">* 添加后不能修改</span>
+                    </div>
+
+                </div>
+                <script type="text/javascript">
+                    function searchGoods() {
+                        var arr = new Object();
+                        arr.keyword = $('#goods_keyword').val();
+                        arr.min_search = 1;
+                        $('#goods_select').html('<option value="">选择商品</option>');
+                        var res = jq_ajax('{:url("shop/sys_admin.goods/pubSearch")}', arr);
+                        $.each(res.list, function (i, value) {
+                            $('#goods_select').append('<option value="' + value.goods_id + '" data-goods_sn="' + value.goods_sn + '">' + value.goods_name + '</option>');
+                        })
+                    }
+                    //选择商品
+                    function goodsSelect() {
+                        var goods_id = $('#goods_select').val();
+                        $('.goods_name').html('');
+                        $('.goods_info .tableBox').html('');
+                        jq_ajax('{:url("shop/api.goods/info")}', 'id=' + goods_id, function (res) {
+                            if (res.code == 0) {
+                                return false;
+                            }
+                            var goods = res.list.goods;
+                            $('#goods_id').val(goods.goods_id);
+                            $('.goods_name').html('商品ID：' + goods.goods_id + ' - ' + goods.goods_name + '(' + (goods.is_spec == 1 ? '多规格' : goods.goods_sn) + ')');
+                            $(".goods_info").find('.tableBox').html(template("goods_info", res.list));
+                        });
+                    }
+                </script>
+                {/if}
+
+
+                <div class="form-group goods_info m-t">
+                    <label class="col-sm-2 control-label">拼团商品：</label>
+                    <div class="col-sm-9 lh30">
+                        <div class="col-sm-10 goods_name ">
+                            {gt name="$row.fg_id" value="0" }
+                            商品ID：{$goods.goods_id} -- 商品名称： {$goods.goods_name} {$goods['is_spec'] ==
+                            1?'多规格':$goods['goods_sn']}
+                            {/gt}
+                        </div>
+                        <div class="col-sm-10 m-t-md tableBox">
+                            {if condition="$goods"}
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    {if condition="$goods.is_spec eq 1"}
+                                    <th>商品规格</th>
+                                    {/if}
+                                    <th>当前库存</th>
+                                    <th>商品售价</th>
+                                    <th>已售数量</th>
+                                    <th>活动库存</th>
+                                    <th>活动价格</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {if condition="$goods.is_spec eq 1"}
+                                {foreach name="$goods.sub_goods" item="sku" }
+                                <tr>
+                                    <td><label><input type="checkbox" name="sku_ids[{$sku.sku_id}]"
+                                                      value="{$sku.sku_id}" {$fg_goods[$sku['sku_id']]?'checked':''}>{$sku.sku_name}</label>
+                                    </td>
+                                    <td>{$sku.goods_number}</td>
+                                    <td>{$sku.shop_price}</td>
+                                    <td>{$fg_goods[$sku['sku_id']]['sale_num']}</td>
+                                    <td><input type="text" name="fg_number[{$sku.sku_id}]" min=0 class="input-small"
+                                               value="{$fg_goods[$sku['sku_id']]['fg_number']}"></td>
+                                    <td>
+                                        <input type="text" name="fg_price[{$sku.sku_id}]" min=0.01 class="input-small"
+                                               data-rule-ismoney="true" value="{$fg_goods[$sku['sku_id']]['fg_price']}">
+                                    </td>
+                                </tr>
+                                {/foreach}
+                                {else/}
+                                <tr>
+                                    <td>{$goods.goods_number}</td>
+                                    <td>{$goods.shop_price}</td>
+                                    <td>{$fg_goods.sale_num}</td>
+                                    <td><input type="text" name="fg_number" min=0 class="input-small"
+                                               value="{$fg_goods['fg_number']}"></td>
+                                    <td>
+                                        <input type="text" name="fg_price" min=0.01 class="input-ssmall"
+                                               data-rule-ismoney="true" value="{$fg_goods['fg_price']}">
+                                    </td>
+                                </tr>
+                                {/if}
+                                </tbody>
+                            </table>
+                            {/if}
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">使用优惠券：</label>
+                    <div class="col-sm-8">
+                        <label><input type="checkbox" value="1" name="is_usd_bonus" {$row['is_usd_bonus']==1?'checked':''}>
+                            允许使用优惠券</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">赠送积分：</label>
+                    <div class="col-sm-10">
+                        <label class="radio-inline">
+                            <input type="radio" name="is_give_integral" value="0" {$row['give_integral']==0?'checked':''}
+                            class="js_radio_undertake">1:1赠送（销售价）
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="is_give_integral" value="-1" {$row['give_integral']==-1?'checked':''}
+                            class="js_radio_undertake">不赠送
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="is_give_integral" value="1" {$row['give_integral']>0?'checked':''}
+                            class="js_radio_undertake "
+                            data-class="give_integral_val"/>
+                            赠送指定积分
+                        </label>
+                        <label class="radio_undertake_is_give_integral give_integral_val v-top {$row['give_integral']>0?'':'hide'} "
+                               style="position:relative;">
+                            <input class="input-xs input-sm" type="text" data-rule-required="true" min="1"
+                                   name="give_integral" value="{$row['give_integral']<0?0:$row['give_integral']}"
+                                   data-rule-positive="true"/>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2  control-label">封面图片：</label>
+                    <div class="col-sm-7">
+                        <img class="thumb_img" name="coverfile" id="coverfile"
+                             src="{$row.cover|default='__STATIC__/main/img/def_img.jpg'}" style="max-height: 100px;"/>
+                        <input class="hide" type="text" id="classcover" name="cover" value="{$row.cover}"/>
+                        <button class="btn btn-default" type="button" data-toggle="selectimg">选择图片</button>
+                        <p><span class="help-inline">建议尺寸：750*300像素</span><br/><a href="javascript:;"
+                                                                                  onclick="$('#classcover').val('');$('#coverfile').attr('src','__STATIC__/main/img/def_img.jpg');"><i
+                                class="fa fa-trash-o m-r-xs"></i>清除图片</a></p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">成团人数：</label>
+                    <div class="col-sm-8">
+                        <input type="text" value="{$row['success_num']}" class="input-ssmall" min="2"
+                               data-msg="最小要2人才能成团." name="success_num">
+                        <span class=" help-inline">达到此数值成团，须两人以上才能成团</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">单笔限购：</label>
+                    <div class="col-sm-8">
+                        <input type="text" value="{$row['limit_num']}" class="input-ssmall" min="0" name="limit_num">
+                        <span class=" help-inline">每笔订单限制只能购买数量，0不限制</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">拼团时效：</label>
+                    <div class="col-sm-8">
+                        <select name="valid_time" style="width:100px;">
+                            <option value="0" {$row['valid_time']==0?'selected':''}>不限制</option>
+                            {for start="1" end="49" name="hour" }
+                            <option value="{$hour}" {$row['valid_time']==$hour?'selected':''}>{$hour} 小时</option>
+                            {/for}
+                        </select>
+                        <span class=" help-inline">发起拼团时开始计算，至指定小时后未能满足成团条件，自动失败原路退款</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">拼团时间：</label>
+                    <div class="col-sm-3">
+                        <span class="fl help-inline">开始时间：</span>
+                        <div class="input-group"><input type="text" class="input-max" name="start_date"
+                                                        readonly="readonly" id="start_date"
+                                                        value="{$row.start_date|dateTpl='Y-m-d H:i',true}"
+                                                        data-toggle="datetimepicker" data-position="top-right"/><span
+                                class="input-group-addon"><i class="fa fa-calendar"></i></span></div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <span class="fl help-inline">结束时间：</span>
+                        <div class="input-group"><input type="text" class="input-max" name="end_date"
+                                                        value="{$row.end_date|dateTpl='Y-m-d H:i',true}" id="end_date"
+                                                        readonly="readonly" data-toggle="datetimepicker"
+                                                        data-position="top-right"/><span class="input-group-addon"><i
+                                class="fa fa-calendar"></i></span></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">是否推荐：</label>
+                    <div class="col-sm-10">
+                        <label class="radio-inline">
+                            <input type="radio" name="is_best" value="1" {$row['is_best']==1?'checked':''}
+                            class="js_radio_undertake">推荐
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="is_best" value="0" {$row['is_best']==0?'checked':''}
+                            class="js_radio_undertake">不推荐
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">状态：</label>
+                    <div class="col-sm-10">
+                        <label class="radio-inline">
+                            <input type="radio" name="status" value="1" {$row['status']==1?'checked':''}
+                            class="js_radio_undertake">开启
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="status" value="0" {$row['status']==0?'checked':''}
+                            class="js_radio_undertake">关闭
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">排序号：</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="input" min="0" name="sort_order" value="{$row.sort_order|default=0}">
+                        <span class=" help-inline">* 值越大排序越靠前</span>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">拼团简介：</label>
+                    <div class="col-sm-8">
+                        <textarea name="share_desc" style="width: 100%; height: 120px;">{$row.share_desc}</textarea>
+
+                    </div>
+                </div>
+            </section>
+        </section>
+        <footer class="footer bg-white b-t p-t">
+            <div class="form-group">
+                <div class="col-sm-4 col-sm-offset-1">
+                    <input name="fg_id" id="fg_id" type="hidden" value="{$row.fg_id|intval}">
+                    <button type="submit" class="btn btn-primary js_save_submit" data-loading-text="保存中...">保存</button>
+                    <button type="button" class="btn btn-default" data-toggle="back">取消</button>
+                </div>
+            </div>
+        </footer>
+    </section>
+</form>
+
+{/block}
+
+
+{block name="footer" }
+
+{/block}

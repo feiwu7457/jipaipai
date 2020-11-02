@@ -1,0 +1,25 @@
+{
+  "pages": [
+    "pages/webview/index/index",
+    "pages/wxpay/wxpay",
+    "pages/live/roomList/index",
+    "pages/live/roomReplay/index",
+    "pages/opendev/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "小程序商城",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json",
+  "plugins": {
+    "live-player-plugin": {
+      "version": "1.0.15", 
+      "provider": "wx2b03c6e691cd7370"
+    }
+  },
+  "navigateToMiniProgramAppIdList": [
+    "wx2b03c6e691cd7370"
+  ]
+}

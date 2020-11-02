@@ -1,0 +1,7 @@
+<view catchtouchmove="{{false}}" class="full-loading" wx:if="{{!inited}}">
+    <view catchtouchmove="{{false}}" class="center">
+        <image class="loading ani-loading" src="https://shop.jipaipai.cn/attachment/images/32/2019/12/jY31LG2KL36FjKkkKrp82888yG3J2k.gif"></image>
+    </view>
+</view>
+<import src="/pages/resource/zan-ui/toast/index.wxml"></import>
+<template is="zan-toast" data="{{zanToast:zanToast}}"></template>

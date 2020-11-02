@@ -1,0 +1,229 @@
+{extend name="mainadmin@layouts/base" /}
+{block name="head" }
+<link href="__STATIC__/main/css/stylesheets/uploadify/uploadify.min.css" rel="stylesheet"/>
+<link href="__STATIC__/main/css/stylesheets/page/goods.css?v=1" rel="stylesheet"/>
+{/block}
+{block name="main" }
+{literal}
+<script type="text/html" id="goods_info">
+    <table class="table table-bordered">
+        {{if goods.is_spec==1}}
+        <thead>
+        <tr>
+            <th>商品规格</th>
+            <th>当前库存</th>
+            <th>商品售价</th>
+            <th>兑换库存</th>
+            <th>兑换消费积分</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{each goods.sub_goods as item index}}
+        <tr>
+            <td><label><input type="checkbox" name="sku_ids[{{item.sku_id}}]" value="{{item.sku_id}}"><span class="diy--checkbox diy--radioInput"></span>{{item.sku_name}}</label>
+            </td>
+            <td>{{item.goods_number}}</td>
+            <td>{{item.shop_price}}</td>
+            <td><input type="text" name="ig_number[{{item.sku_id}}]" min=0 class="input-small" value=""></td>
+            <td>
+                <input type="text" name="integral[{{item.sku_id}}]" min=0.01 class="input-small"
+                       data-rule-ismoney="true" value="">
+            </td>
+        </tr>
+        {{/each}}
+        </tbody>
+        {{else}}
+        <thead>
+        <tr>
+            <th>当前库存</th>
+            <th>商品售价</th>
+            <th>活动库存</th>
+            <th>活动价格</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>{{goods.goods_number}}</td>
+            <td>{{goods.shop_price}}</td>
+            <td><input type="text" name="ig_number" min=0 class="input-small" value=""></td>
+            <td>
+                <input type="text" name="integral" min=0.01 class="input-small" data-rule-ismoney="true" value="">
+            </td>
+        </tr>
+        </tbody>
+        {{/if}}
+    </table>
+</script>
+{/literal}
+<header>
+    <div class="page-breadcrumbs">
+        <ul class="breadcrumb">
+            <li>
+                <i class="fa fa-ellipsis-v"></i>
+                <strong>{$row['goods_id']>0?"编辑消费积分商品":"添加消费积分商品"}</strong>
+            </li>
+        </ul>
+
+        <a class="pull-right pointer p-r" data-toggle="back" title="返回"><i class="fa fa-reply"></i></a>
+    </div>
+</header>
+<form class="form-horizontal form-validate form_vbox" method="post" action="{:url('info')}">
+    <section class="vbox">
+        <section class="scrollable wrapper w-f">
+            <input type="hidden" id="goods_id" name="goods_id" value="{$row.goods_id}">
+            <section class="panel panel-default">
+                {if condition="$row['goods_id'] == 0"}
+                <div class="form-group m-t">
+                    <label class="col-sm-2 control-label">选择商品：</label>
+                    <div class="col-sm-8 ">
+                        <input id="goods_keyword" type="text" class="input-medium " placeholder="商品名称/SN"
+                               aria-invalid="false">
+
+                        <a class="btn btn-default fa fa-search" title="搜索" onclick="searchGoods()"></a>
+
+                        <select id="goods_select" class="m-r" style="width:250px;" data-toggle="select2"
+                                onChange="goodsSelect()">
+                            <option value="">选择商品</option>
+                        </select>
+                        <span class="help-inline">* 添加后不能修改</span>
+                    </div>
+
+                </div>
+                <script type="text/javascript">
+                    function searchGoods() {
+                        var arr = new Object();
+                        arr.keyword = $('#goods_keyword').val();
+                        arr.min_search = 1;
+                        $('#goods_select').html('<option value="">选择商品</option>');
+                        var res = jq_ajax('{:url("shop/sys_admin.goods/pubSearch")}', arr);
+                        $.each(res.list, function (i, value) {
+                            $('#goods_select').append('<option value="' + value.goods_id + '" data-goods_sn="' + value.goods_sn + '">' + value.goods_name + '</option>');
+                        })
+                    }
+                    //选择商品
+                    function goodsSelect() {
+                        var goods_id = $('#goods_select').val();
+                        $('.goods_name').html('');
+                        $('.goods_info .tableBox').html('');
+                        jq_ajax('{:url("getGoodsInfo")}', 'goods_id=' + goods_id, function (res) {
+                            if (res.code == 0) {
+                                return false;
+                            }
+                            $('#goods_id').val(res.goods.goods_id);
+                            $('.goods_name').html('商品ID：' + res.goods.goods_id + ' - ' + res.goods.goods_name + '(' + (res.goods.is_spec == 1 ? '多规格' : res.goods.goods_sn) + ')');
+                            $(".goods_info").find('.tableBox').html(template("goods_info", res));
+                        });
+                    }
+                </script>
+                {/if}
+
+                <div class="form-group goods_info m-t">
+                    <label class="col-sm-2 control-label">消费积分商品：</label>
+                    <div class="col-sm-9 lh30">
+                        <div class="col-sm-10 goods_name ">
+                            {gt name="$row.ig_id" value="0" }
+                                商品ID：{$goods.goods_id} - {$goods.goods_name} {$goods['is_spec'] ==1?'多规格':$goods['goods_sn']}
+                            {/gt}
+                        </div>
+                            <div class="col-sm-10 m-t-md tableBox">
+                                {if condition="$goods"}
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        {if condition="$goods.is_spec eq 1"}
+                                        <th>商品规格</th>
+                                        {/if}
+                                        <th>当前库存</th>
+                                        <th>商品售价</th>
+                                        <th>已售数量</th>
+                                        <th>兑换库存</th>
+                                        <th>兑换消费积分</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {if condition="$goods.is_spec eq 1"}
+                                    {foreach name="$goods.sub_goods" item="sku" }
+                                    <tr>
+                                        <td><label><input type="checkbox" name="sku_ids[{$sku.sku_id}]"
+                                                          value="{$sku.sku_id}" {$ig_goods[$sku['sku_id']]['is_select']==1?'checked':''}>{$sku.sku_name}</label>
+                                        </td>
+                                        <td>{$sku.goods_number}</td>
+                                        <td>{$sku.shop_price}</td>
+                                        <td>{$ig_goods[$sku['sku_id']]['sale_num']}</td>
+                                        <td><input type="text" name="ig_number[{$sku.sku_id}]" min=0 class="input-small"
+                                                   value="{$ig_goods[$sku['sku_id']]['ig_number']}"></td>
+                                        <td>
+                                            <input type="text" name="integral[{$sku.sku_id}]" min=0.01 class="input-small"
+                                                   data-rule-ismoney="true" value="{$ig_goods[$sku['sku_id']]['integral']}">
+                                        </td>
+                                    </tr>
+                                    {/foreach}
+                                    {else/}
+                                    <tr>
+                                        <td>{$goods.goods_number}</td>
+                                        <td>{$goods.shop_price}</td>
+                                        <td>{$ig_goods.sale_num}</td>
+                                        <td><input type="text" name="ig_number" min=0 class="input-small"
+                                                   value="{$ig_goods['ig_number']}"></td>
+                                        <td>
+                                            <input type="text" name="integral" min=0.01 class="input-ssmall"
+                                                   data-rule-ismoney="true" value="{$ig_goods['integral']}">
+                                        </td>
+                                    </tr>
+                                    {/if}
+                                    </tbody>
+                                </table>
+                                {/if}
+                            </div>
+                        <div class="col-sm-10 red m-t-md">* 可兑换数量：兑换达到此值时，将不能继续兑换。</div>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">单笔限购：</label>
+                    <div class="col-sm-8">
+                        <input type="text" value="{$row['limit_num']}" class="input-ssmall" min="0" name="limit_num">
+                        <span class=" help-inline">每笔订单限制只能购买数量，0不限制</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">兑换时间：</label>
+                    <div class="col-sm-3">
+                        <span class="fl help-inline">开始时间：</span>
+                        <div class="input-group"><input type="text" class="input-max" name="start_date"
+                                                        readonly="readonly" id="start_date"
+                                                        value="{$row.start_date|dateTpl='Y-m-d H:i',true}"
+                                                        data-toggle="datetimepicker" data-position="top-right"/><span
+                                class="input-group-addon"><i class="fa fa-calendar"></i></span></div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <span class="fl help-inline">结束时间：</span>
+                        <div class="input-group"><input type="text" class="input-max" name="end_date"
+                                                        value="{$row.end_date|dateTpl='Y-m-d H:i',true}" id="end_date"
+                                                        readonly="readonly" data-toggle="datetimepicker"
+                                                        data-position="top-right"/><span class="input-group-addon"><i
+                                class="fa fa-calendar"></i></span></div>
+                    </div>
+                </div>
+            </section>
+        </section>
+        <footer class="footer bg-white b-t p-t">
+            <div class="form-group">
+                <div class="col-sm-4 col-sm-offset-1">
+                    <input name="ig_id" id="ig_id" type="hidden" value="{$row.ig_id|intval}">
+                    <button type="submit" class="btn btn-primary js_save_submit" data-loading-text="保存中...">保存</button>
+                    <button type="button" class="btn btn-default" data-toggle="back">取消</button>
+                </div>
+            </div>
+        </footer>
+    </section>
+</form>
+{/block}
+
+
+{block name="footer" }
+
+{/block}

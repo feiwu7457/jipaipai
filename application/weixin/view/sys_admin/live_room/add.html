@@ -1,0 +1,178 @@
+{extend name="mainadmin@layouts/base" /}
+{block name="head" }
+<link href="__STATIC__/js/colorpicker/bootstrap-colorpicker.css" rel="stylesheet"/>
+{/block}
+{block name="main" }
+<header class="header  b-b clearfix">
+
+    <div class="page-breadcrumbs">
+        <ul class="breadcrumb">
+            <li>
+                <i class="fa fa-ellipsis-v"></i>
+                <strong>添加直播间</strong>
+            </li>
+        </ul>
+        <a class="text-muted pull-right m-t-md m-r pointer" data-toggle="back" title="返回"><i
+                class="fa fa-reply"></i></a>
+    </div>
+
+</header>
+<form class="form-horizontal form-validate form-modal form_vbox" method="post" action="{:url('add')}">
+<section class="vbox">
+    <section class="scrollable wrapper w-f ">
+        <section class="panel panel-default ">
+            <div class="widget-body">
+                <div class="collapse in">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">直播间名字</label>
+                        <div class="col-sm-6 m-t-md">
+                            <input type="text" class="input-xlarge" name="name" minlength="3" maxLength="17" data-rule-required="true" value="">
+                            <span class="tooltip-darkorange fa fa-question-circle" data-toggle="tooltip"  data-placement="bottom" data-html="true" data-original-title="直播间名字，最短3个汉字，最长17个汉字，1个汉字相当于2个字符"></span>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">背景图</label>
+                        <div class="col-sm-6 ">
+                            <img id="coverImg_img" src="" style="max-width: 100px; max-height: 100px;"><br>
+                            <input id="coverImg_input" name="coverImg" type="hidden" value="">
+                            <a href="{:url('sys_admin.xcxSnapMedia/select',['type'=>'image','back_dom'=>'coverImg'])}" data-toggle="ajaxModal" title="选择图片素材" class="btn btn-sm btn-default  m-t-md m-r"><i class="fa fa-image m-r-xs"></i>选择图片素材</a>
+                            <span class="help-inline"> </span>
+                            <span class="tooltip-darkorange fa fa-question-circle" data-toggle="tooltip" data-placement="top" data-original-title="直播间背景图，图片规则：建议像素1080*1920，大小不超过2M"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">直播计划时间</label>
+                        <div class="col-sm-3" >
+                            <span class="fl help-inline">开始时间：</span><div class="input-group"> <input type="text" class="input-max" name="startTime" readonly="readonly" id="startTime" value=""  data-toggle="datetimepicker" data-before="#endTime" data-position="top-right" /><span class="input-group-addon"><i class="fa fa-calendar"></i></span></div>
+                        </div>
+
+                        <div class="col-sm-3" >
+                            <span class="fl help-inline">结束时间：</span><div class="input-group"> <input type="text" class="input-max" name="endTime" value="" id="endTime"   readonly="readonly" data-toggle="datetimepicker" data-after="#startTime" data-position="top-right" /><span class="input-group-addon"><i class="fa fa-calendar"></i></span></div>
+                        </div>
+                        <span class="tooltip-darkorange fa fa-question-circle" data-toggle="tooltip" data-placement="top" data-html="true" data-original-title="<p class='t-l'>直播计划开始时间（开播时间需要在当前时间的10分钟后 并且 开始时间不能在 6 个月后<br>直播计划结束时间（开播时间和结束时间间隔不得短于30分钟，不得超过24小时）</p>"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">主播昵称</label>
+                        <div class="col-sm-6 ">
+                            <div class="col-sm-4">
+                                <input type="text" class="input-max" name="anchorName" minlength="2" maxLength="15"  data-rule-required="true" value="">
+                            </div>
+                            <span class="tooltip-darkorange fa fa-question-circle" data-toggle="tooltip" data-placement="top" data-original-title="最短2个汉字（不包括标点符号），最长15个汉字，1个汉字相当于2个字符"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">主播微信号</label>
+                        <div class="col-sm-6 ">
+                            <div class="col-sm-4">
+                                <input type="text" class="input-max" name="anchorWechat"  data-rule-required="true" value="">
+                            </div>
+                            <span class="tooltip-darkorange fa fa-question-circle" data-toggle="tooltip" data-placement="top" data-original-title="如果未实名认证，需要先前往“小程序直播”小程序进行实名验证"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">分享图</label>
+                        <div class="col-sm-6 ">
+                            <div class="col-sm-6 ">
+                                <img id="shareImg_img" src="" style="max-width: 100px; max-height: 100px;"><br>
+                                <input id="shareImg_input" name="shareImg" type="hidden" value="">
+                                <a href="{:url('sys_admin.xcxSnapMedia/select',['type'=>'image','back_dom'=>'shareImg'])}" data-toggle="ajaxModal" title="选择图片素材" class="btn btn-sm btn-default  m-t-md m-r"><i class="fa fa-image m-r-xs"></i>选择图片素材</a>
+                                <span class="tooltip-darkorange fa fa-question-circle" data-toggle="tooltip" data-placement="top" data-original-title="直播间分享图，图片规则：建议像素800*640，大小不超过1M；"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">直播间类型</label>
+                        <div class="col-sm-6 ">
+                            <label class="radio-inline">
+                                <input name="type" value="0" checked  type="radio" >手机直播
+                            </label>
+                            <label class="radio-inline">
+                                <input name="type" value="1"  type="radio" >推流
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">横屏、竖屏</label>
+                        <div class="col-sm-8 ">
+                            <label class="radio-inline">
+                                <input name="screenType" value="0" checked  type="radio" >竖屏
+                            </label>
+                            <label class="radio-inline">
+                                <input name="screenType" value="1"  type="radio" >横屏
+                            </label>
+                            <span class="tooltip-darkorange fa fa-question-circle" data-toggle="tooltip" data-placement="top" data-original-title="（横屏：视频宽高比为16:9、4:3、1.85:1 ；竖屏：视频宽高比为9:16、2:3）"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">是否关闭点赞</label>
+                        <div class="col-sm-8">
+                            <label class="radio-inline">
+                                <input name="closeLike" value="0" checked  type="radio" >开启
+                            </label>
+                            <label class="radio-inline">
+                                <input name="closeLike" value="1"  type="radio" >关闭
+                            </label>
+                            <span class="tooltip-darkorange fa fa-question-circle" data-toggle="tooltip" data-placement="top" data-original-title="（若关闭，直播开始后不允许开启）"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">是否关闭货架</label>
+                        <div class="col-sm-8">
+                            <label class="radio-inline">
+                                <input name="closeGoods" value="0" checked  type="radio" >开启
+                            </label>
+                            <label class="radio-inline">
+                                <input name="closeGoods" value="1"  type="radio" >关闭
+                            </label>
+                            <span class="tooltip-darkorange fa fa-question-circle" data-toggle="tooltip" data-placement="top" data-original-title="（若关闭，直播开始后不允许开启）"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">是否关闭评论</label>
+                        <div class="col-sm-8">
+                            <label class="radio-inline">
+                                <input name="closeComment" value="0" checked  type="radio" >开启
+                            </label>
+                            <label class="radio-inline">
+                                <input name="closeComment" value="1"  type="radio" >关闭
+                            </label>
+                            <span class="tooltip-darkorange fa fa-question-circle" data-toggle="tooltip" data-placement="top" data-original-title="（若关闭，直播开始后不允许开启）"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">绑定主播：</label>
+                        <div class="col-sm-9 " >
+                            <input type="text" class="input-small"  id="user_keyword" value="" style="width:120px;" /> <a href="javascript:;" class="m-xs" title="查看"  onclick="searchuser('user_keyword','select_user');"><i class="fa fa-search text-muted"></i></a>
+                            <select id="select_user" name="select_user"  style="width: 180px; " >
+                                <option value="">选择用户</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </section>
+    <footer class="footer bg-white b-t p-t">
+        <div class="form-group">
+            <div class="col-sm-4 col-sm-offset-1">
+                <input type="hidden" name="tpl_id" value="{$row.tpl_id|intval}"/>
+                <button type="submit" class="btn btn-primary js_save_submit" data-loading-text="保存中...">保存</button>
+                <button type="button" class="btn btn-default" data-toggle="back">取消</button>
+            </div>
+        </div>
+    </footer>
+</section>
+</form>
+<script>
+    function assigBack(file,media_id, back_dom) {
+        $('#'+back_dom+'_img').attr('src',file);
+        $('#'+back_dom+'_input').val(media_id);
+        $(".modal-dialog .close").trigger("click");
+    }
+
+
+</script>
+{/block}

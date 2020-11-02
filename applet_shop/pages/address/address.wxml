@@ -1,0 +1,32 @@
+<view class="page2">
+    <block wx:for="{{lists}}" wx:key="addr">
+        <view class='weui-cells'>
+            <view class='weui-cell cell_swiped weui-cell__ft_in-access'>
+                <view class='weui-cell__bd'>
+                    <navigator url='/pages/editAddress/editAddress?address_id={{item.address_id}}&name={{item.consignee}}&phone={{item.mobile}}&address={{item.address}}&province_id={{item.province}}&city_id={{item.city}}&area_id={{item.district}}&merger_name={{item._merger_name}}'>
+                        <view class='fs30'>
+                            <text>{{item.consignee}}</text>
+                            <text class='ml10'>{{item.mobile}}</text>
+                        </view>
+                        <view class='fs28 text-muted mt30'>{{item.address}}</view>
+                    </navigator>
+                    <view class='mt40'>
+                        <label wx:if="{{item.is_default == 1}}" class="checkbox">
+                            <checkbox disabled='disabled' checked="checked" />默认地址
+                        </label>
+                        <label wx:else bindtap='setdefault' data-address_id='{{item.address_id}}' class="checkbox">
+                            <checkbox/>设为默认地址
+                        </label>
+                        <view bindtap='deleteaddress' data-address_id='{{item.address_id}}' class='delete'>删除</view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </block>
+    <view wx:if='{{nodata == true}}' class='no-data'>
+        <image src='/images/no_data.png' />
+    </view>
+</view>
+<view class='btn_box'>
+    <navigator url="/pages/addAddress/addAddress" class='btn_primary'>新增收货地址</navigator>
+</view>

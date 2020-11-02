@@ -1,0 +1,30 @@
+<table class="table table-bordered  table-hover ">
+<thead class="flip-content bordered-palegreen">
+<thead>
+<tr>
+    <th width="100">文件类型</th>
+	<th width="500">mediaId</th>
+    <th width="120">上传时间</th>
+    <th width="150">过期时间</th>
+    <th>备注</th>
+</tr>
+</thead>
+<tbody>
+
+{volist name="data.list" id="vo" }
+<tr>
+	<td>{$vo.type}</td>
+    <td>{$vo.media_id}</td>
+    <td>{$vo.add_time|dateTpl}</td>
+    <td>{$vo.expire_time|dateTpl}</td>
+    <td>{$vo.remark}</td>
+</tr>
+
+{/volist}
+</tbody>
+</table>
+{empty name="data.list"}
+<table width="100%" >
+ 	<tr><td height="300" colspan="8" align="center" valign="middle" >没有相关数据！</td></tr>
+</table>
+{/empty}

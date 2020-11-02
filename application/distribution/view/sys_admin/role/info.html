@@ -1,0 +1,186 @@
+{extend name="mainadmin@layouts/base" /}
+{block name="main" }
+
+<header class="header  b-b clearfix">
+     <div class="page-breadcrumbs">
+            <ul class="breadcrumb">
+                <li>
+                    <i class="fa fa-ellipsis-v"></i>
+                    <strong>{$row['role_id']>0?'编辑':'添加'}身份</strong>
+                </li>                                  
+            </ul>
+           <a class="text-muted pull-right pointer p-r m-t-md" data-toggle="back" title="返回"><i class="fa fa-reply"></i></a>
+        </div>
+</header>
+<form class="form-horizontal form-validate form_vbox" method="post" action="{:url('info')}">
+    <section class="vbox">
+        <section class="scrollable  wrapper w-f">
+            <section class="panel panel-default">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="control-label">身份名称：</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="input-large" data-rule-maxlength="20" data-rule-required="true"
+                                   name="role_name" value="{$row.role_name}"><span class="maroon">*</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class=" control-label"> 身份排序：</label>
+                        <div class="col-sm-6 ">
+                            <select name="byLevel">
+                                <option value="0">设为【粉丝】上级</option>
+                                {volist name="allroleList" id="role"}
+                                <option value="{$role.level}" {$role[
+                                'level']==$row['level']-1?'selected':''}>设为【{$role.name}】上级</option>
+                                {/volist}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class=" control-label">升级方式：</label>
+                        <div class="col-sm-9">
+                            <label><input type="radio" name="is_auto" class="js_radio_undertake"
+                                          data-class="upleve_setting" value="1" {$row['is_auto']<=1?'checked':''}>
+                                满足条件升级</label>
+                            <label><input type="radio" name="is_auto" class="js_radio_undertake" value="9" {$row['is_auto']==9?'checked':''}>
+                                手动调整</label>
+                        </div>
+                    </div>
+                    <div class="radio_undertake_is_auto upleve_setting {$row['is_auto']<=1?'':'hide'}">
+
+                        <div class="form-group">
+                            <label class="control-label">升级设置：</label>
+                            <div class="col-sm-6">
+                                <select name="upleve_function" id="upleve_function">
+
+                                    {volist name="upLevel" id="val"}
+                                    <option value="{$val.function}" {$row[
+                                    'upleve_function'] == $val['function']?'selected':''}
+                                    data-jsonval='{$val.val|json_encode}'
+                                    data-explain="{$val.explain}">{$val.name}</option>
+                                    {/volist}
+                                </select>
+                                <input name="uplevel_fun_name" id="uplevel_fun_name" type="hidden"
+                                       value="{$row.uplevel_fun_name}"/>
+                                <span class="help-inline"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class=" control-label">升级条件：</label>
+                            <div class="col-sm-9">
+                                <label><input type="radio" name="up_condition" value="1" {$row['up_condition']<=1?'checked':''}>
+                                    满足任意一项条件</label>
+                                <label><input type="radio" name="up_condition" value="2" {$row['up_condition']==2?'checked':''}>
+                                    满足全部条件(除指定商品，如果设置指定商品，购买即升级)</label>
+                            </div>
+                        </div>
+                        <div id="upleve_function_box" class="panel-default">
+
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </section>
+        <footer class="footer bg-white b-t p-t">
+            <div class="form-group">
+                <div class="col-sm-4 col-sm-offset-1">
+                    <input name="role_id" type="hidden" value="{$row.role_id|intval}">
+                    <button type="submit" class="btn btn-primary js_save_submit" data-loading-text="保存中...">保存</button>
+                    <button type="button" class="btn btn-default" data-toggle="back">取消</button>
+                </div>
+            </div>
+        </footer>
+    </section>
+</form>
+{assign name="limitBuyNum" value="1"}
+{include file="shop@/sys_admin/goods/sel_goods" /}
+
+{literal}
+<script type="text/html" id="upLevel_tpl"> 
+<div class="form-group">
+	  <label class="control-label">详细说明：</label>
+	  <div class="col-sm-8 m-t-mc">{{explain}}</div>
+</div>
+
+{{each list as item index}}
+{{if item.input == 'sel_role'}}
+	<div class="form-group">
+       	 <label class=" control-label">{{item.text}}：</label>
+		  <div class="col-sm-9" >
+              粉丝
+              <input type="text" name="function_val[{{item.name}}][0]"  class="input-ssmall" data-rule-required="true" value="{{value[item.name]?value[item.name][0]:0}}"><span class="help-inline">{{item.tip}}</span>
+              {{each roleList as role index}}
+               {{role.name}}
+              <input type="text" name="function_val[{{item.name}}][{{role.role_id}}]"  class="input-ssmall" data-rule-required="true" value="{{value[item.name]?value[item.name][role.role_id]:0}}"><span class="help-inline">{{item.tip}}</span>
+              {{/each}}
+          </div>
+	</div>
+{{else if item.input == 'team_role'}}
+<div class="form-group">
+    <label class=" control-label">{{item.text}}：</label>
+    <div class="col-sm-9" >
+        粉丝
+        <input type="text" name="function_val[{{item.name}}][0]"  class="input-ssmall" data-rule-required="true" value="{{value[item.name]?value[item.name][0]:0}}"><span class="help-inline">{{item.tip}}</span>
+        {{each roleList as role index}}
+        {{role.name}}
+        <input type="text" name="function_val[{{item.name}}][{{role.role_id}}]"  class="input-ssmall" data-rule-required="true" value="{{value[item.name]?value[item.name][role.role_id]:0}}"><span class="help-inline">{{item.tip}}</span>
+        {{/each}}
+    </div>
+</div>
+{{else}}
+<div class="form-group">
+        <label class=" control-label">{{item.text}}：</label>
+        <div class="col-sm-9" >			
+			{{if item.rule == 'ismoney' || item.rule == 'integer'}}
+				<input type="text" name="function_val[{{item.name}}]"  class="input-medium" data-rule-required="true" data-rule-{{item.rule}}="true" value="{{value[item.name]?value[item.name]:'0'}}">
+				<span class="help-inline">{{item.tip}}</span>
+			{{else if item.input == 'text'}}
+			   <input type="text" name="function_val[{{item.name}}]"  class="input-large" data-rule-required="true" value="{{value[item.name]}}"><span class="help-inline">{{item.tip}}</span>
+
+			{{else if item.input == 'radio'}}
+				{{each item.selval as selval index}}
+			      <label><input type="radio"  name="function_val[{{item.name}}]" value="{{index}}" {{value[item.name]==index?'checked':''}}> {{selval}}</label>
+				 {{/each}}
+			{{else if item.input == 'sel_goods'}}
+				{{include 'selGoods_tpl'}}
+				<div class="col-sm-6 col-sm-offset-1 m-t">单次购买指定商品和数量的会员才能进行升级.</div>
+			{{/if}}
+      </div>
+</div>
+{{/if}}
+{{/each}}
+
+</script>  
+{/literal} 
+<script type="text/javascript">
+var upleve_value = {$row['function']|json_encode|raw};
+var arr = [];
+arr.roleList = {$roleList|json_encode|raw};
+
+
+function upleveFunction(){
+	$("#upleve_function_box").html('');
+	var obj = $('#upleve_function').find('option:selected');		
+	var jsonval = obj.data('jsonval');
+	if (typeof(jsonval) == 'undefined') return false;
+	$('#uplevel_fun_name').val(obj.text());
+	var val = obj.val();
+	if (typeof(upleve_value[val]) == 'undefined'){
+		upleve_value[val] = [];
+	}
+    arr.list = jsonval;
+    arr.explain = obj.data('explain');
+    arr.value = upleve_value[val];
+    arr.goodsList = upleve_value[val].buy_goods;
+    arr.select_type = 'buy_goods';
+	$("#upleve_function_box").html(template("upLevel_tpl", arr));
+}
+$(function(){
+	$("#upleve_function").change(function (){
+		upleveFunction();
+	})
+	upleveFunction();
+})
+</script>
+{/block}

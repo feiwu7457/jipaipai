@@ -1,0 +1,35 @@
+<view wx:if="{{inited&&showuserbtn}}">
+    <form reportSubmit bindsubmit="FormIdsubmit">
+        <button class="form-btn" formType="submit">
+            <button class="form-btn" formType="submit">
+                <button class="form-btn" formType="submit">
+                    <button class="form-btn" formType="submit">
+                        <button class="form-btn" formType="submit">
+                            <button class="form-btn" formType="submit">
+                                <button class="form-btn" formType="submit">
+                                    <button class="form-btn" formType="submit">
+                                        <button class="form-btn" formType="submit">
+                                            <button class="btn-formid" formType="submit">
+                                                <button bindgetuserinfo="updateUserInfo" class="login-fullbtn {{$Page$Login$hasUserinfo?'':'__show'}}" hoverClass="none" hoverStopPropagation="{{true}}" openType="getUserInfo">
+                                                    <view class="login-content">
+                                                        <image class="topimg" src="{{'https://shop.jipaipai.cn/attachment/images/32/2020/01/n513a93O38aE33tZ0pMEZe3J9EiTn8.png'}}"></image>
+                                                        <view class="tit">{{$Page$Login$config.name}}</view>
+                                                        <view class="content">
+                                                            <view class="content_tit">该程序获得以下授权</view>
+                                                            <view>获取您的公开信息（昵称和头像等），以便于查看优惠信息</view>
+                                                        </view>
+                                                        <view class="btn bg-pri">确定授权</view>
+                                                    </view>
+                                                </button>
+                                            </button>
+                                        </button>
+                                    </button>
+                                </button>
+                            </button>
+                        </button>
+                    </button>
+                </button>
+            </button>
+        </button>
+    </form>
+</view>

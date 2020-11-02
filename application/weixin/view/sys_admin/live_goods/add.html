@@ -1,0 +1,219 @@
+{extend name="mainadmin@layouts/base" /}
+{block name="head"}
+<style>
+    #imgsList li{
+        float: left;
+        display: inline;
+        width: 134px;
+        height: 134px;
+        margin-right: 12px;
+        font-size: 12px;
+        position: relative;
+    }
+    #imgsList li .item_box {
+        display: block;
+        width: 130px;
+        height: 130px;
+        padding: 8px 5px;
+        border: #d3d3d3 2px solid;
+        background-color: #f6f6f6;
+        text-align: center;
+    }
+    .item_box img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+    #imgsList li.select .item_box{
+        border: #fb6638 2px solid;
+    }
+</style>
+{/block}
+{block name="main" }
+<header class="header b-b clearfix">
+
+    <div class="page-breadcrumbs">
+        <ul class="breadcrumb">
+            <li>
+                <i class="fa fa-ellipsis-v"></i>
+                <strong>上传商品</strong>
+            </li>
+        </ul>
+        <a class="text-muted pull-right m-t-md m-r pointer" data-toggle="back" title="返回"><i
+                class="fa fa-reply"></i></a>
+    </div>
+
+</header>
+<form class="form-horizontal form-validate form-modal form_vbox" method="post" action="{:url('add')}">
+<section class="vbox">
+    <section class="scrollable wrapper w-f ">
+        <section class="panel panel-default ">
+            <div class="widget-body">
+                <div class="collapse in">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">选择商品</label>
+                        <div class="col-sm-8">
+                            <input id="goods_keyword" type="text" class="input-medium " placeholder="商品名称/SN"
+                                   aria-invalid="false">
+
+                            <a class="btn btn-default fa fa-search" title="搜索" onclick="searchGoods()"></a>
+
+                            <select id="goods_select" class="m-r" style="width:250px;" data-toggle="select2"
+                                    onChange="goodsSelect()">
+                                <option value="">选择商品</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">商品名称</label>
+                            <div class="col-sm-6">
+                                <input type="hidden" name="shop_goods_id" id="shop_goods_id" value="">
+                                <input type="hidden" name="shop_goods_img" id="shop_goods_img" value="">
+                                <input type="text" class="input-max" name="name" id="name" minlength="2" maxLength="14" data-rule-required="true" value="">
+                            </div>
+                            <span class="tooltip-darkorange fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-original-title="最长14个汉字，1个汉字相当于2个字符"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">商品图片</label>
+                        <div class="col-sm-8" id="imgsList">
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">价格类型</label>
+                        <p class="col-sm-6 ">
+                            <label class="radio-inline">
+                                <input name="priceType" value="1" checked type="radio">一口价
+                            </label>
+                            <label class="radio-inline">
+                                <input name="priceType" value="2" type="radio">价格区间
+                            </label>
+                            <label class="radio-inline">
+                                <input name="priceType" value="3" type="radio">显示折扣价
+                            </label>
+                            <span class="tooltip-darkorange fa fa-question-circle" data-toggle="tooltip"
+                                  data-placement="bottom" data-html="true"
+                                  data-original-title="<p class='t-l'>价格类型<br>1：一口价（只需要传入price，price2不传）<br>2：价格区间（price字段为左边界，price2字段为右边界，price和price2必传） <br>3：显示折扣价（price字段为原价，price2字段为现价， price和price2必传）</p>"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2 ">price</label>
+                        <div class="col-sm-6 ">
+                            <input type="text" class="input-mini" name="price" data-rule-required="true"  data-rule-ismoney="true" value="">
+                            <span class="tooltip-darkorange fa fa-question-circle" data-toggle="tooltip" data-placement="right"
+                                  data-original-title="数字，最多保留两位小数，单位元"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2 ">price2</label>
+                        <div class="col-sm-6 ">
+                            <input type="text" class="input-mini" name="price2"  data-rule-ismoney="true" value="">
+                            <span class="tooltip-darkorange fa fa-question-circle" data-toggle="tooltip" data-placement="right"
+                                  data-original-title="数字，最多保留两位小数，单位元"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2 ">小程序路径</label>
+                        <div class="col-sm-6 ">
+                            <div class="help-inline">{:config('config.xcx_goods_path')}<span id="goods_id_html">1</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+    <footer class="footer bg-white b-t p-t">
+        <div class="form-group">
+            <div class="col-sm-4 col-sm-offset-1">
+                <input type="hidden" name="tpl_id" value="{$row.tpl_id|intval}"/>
+                <button type="submit" class="btn btn-primary js_save_submit" data-loading-text="保存中...">保存</button>
+                <button type="button" class="btn btn-default" data-toggle="back">取消</button>
+            </div>
+        </div>
+    </footer>
+</section>
+</form>
+<script type="text/javascript">
+    function searchGoods() {
+        var arr = new Object();
+        arr.keyword = $('#goods_keyword').val();
+        arr.min_search = 1;
+        $('#goods_select').html('<option value="">选择商品</option>');
+        var res = jq_ajax('{:url("shop/sys_admin.goods/pubSearch")}', arr);
+        $.each(res.list, function (i, value) {
+            $('#goods_select').append('<option value="' + value.goods_id + '">' + value.goods_name + '</option>');
+        })
+    }
+    var is_spec = 0;
+    var market_price = 0;
+    var sale_price = 0;
+    //选择商品
+    function goodsSelect() {
+        var goods_id = $('#goods_select').val();
+        $('.goods_name').html('');
+        jq_ajax('{:url("shop/api.goods/info")}', 'id=' + goods_id, function (res) {
+            if (res.code == 0) {
+                return false;
+            }
+            var goods = res.list.goods;
+            $('#shop_goods_id').val(goods.goods_id);
+            $('#goods_id_html').html(goods.goods_id);
+            $('#name').val(goods.goods_name);
+            market_price = goods.market_price;
+            sale_price = goods.sale_price;
+            //多规格处理
+            if (goods.is_spec == 1){
+                is_spec = 1;
+                $('input[name="priceType"]').eq(1).attr('checked','true');
+                $('input[name="price"]').val(goods.min_price);
+                $('input[name="price2"]').val(goods.max_price);
+            }else{
+                is_spec = 0;
+                var obj = $('input[name="priceType"]');
+                if (obj.val() == 2){
+                    obj.eq(0).attr('checked','true');
+                }else if(obj.val() == 3){
+                    $('input[name="price"]').val(goods.market_price);
+                    $('input[name="price2"]').val(goods.sale_price);
+                }else{
+                    obj.eq(0).attr('checked','true');
+                    $('input[name="price"]').val(goods.sale_price);
+                    $('input[name="price2"]').val('');
+                }
+
+            }
+            $('#imgsList').html('');
+            $.each(res.list.imgsList,function (i,v) {
+                $('#imgsList').append('<li><span class="item_box"><img src="'+v.goods_thumb+'"></span></li>');
+            })
+            $('#imgsList').find('li').click();
+        });
+    }
+    $('input[name="priceType"]').on('click',function () {
+        if (is_spec == 1 && $(this).val() != 2){
+            _alert('当前商品为多规格商品，只能选择【价格区间】');
+            return false;
+        }
+        if (is_spec == 0){
+            if ($(this).val() == 2){
+                _alert('当前商品不是多规格商品，不能选择【价格区间】');
+                return false;
+            }
+            if ($(this).val() == 1){
+                $('input[name="price"]').val(sale_price);
+                $('input[name="price2"]').val('');
+            }
+            if ($(this).val() == 3){
+                $('input[name="price"]').val(market_price);
+                $('input[name="price2"]').val(sale_price);
+            }
+        }
+
+    })
+    $('#imgsList').on('click','li',function () {
+        $('#imgsList').find('li').removeClass('select');
+        $(this).addClass('select');
+        $('#shop_goods_img').val($(this).find('img').attr('src'));
+    })
+</script>
+{/block}

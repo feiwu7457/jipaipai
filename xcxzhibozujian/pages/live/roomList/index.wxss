@@ -1,0 +1,681 @@
+view {
+    box-sizing: border-box;
+}
+
+page {
+    width: 100%;
+    min-height: 100%;
+    background: #f3f3f3;
+}
+
+
+.live-list {
+    width: 96%;
+    height: 100%;
+    padding: 0rpx 2%;
+    position: relative;
+}
+
+.live-item {
+    width: 100%;
+    height: 220rpx;
+    box-shadow: 0 4rpx 20rpx 0 rgba(204,137,137,0.10);
+    border-radius: 8rpx;
+    overflow: hidden;
+    display: flex;
+    margin-bottom: 30rpx;
+    position: relative;
+}
+
+.userInfo {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 8;
+}
+
+.live-pic {
+    width: 325rpx;
+    height: 100%;
+    background-size: cover;
+    position: relative;
+}
+
+.viewers {
+    height: 32rpx;
+    padding-right: 11rpx;
+    border-radius: 16rpx;
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    margin-top: 11rpx;
+    margin-left: 13rpx;
+}
+
+.viewers-opa {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0.5;
+    background: #000000;
+}
+
+.viewers-info {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+}
+
+.line-radius {
+    width: 32rpx;
+    height: 32rpx;
+    background: url(//cdn.weimob.com/saas/activity/live/images/live3/liveing.png) no-repeat;
+    background-size: cover;
+    box-sizing: border-box;
+}
+
+.line-radius view {
+    background-color: #fff;
+    border-radius: 2.5rpx;
+}
+
+.line-one {
+    width: 4rpx;
+    height: 14rpx;
+    margin-right: 4rpx;
+}
+
+.line-two {
+    width: 4rpx;
+    height: 18rpx;
+    margin-right: 3rpx;
+}
+
+.line-three {
+    width: 4rpx;
+    height: 8rpx;
+}
+
+.viewers-num {
+    font-family: PingFangSC-Regular;
+    font-size: 20rpx;
+    color: #FFFFFF;
+    display: inline-block;
+    margin-left: 5rpx;
+}
+
+.play {
+    width: 56rpx;
+    height: 56rpx;
+    
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate3d(-50%,-50%,0);
+}
+
+.live-info {
+    flex: 1;
+    padding: 12rpx 32rpx 22rpx 28rpx;
+    overflow: hidden;
+    background: #fff;
+}
+
+.live-item-title {
+    font-family: PingFangSC-Medium;
+    font-size: 30rpx;
+    color: #333333;
+    letter-spacing: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 42rpx;
+}
+
+.liver-info {
+    display: flex;
+    align-items: center;
+    margin-top: 9rpx;
+    overflow: hidden;
+}
+
+.liver-img {
+    width: 26rpx;
+    height: 26rpx;
+    border-radius: 50%;
+    background-size: cover;
+    margin-right: 14rpx;
+}
+
+.room-name {
+    flex: 1;
+    font-family: PingFangSC-Regular;
+    font-size: 24rpx;
+    color: #999999;
+    letter-spacing: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.goods-list {
+    margin-top: 30rpx;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+    height: 72rpx;
+}
+
+.goods-list view {
+    width: 72rpx;
+    height: 72rpx;
+    border-radius: 8rpx;
+    background-size: cover;
+    margin-right: 23rpx;
+}
+
+.goods-item>view {
+    position: relative;
+}
+
+.goods-item-opa {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: #000;
+    opacity: 0.3;
+    width: 100%;
+    height: 100%;
+}
+
+.goods-nums {
+    position: relative;
+    z-index: 1;
+    font-family: PingFangSC-Regular;
+    font-size: 22rpx;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hot {
+    position: relative;
+    background: #f3f3f3;
+    min-height: 100%;
+    padding-bottom: 30rpx;
+}
+
+.hot-bgd {
+    width: 100%;
+    height: 198rpx;
+    position: absolute;
+    left: 0;
+    background: url("//cdn.weimob.com/saas/activity/live/images/live3/home_bg.png") center no-repeat;
+    background-size: cover;
+    margin-top: -1rpx;
+}
+
+.follow {
+    position: relative;
+    z-index: 1;
+}
+
+.near-follow {
+    padding: 30rpx 0 0 25rpx;
+    font-family: PingFangSC-Thin;
+    font-size: 28rpx;
+    color: #FFFFFF;
+}
+
+.anchor-list {
+    display: flex;
+    align-items: center;
+    padding-right: 95rpx;
+    padding-top: 25rpx;
+}
+
+.anchor {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 150rpx;
+}
+
+.anchor:last-child {
+    padding-right: 100rpx;
+    box-sizing: content-box;
+}
+
+.head-border {
+    padding: 2rpx;
+    border-radius: 50%;
+    margin-left: 21rpx;
+    margin-right: 21rpx;
+}
+
+.has-border {
+    border: 2rpx solid #FFF794;
+}
+
+.anchor-head {
+    width: 100rpx;
+    height: 100rpx;
+    border-radius: 50%;
+    background-size: cover;
+    box-shadow: 0 2rpx 20rpx 0 rgba(86,0,0,0.30);
+}
+
+.anchor-status {
+    border-radius: 14rpx;
+    width: 100rpx;
+    height: 28rpx;
+    line-height: 28rpx;
+    font-family: PingFangSC-Regular;
+    font-size: 19rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.g-lh-28 {
+    height: 28rpx;
+    line-height: 28rpx;
+}
+
+.living {
+    background: #FFF794;
+    color: #EC2828;
+    margin-top: -23rpx;
+}
+
+.living:before {
+    content: "";
+    width: 6rpx;
+    height: 6rpx;
+    background: #EC2828;
+    border-radius: 50%;
+    margin-right: 9rpx;
+    display: block;
+}
+
+.loading {
+    background: #FFFFFF;
+    color: #3A7CF0;
+    margin-top: -23rpx;
+}
+
+.anchor-name {
+    width: 90%;
+    font-family: PingFangSC-Regular;
+    font-size: 22rpx;
+    color: #FFFFFF;
+    text-align: center;
+    margin-top: 7rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.follow-bg {
+    width: 100%;
+    height: 327rpx;
+    background: url("//cdn.weimob.com/saas/activity/live/images/live3/home_bg.png") center bottom no-repeat;
+    background-size: cover;
+    position: relative;
+    overflow: hidden;
+    margin-top: -1rpx;
+}
+
+.more-anchor {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 84rpx;
+    height: 264rpx;
+    background-image: linear-gradient(-180deg,#F44747 3%,#E9785B 79%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.shadow-box {
+    width: 14rpx;
+    height: 178rpx;
+    background: url(//cdn.weimob.com/saas/activity/live/images/live3/rectangle.png) no-repeat center;
+    background-size: cover;
+    position: absolute;
+    left: -14rpx;
+    top: 50%;
+    margin-top: -89rpx;
+}
+
+.icon-more {
+    width: 29rpx;
+    height: 29rpx;
+    background: url("//cdn.weimob.com/saas/activity/live/images/live3/more_white.svg") center no-repeat;
+    background-size: cover;
+}
+
+.live-card-list {
+    padding: 0 25rpx;
+    margin-top: -60rpx;
+    position: relative;
+}
+
+.live-card {
+    padding: 30rpx;
+    background: #FFFFFF;
+    box-shadow: 0 0 20px 0 rgba(115,14,14,0.10);
+    width: 100%;
+    border-radius: 8rpx;
+    margin-bottom: 30rpx;
+    position: relative;
+}
+
+.live-title {
+    font-family: PingFangSC-Medium;
+    font-size: 34rpx;
+    color: #333333;
+    letter-spacing: 0;
+    line-height: 40rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.live-msg {
+    margin-top: 14rpx;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.live-card-info {
+    margin: 0;
+}
+
+.live-time {
+    font-family: PingFangSC-Regular;
+    font-size: 24rpx;
+    color: #CBCBCB;
+    text-align: right;
+    line-height: 38rpx;
+}
+
+.live-cover {
+    width: 100%;
+    height: 430rpx;
+    background-size: cover;
+    margin-top: 26rpx;
+    position: relative;
+    border-radius: 8rpx;
+    overflow: hidden;
+}
+
+.cover-bg {
+    width: 100%;
+    height: 100%;
+    background: rgba(54,31,31,0.60);
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: 8rpx;
+}
+
+.cover-msg {
+    position: relative;
+}
+
+.cover-status {
+    margin-top: 13rpx;
+    margin-left: 15rpx;
+    display: flex;
+    border-radius: 4rpx;
+    overflow: hidden;
+    text-align: center;
+}
+
+.cover-text {
+    background: #EC2828;
+    width: 107rpx;
+    height: 41rpx;
+    color: #fff;
+    font-family: PingFangSC-Regular;
+    font-size: 22rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cover-text:before {
+    display: inline-block;
+    width: 10rpx;
+    height: 10rpx;
+    content: '';
+    background: #fff;
+    border-radius: 50%;
+    margin-right: 7rpx;
+}
+
+.watch-nums {
+    padding: 0 6rpx;
+    height: 41rpx;
+    font-family: PingFangSC-Regular;
+    font-size: 22rpx;
+    color: #FFFFFF;
+    text-align: center;
+    position: relative;
+}
+
+.white-bg {
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.3);
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: 0 4rpx 4rpx 0;
+}
+
+.watch-nums-text {
+    position: relative;
+    height: 100%;
+    line-height: 43rpx;
+}
+
+.cover-goods-list {
+    position: absolute;
+    right: 23rpx;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    width: 112rpx;
+    align-items: center;
+    justify-content: center;
+}
+
+.cover-good {
+    margin-bottom: 20rpx;
+    width: 112rpx;
+    height: 112rpx;
+    border-radius: 4rpx;
+    background-size: cover;
+}
+
+.cover-good-nums {
+    width: 112rpx;
+    height: 112rpx;
+    border-radius: 4rpx;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    background: rgba(234,224,224,0.96);
+}
+
+.cover-good view {
+    line-height: 33rpx;
+    font-family: PingFangSC-Regular;
+    font-size: 24rpx;
+    color: #999999;
+}
+
+.icon-play {
+    width: 96rpx;
+    height: 96rpx;
+    background: url("//cdn.weimob.com/saas/activity/live/images/live3/play_attention.svg") center no-repeat;
+    background-size: cover;
+}
+
+.replay {
+    background: #7695B9;
+    font-family: PingFangSC-Regular;
+    font-size: 20rpx;
+    color: #FFFFFF;
+    text-align: center;
+    width: 80rpx;
+    height: 32rpx;
+    line-height: 32rpx;
+}
+
+.replay-watch-nums {
+    padding: 0 10rpx;
+    height: 32rpx;
+    font-family: PingFangSC-Regular;
+    font-size: 20rpx;
+    line-height: 28rpx;
+    color: #FFFFFF;
+    text-align: center;
+    position: relative;
+}
+
+.man-nums {
+    position: relative;
+    height: 32rpx;
+    line-height: 33rpx;
+}
+
+.attention-list {
+    display: flex;
+}
+
+::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    color: transparent;
+}
+
+.w-40 {
+    width: 40rpx;
+    height: 40rpx;
+}
+
+.hot-empty-state {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    background: url("//cdn.weimob.com/saas/activity/live/images/live3/hot_empty.png") no-repeat center #fff;
+    background-size: 100% 1010rpx;
+    user-select: none;
+    z-index: 2;
+}
+
+.attention-empty-state {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    background: url("//cdn.weimob.com/saas/activity/live/images/live3/attention_empty.png") no-repeat center #fff;
+    background-size: 100% 1010rpx;
+    z-index: 2;
+}
+
+.skeleton {
+    width: 100%;
+    background: url("//cdn.weimob.com/saas/activity/live/images/live3/ske_index.png") no-repeat center top #fff;
+    background-size: 100% auto;
+    user-select: none;
+    z-index: 10;
+}
+
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.icon-box {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.recordLeft {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 32rpx;
+    font-size: 20rpx;
+    line-height: 32rpx;
+    color: #FFFFFF;
+    border-radius: 4rpx;
+    overflow: hidden;
+}
+
+.recordLeft view {
+    display: inline-block;
+    padding: 20rpx auto;
+    min-width: 80rpx;
+    text-align: center;
+}
+
+.recordLeftW {
+    background: #7695B9;
+}
+
+.recordLeftW1 {
+    background-color: #EC2828;
+    width: 90rpx;
+}
+
+.recordLeftW1:before {
+    display: inline-block;
+    width: 10rpx;
+    height: 10rpx;
+    content: '';
+    background: #fff;
+    border-radius: 50%;
+    margin-right: 7rpx;
+}
+
+.recordLeftN {
+    background-color: rgba(0,0,0,0.4);
+    min-width: 117rpx;
+    padding: 0 10rpx;
+}
+
+button {
+margin: 0;
+padding: 0;
+border-radius: 0;
+border: none;
+background: transparent;
+
+}

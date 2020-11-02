@@ -1,0 +1,23 @@
+<view class="app-support " wx:if="{{copyright.iscopy==1}}">
+    <view bindtap="{{copyright.copyt==0?'callphone':''}}" class="app-supportin" data-tel="{{copyright.copytel}}">
+        <view class="pp-supportimg pp-item" wx:if="{{copyright.copyimg}}">
+            <image src="{{copyright.copyimg}}"></image>
+        </view>
+        <view class="pp-supporttip pp-item" wx:if="{{copyright.copyfa||copyright.copyfb}}">
+            <view style="line-height:{{!copyright.copyfb?'80rpx':'40rpx'}}" wx:if="{{copyright.copyfa}}">{{copyright.copyfa}}</view>
+            <view style="line-height:{{!copyright.copyfa?'80rpx':'40rpx'}}" wx:if="{{copyright.copyfb}}">{{copyright.copyfb}}</view>
+        </view>
+        <view class=" pp-supportbtn pp-item">
+<block wx:if="{{copyright.copytel}}">
+            <button class="bg-pri"   bindtap="callphone"   data-tel="{{copyright.copytel}}"     openType="{{copyright.copyt==1?'contact':''}}">{{copyright.copybtn?copyright.copybtn:'查看'}}</button>
+
+</block>
+
+<block wx:if="{{!copyright.copytel}}">
+            <button class="bg-pri"     openType="contact">{{copyright.copybtn?copyright.copybtn:'查看'}}</button>
+
+</block>
+
+        </view>
+    </view>
+</view>

@@ -1,0 +1,53 @@
+
+<table class="table  table-hover m-b-none ">
+    <thead>
+        <tr>
+
+            <th>名称</th>
+        	<th width="80">券面额</th>
+            <th width="80">消费额</th>
+        	<th width="100">发放类型</th>
+            <th width="100">指定类型</th>
+            <th width="100">使用范围</th>
+            <th width="100">发放状态</th>
+            <th width="100">使用状态</th>
+            <th width="60">领取</th>
+          	<th width="60">使用</th>
+            <th width="140">操作</th>
+        </tr>
+    </thead>
+{volist name="data.list" id="row" }
+        <tr class="border_top">
+        	<td>
+                <div class="top">
+                    创建时间：{$row.add_time|dateTpl} 发放时间：{$row.send_start_date|dateTpl} ~ {$row.send_end_date|dateTpl} 使用时间：{$row.use_start_date|dateTpl} ~ {$row.use_end_date|dateTpl}
+                </div>
+                {$row.type_name}
+            </td>
+            <td><span class="money">{$row.type_money}</span></td>
+            <td><span class="money">{$row.min_amount}</span></td>
+            <td>{$SendType[$row['send_type']]['name']}</td>
+            <td>{$GoodsType[$row['goods_type']]['name']}</td>
+            <td>{$UseType[$row['use_type']]['name']}</td>
+            <td>{$sendStatusList[$row['_send_status']]}</td>
+            <td>{$useStatusList[$row['use_status']]}</td>
+            <td>{$row.send_num}</td>
+            <td>{$row.use_num}</td>
+
+            <td>
+                <a href="{:url('info',array('type_id'=>$row['type_id']))}" class="m-xs" title="编辑"><i class="fa fa-edit text-muted"></i></a>
+                <a href="{:url('bonusList',array('type_id'=>$row['type_id']))}" class="m-xs" title="查看领取记录"><i class="fa fa-search text-muted"></i></a>
+                <a href="{:url('getExcel',array('type_id'=>$row['type_id']),false)}" class="m-xs" title="导出领取报表"><i class="fa fa-download text-muted"></i></a>
+                {if condition="($row.send_type eq 1||$row.send_type eq 3)&&$row.send_status  eq 1"}<a href="{:url('send',array('type_id'=>$row['type_id']))}" class="m-xs" title="发放"><i class="fa fa-random text-muted"></i></a>{/if}
+
+            </td>
+        </tr>
+
+{/volist}
+    </tbody>
+</table>
+{empty name="data.list"}
+<table width="100%" >
+ 	<tr><td height="300" colspan="8" align="center" valign="middle" >没有相关数据！</td></tr>
+</table>
+{/empty}  

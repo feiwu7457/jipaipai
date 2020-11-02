@@ -1,0 +1,70 @@
+<!--pages/myorders/myorders.wxml-->
+<view class="small_page">
+    <view class="weui-flex flex-tbtn mb10">
+        <view id='1' class="weui-flex__item {{orderstauts == 'all' ? 'active':''}}" bindtap="tabchang" data-status_value='all'>
+            全部
+        </view>
+        <view id='2' class="weui-flex__item {{orderstauts == 'waitPay' ? 'active':''}}" bindtap="tabchang" data-status_value='waitPay'>
+            待付款
+        </view>
+        <view id='3' class="weui-flex__item {{orderstauts == 'waitShipping' ? 'active':''}}" bindtap="tabchang" data-status_value='waitShipping'>
+            待发货
+        </view>
+        <view id='4' class="weui-flex__item {{orderstauts == 'waitSign' ? 'active':''}}" bindtap="tabchang" data-status_value='waitSign'>
+            待收货
+        </view>
+        <view id='5' class="weui-flex__item {{orderstauts == 'sign' ? 'active':''}}" bindtap="tabchang" data-status_value='sign'>
+            已完成
+        </view>
+    </view>
+    <scroll-view scroll-y="true" lower-threshold="50" bindscrolltolower="scrolltloadlist" class="orders-box">
+        <view wx:if="{{listscount > 0}}">
+            <view wx:for="{{lists}}" wx:key="order" class="weui-cells">
+                <navigator class="weui-cell" url='/pages/orderDetails/orderDetails?order_id={{item.order_id}}'>
+                    <view class="weui-cell__bd">
+                        <text class="text-default fs28">订单编号:{{item.order_sn}}</text>
+                    </view>
+                    <view class="weui-cell__ft">
+                        <text class="text-muted fs28">{{item.ostatus}}</text>
+                    </view>
+                </navigator>
+                <view class="weui-media-boxs">
+                    <navigator class="weui-cell" url='/pages/orderDetails/orderDetails?order_id={{item.order_id}}'>
+                        <view wx:for="{{item.goodsList}}" wx:key="goods" wx:for-index="idxx" wx:for-item="vo" class="weui-media-box pro-cell weui-media-box_appmsg">
+                            <view class="weui-media-box__hd">
+                                <image class="weui-media-box__thumb proimg" src="{{vo.goods_pic}}" />
+                            </view>
+                            <view class="weui-media-box__bd" style="width:100%;">
+                                <view class="weui-media-box__title fs28 pro-title">{{vo.goods_name}}</view>
+                                <p class="weui-media-box__desc mt10 fs28">{{vo.sku_name}}</p>
+                                <view class="mt10 money">
+                                    <text class="fs24 fw_b">￥</text>
+                                    <text class="fs36 fw500 num ff">{{vo.shop_price}}</text>
+                                    <text class="fs28 fr payNum" style="float:right;margin-top:15rpx;">x{{vo.goods_number}}</text>
+                                </view>
+                            </view>
+                        </view>
+                    </navigator>
+                </view>
+                <view class="weui-cell hj-cell">
+                    <view class="weui-cell__bd tl">
+                        <text class="fs24 text-muted">共{{item.allNum}}件商品 实付款</text>
+                        <text class="fs28 fw_b">￥</text>
+                        <text class="fs34 fw500 ff">{{item.order_amount}}</text>
+                    </view>
+                </view>
+                <view class="weui-cell pb0 mt10">
+                    <view class="weui-cell__bd"></view>
+                    <view class="weui-cell__ft">
+                        <text bindtap='signorder' data-order_id='{{item.order_id}}' data-order_sn='{{item.order_sn}}' wx:if="{{item.isSign == 1}}" class="link-btn black">确认收货</text>
+                        <text bindtap='cancelorder' data-order_id='{{item.order_id}}' data-order_sn='{{item.order_sn}}' wx:if="{{item.isCancel == 1}}" class="link-btn">取消订单</text>
+                        <text bindtap='dopayorder' data-order_id='{{item.order_id}}' data-order_sn='{{item.order_sn}}' wx:if="{{item.isPay == 1}}" class="link-btn red">立即支付</text>
+                        <text data-order_id='{{item.order_id}}' data-order_sn='{{item.order_sn}}' wx:if="{{item.isReview == 1}}" class="link-btn black">去评论</text>
+                        <text bindtap='deleteorder' data-order_id='{{item.order_id}}' data-order_sn='{{item.order_sn}}' wx:if="{{item.isDel == 1}}" class="link-btn">删除</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view wx:if="{{listscount == 0}}" class='no-data'>-- 我也是有底线的 --</view>
+    </scroll-view>
+</view>

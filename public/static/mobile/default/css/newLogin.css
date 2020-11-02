@@ -1,0 +1,137 @@
+.page-login-bd{
+    height: 100%;
+    overflow-y: auto;
+    background-color: #fff;
+    background-image: url('../images/login/Blob_BG@2x.png');
+    background-repeat:no-repeat;
+    background-size: 100% 1.81rem;
+    /* background-position: right top; */
+    /* position: relative; */
+    margin-left:-2px;
+  }
+  .page-login-bd .footerBg{
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: .89rem;
+    background-image: url('../images/login/loginFooter2x.png');
+    background-repeat:no-repeat;
+    background-size: 100% auto;
+  }
+  .page-login-bd .logo{
+    margin: 1.7rem auto 0;
+    width: 2.3rem;
+    height: 0.82rem;
+  }
+  .page-login-bd .button{
+    position: relative;
+    z-index: 2;
+    width: 4.2rem;
+    height: 0.69rem;
+    margin: 0.3rem auto 0.1rem;
+    background: url('../images/login/RectangleE2x.png') no-repeat;
+    background-size: 100% auto;
+  }
+  .page-login-bd .allow{
+    background: url('../images/login/Rectangle@2x.png') no-repeat;
+    background-size: 100% auto;
+  }
+  .page-login-bd .accountLogin{
+    width: 4.2rem;
+    overflow: hidden;
+    margin: 0 auto;
+  }
+  .page-login-bd .accountLogin > .title{
+    font-size:0.24rem !important;
+    font-family:PingFangSC-Medium,PingFang SC !important;
+    font-weight:600 !important;
+    color:rgba(51,51,51,1) !important;
+    line-height:0.36rem !important;
+    margin: 0.3rem 0 0.2rem;
+    letter-spacing: 1px;
+  }
+  .page-login-bd .accountLogin .phone{
+    display: flex;
+    justify-content: space-between;
+    padding: .12rem 0;
+    border-bottom: 1px solid rgba(29,29,38,.1);
+  }
+  .page-login-bd .accountLogin .phone > img{
+     width: 0.35rem;
+     height: 0.35rem;
+  }
+  .page-login-bd .accountLogin .phone > input{
+     width: calc(100% - .45rem);
+     height: .35rem;
+     line-height: .35rem;
+     font-size:0.19rem;
+     color:rgba(51,51,51,.5);
+     letter-spacing: 1px;
+  }
+  .page-login-bd .accountLogin .verifyCode{
+    display: flex;
+    justify-content: space-between;
+    padding: .12rem 0;
+    border-bottom: 1px solid rgba(29,29,38,.1);
+    margin-top:0.2rem;
+  }
+  .page-login-bd .accountLogin .verifyCode > img{
+     width: 0.35rem;
+     height: 0.35rem;
+  }
+  .page-login-bd .accountLogin .verifyCode > .inputCode{
+     width: calc(100% - .45rem);
+     height: .35rem;
+     display: flex;
+     justify-content: space-between;
+  }
+  .page-login-bd .accountLogin .verifyCode .inputCode > input{
+     width: calc(100% - 1rem);
+     height: .35rem;
+     font-size:0.19rem;
+     color:rgba(51,51,51,.5);
+  }
+  .page-login-bd .accountLogin .verifyCode .inputCode > .getCode{
+    text-align: right;
+    width:1.2rem;
+    height: .35rem;
+    font-size:0.19rem;
+    font-weight:400;
+    color:rgba(223,48,49,1);
+    line-height:0.35rem;
+  }
+  .page-login-bd .accountLogin .verifyCode .inputCode > .time{
+    text-align: right;
+    padding-right: .1rem;
+    width:0.95rem;
+    height: .35rem;
+    font-size:0.19rem;
+    font-weight:400;
+    line-height:0.35rem;
+  }
+  .page-login-bd .changeBtns{
+    position: relative;
+    z-index: 9999;
+    /* width: 4.2rem;
+    height: 0.69rem; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .page-login-bd .changeBtns a{
+    text-decoration: none;
+  }
+  .page-login-bd .changeBtns a:nth-child(1){
+    font-size:0.17rem;
+    font-weight:600;
+    color:rgba(29,29,38,.5);
+    line-height:0.24rem;
+  }
+  .page-login-bd .changeBtns a:nth-child(2){
+    font-size:0.17rem;
+    font-weight:600;
+    color:rgba(223,48,49,1);
+    line-height:0.24rem;
+  }

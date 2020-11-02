@@ -1,0 +1,9 @@
+<image src="{{activity_img}}" class="img" mode="widthFix"></image>
+<navigator class="btn1"
+ target="miniProgram" 
+ open-type="navigate" 
+ app-id="wx92d650b253f8f2e3" 
+ path="pages/index/index?zbid=1768278922" 
+ extra-data="{{extraData}}"
+ version="release" 
+ bindsuccess="toMiniProgramSuccess">点击前往皮阿诺家居的直播间</navigator>

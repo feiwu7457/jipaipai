@@ -1,0 +1,67 @@
+<form class="form-horizontal form-validate form-modal" method="post" enctype="multipart/form-data"  action="{:url('add')}">
+    <div class="modal-dialog" id="select_live_goods">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">选择商品</h4>
+            </div>
+            <div class="modal-body">
+                <div class="dd">
+                    <ol class="dd-list" >
+                        {volist name="list" id="vo"}
+                        <li class="dd-item">
+                            <div class="dd-handle">
+                                <label>
+                                <input type="checkbox" name="select_goods_ids[]"  value="{$vo.goodsId}" >
+                                <span id="live_goods_info_{$vo.goodsId}">
+                                {$vo.name} {$priceType[$vo['priceType']]}:
+                                {if condition="$vo['priceType'] == 1"}
+                                {$vo.price}
+                                {elseif condition="$vo['priceType'] == 2"}
+                                {$vo.price}~{$vo.price2}
+                                {else}
+                                原价：{$vo.price}，现价：{$vo.price2}
+                                {/if}
+                                </span>
+                                </label>
+                            </div>
+                        </li>
+                        {/volist}
+                        {empty name="list"}
+                        <table width="100%" >
+                            <tr><td height="300" colspan="8" align="center" valign="middle" >没有相关数据.</td></tr>
+                        </table>
+                        {/empty}
+                    </ol>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="javascript:;" class="btn btn-primary">确定选择</a>
+            </div>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+    $(document).off('click',"#select_live_goods a");
+    $(document).on('click','#select_live_goods a',function(){
+        $('#select_live_goods').find('input').each(function(){
+            if ($(this).is(':checked') == false){
+                return true;
+            }
+            var sgid = $(this).val();
+            var isexist = false;
+            $('#live_goods_box').find('input').each(function() {
+                if (sgid == $(this).val()){
+                    isexist = true;
+                    $(this).attr('checked',true);
+                    return false;
+                }
+            })
+            if (isexist == true){
+                return true;
+            }
+            $('#live_goods_box').append('<li class="dd-item"><div class="dd-handle"><label style="padding: 0px; line-height: 20px;"><input type="checkbox" name="goods_ids[]" value="'+sgid+'" checked><span class="diy--checkbox diy--radioInput"></span>'+$('#live_goods_info_'+sgid).html()+'</label></div></li>');
+        })
+        $('#select_live_goods .close').click();
+    })
+</script>

@@ -1,0 +1,46 @@
+<table class="table table-bordered  table-hover ">
+<thead class="flip-content bordered-palegreen">
+<thead>
+<tr>
+	<th width="100">直播商品ID</th>
+    <th >商品名称</th>
+    <th width="150">价格</th>
+    <th width="100">当前状态</th>
+    <th width="100">来源</th>
+    <th width="110">商城商品ID</th>
+    <th width="150">添加时间</th>
+    <th width="80">操作</th>
+</tr>
+</thead>
+<tbody>
+
+{volist name="data.list" id="vo" }
+<tr>
+	<td>{$vo.goodsId}</td>
+    <td>{$vo.name}</td>
+    <td>
+        {if condition="$vo.priceType == 1"}
+            一口价：${$vo.price}
+        {elseif condition="$vo.priceType == 2"}
+            价格区间：${$vo.price}~{$vo.price2}
+        {elseif condition="$vo.priceType == 2"}
+            折扣价：${$vo.price2}<s>{$vo.price}</s>
+        {/if}
+    </td>
+    <td>{$auditStatus[$vo['audit_status']]}</td>
+    <td>{$vo['thirdPartyTag']==1?'后台上传':'小程序平台'}</td>
+    <td>{$vo.shop_goods_id}</td>
+    <td>{$vo.add_time|dateTpl}</td>
+    <td>
+        <a title="查看详情" class="m-xs" href="{:url('info',['id'=>$vo['id']])}" ><i class="fa fa-edit text-muted"></i></a>
+    </td>
+</tr>
+
+{/volist}
+</tbody>
+</table>
+{empty name="data.list"}
+<table width="100%" >
+ 	<tr><td height="300" colspan="8" align="center" valign="middle" >没有相关数据！</td></tr>
+</table>
+{/empty}
