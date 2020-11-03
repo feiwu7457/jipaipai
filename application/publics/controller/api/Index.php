@@ -63,14 +63,15 @@ class Index extends ApiController
     
     public function  get_index_data(){
         $result['is_diy'] = settings('xcx_index_tpl');
+        $is_xcx=input('is_xcx',0);
         if ($result['is_diy'] == 1){//自定义修装
             $ShopPageTheme = new \app\shop\model\ShopPageTheme();
             $result['diypage'] = $ShopPageTheme->getToWxApp();
         }else{
             $GoodsModel = new GoodsModel();
             $result = [];
-            $result['slideList'] = SlideModel::getRows();//获取幻灯片
-            $result['navMenuList'] = NavMenuModel::getRows();//获取导航菜单
+            $result['slideList'] = SlideModel::getRows($is_xcx);//获取幻灯片
+            $result['navMenuList'] = NavMenuModel::getRows(1,$is_xcx);//获取导航菜单
             foreach ($result['navMenuList'] as $k => &$v) {
                 $v['xcxurl'] = miniPathReplace($v['url']);
             }
@@ -78,6 +79,14 @@ class Index extends ApiController
             $result['promoteList'] = $GoodsModel->getIndexPromoteList();//促销商品
             $result['bestGoods'] = $GoodsModel->getIndexBestGoods();//猜你喜欢
         }
+        $result['code'] = 1;
+        return $this->ajaxReturn($result);
+    }
+    public function  get_diy_data(){
+
+            $ShopPageTheme = new \app\shop\model\ShopPageTheme();
+            $result['diypage'] = $ShopPageTheme->getToWxApp();
+
         $result['code'] = 1;
         return $this->ajaxReturn($result);
     }

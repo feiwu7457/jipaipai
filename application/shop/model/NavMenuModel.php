@@ -23,7 +23,7 @@ class NavMenuModel extends BaseModel
     /*------------------------------------------------------ */
     //-- 获取列表
     /*------------------------------------------------------ */
-    public static function getRows($type = 1){
+    public static function getRows($type = 1,$is_xcx=0){
         $mkey = self::$mkey . '_' . $type;
         $rows = Cache::get($mkey);
         if (empty($rows) == false) return $rows;
@@ -33,7 +33,10 @@ class NavMenuModel extends BaseModel
 		foreach ($rows as $key=>$row){			
 			if($row['bind_type'] == 'article') $row['url'] = url('article/info',array('id'=>$row['ext_id']));
 			else if($row['bind_type'] == 'goods') $row['url'] = url('goods/info',array('id'=>$row['ext_id']));
-			else $row['url'] = $row['data'];			
+			else $row['url'] = $row['data'];
+            if ($is_xcx == 1) {
+                $row['url'] = str_replace('\\/', '/', xcxPathReplace(str_replace('/', '\\/', xcxPathReplace($row['url']))));
+            }
 			$rows[$key] = $row;
 		}
         Cache::set($mkey, $rows, 3600);

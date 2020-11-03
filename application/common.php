@@ -818,3 +818,36 @@ function isXcxWebView(){
     }
     return 0;
 }
+/**
+ * 小程序路径替换
+ * $json string 自定义装修内容
+ */
+function xcxPathReplace($json){
+    $urla = $urlb = [];
+    $repUrl[] = [str_replace('/','\\/',config('config.host_path')),'\/pages\/index\/index'];
+    $repUrl[] = ['\/shop\/goods\/info\/id\/','\/pages\/productDetails\/productDetails?goods_id='];
+    $repUrl[] = ['\/member\/center\/index','\/pages\/my\/my'];
+    $repUrl[] = ['\/shop\/goods\/index\/cid\/','\/pages\/goodsList\/goodsList?categoryid='];
+    $repUrl[] = ['\/shop\/goods\/index','\/pages\/goodsList\/goodsList'];
+    $repUrl[] = ['\/shop\/flow\/cart','\/pages\/cart\/cart'];
+    $repUrl[] = ['\/shop\/index\/allsort','\/pages\/classify\/classify'];
+    $repUrl[] = ['\/shop\/order\/index','\/pages\/myorders\/myorders'];
+    $repUrl[] = ['\/member\/center\/address','\/pages\/address\/address'];
+    $repUrl[] = ['\/member\/center\/userinfo','\/pages\/personalData\/personalData'];
+    $repUrl[] = ['\/member\/my_team\/index','\/pages\/myfans\/myfans'];
+    $repUrl[] = ['\/member\/wallet\/index','\/pages\/myBalance\/myBalance'];
+    $repUrl[] = ['\/member\/user_sign\/index','\/pages\/sign\/sign'];
+    $repUrl[] = ['\/integral\/goods\/index',''];//积分商城入口，未发现
+    $repUrl[] = ['\/distribution\/role_goods\/index',''];//身份商品入口，未发现
+    $repUrl[] = ['\/shop\/bonus\/bonuscenterx','\/pages\/couponCenter\/couponCenter'];
+    $repUrl[] = ['\/fightgroup\/index\/index','\/pages\/groupBuy\/groupBuy'];
+    $repUrl[] = ['\/second\/index\/index','\/pages\/seckill\/seckill'];
+    $repUrl[] = ['\/shop\/article\/info\/id\/',''];//文章内容，未发现
+    $repUrl[] = ['\/shop\/index\/diypage\/pageid\/','\/pages\/diys\/diys?id='];//其它装修，未发现
+
+    foreach ($repUrl as $url){
+        $urla[] = $url[0];
+        $urlb[] = $url[1];
+    }
+    return str_replace($urla,$urlb,$json);
+}

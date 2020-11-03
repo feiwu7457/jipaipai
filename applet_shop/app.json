@@ -76,6 +76,7 @@
     "pages/teamAchievement/teamAchievement",
     "pages/roomList/index",
     "pages/roomReplay/index",
+    "pages/diys/diys",
     "pages/applyLive/applyLive",
     "pages/customer/customer"
   ],
