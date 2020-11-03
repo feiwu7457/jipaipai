@@ -743,4 +743,40 @@ class Users extends ApiController
         $res['img'] = $MergeImg->shareImg($data,-1);
         return $this->success('请求成功.','',$res);
     }
+    /*------------------------------------------------------ */
+    //-- 获取远程会员头像到本地
+    /*------------------------------------------------------ */
+    public function getHeadImg($return = false)
+    {
+        $headimgurl = $this->userInfo['headimgurl'];
+        if (empty($headimgurl) == false) {
+            if (strstr($headimgurl, config('config.host_path'))) {
+                $headimgurl = str_replace(config('config.host_path'), "", $headimgurl);
+            } elseif (strstr($headimgurl, 'http')) {
+                $headimgurl = strstr($headimgurl, 'https') ? str_replace("https", "http", $headimgurl) : $headimgurl;
+                if (($headers = get_headers($headimgurl, 1)) !== false) {
+                    // 获取响应的类型
+                    $types = $headers['Content-Type'];
+                }
+                $types_arr = explode('/', $types);
+                // $type = pathinfo($headimgurl,PATHINFO_EXTENSION);
+                if (empty($types_arr[1]) == false) {
+                    $type = $types_arr[1];
+                } else {
+                    $type = 'jpeg';
+                }
+                $file_path = config('config._upload_') . 'headimg/' . substr($this->userInfo['user_id'], -1) . '/';
+                makeDir($file_path);
+                $file_name = $file_path . random_str(12) . '.' . $type;
+                downloadImage($headimgurl, $file_name);
+                $headimgurl = trim($file_name, '.');
+                $upArr['headimgurl'] = config('config.host_path') . $headimgurl;
+                (new UsersModel)->upInfo($this->userInfo['user_id'], $upArr);
+            }
+        }
+        if ($return == true) return '.' . $headimgurl;
+        $return['headimgurl'] = $headimgurl;
+        $return['code'] = 1;
+        return $this->ajaxReturn($return);
+    }
 }
