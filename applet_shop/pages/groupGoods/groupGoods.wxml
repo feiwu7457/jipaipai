@@ -1,0 +1,354 @@
+<view wx:if="{{is_on_sale == 0 || is_on_sale == 9}}">
+  <!--pages/joinBuyed/joinBuyed.wxml-->
+  <view class="page2">
+    <view class='top' wx:if='{{is_on_sale == 9}}'>
+      <image src='/images/groupOrder03.jpg'></image>
+      <view class='fs34 fw_b color_3'>拼团已结束</view>
+      <text class='fs26 color_9'>对不起，该拼团活动已结束！</text>
+    </view>
+    <view class='top' wx:elif='{{is_on_sale == 0}}'>
+      <image src='/images/groupOrder04.png'></image>
+      <view class='fs34 fw_b color_3'>拼团未开始</view>
+      <text class='fs26 color_9'>对不起，该拼团活动还没有开始！</text>
+    </view>
+
+  <view class='weui-cells border-none seckill_cells'>
+    <view class='cell_title'>商品信息</view>
+    <view class='weui-cell border-none'  bindtap='goGoodsInfo' data-fg_id='{{fgInfo.fg_id}}'>
+      <view class='weui-cell__hd'>
+        <view class='hd_img_box'>
+          <image class='hd_img' src='{{imgBase}}{{goods.goods_thumb}}'></image>
+        </view>
+      </view>
+      <view class='weui-cell__bd'>
+        <view class='title ellipsisLn2'>{{goods.goods_name}}</view>
+        <view class='weui-flex flex-center mt10'>
+          <view class='weui-flex__item'>
+
+            <text class='price_Y fs24'>￥</text>
+            <text class='price fs42 ff'>{{fgInfo.exp_price[0]}}.{{fgInfo.exp_price[1]}}</text>
+            <text class='badge'>{{fgInfo.success_num}}人团</text>
+          </view>
+          <view wx:if='{{is_on_sale == 9}}'>
+            <view class='text-muted fs26'>已团{{fgInfo.buy_goods_num}}件</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+
+    <view class='weui-cells group_cells'>
+      <view class='weui-cell pb0'>
+        <view class='weui-cell__bd'>
+          <text class='fs32 fw_b'>拼团规则</text>
+        </view>
+      </view>
+      <view class='weui-cell '>
+        <view class='weui-cell__bd'>
+          
+          <view class='weui-flex mt20'>
+            <view class='num'>2</view>
+            <view class='weui-flex__item text-muted'>
+              如规定时间内团内人数不足，则订单取消，原路返还
+            </view>
+          </view>
+        </view>
+      </view>
+
+
+    </view>
+
+    <view class='btn_box'>
+      <view bindtap='goIndex' hover-class="none" class='btn_primary'>去首页逛逛</view>
+    </view>
+  </view>
+</view>
+<view wx:else>
+  <scroll-view scroll-y class='page-scroll'>
+    <view class='pagetop'>
+      <view class='swiper-box'>
+        <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+          <block wx:for="{{imgUrls}}" wx:key="dtsw">
+            <swiper-item>
+              <image wx:if="{{item}}" src="{{imgBase}}{{item.goods_img}}" class="slide-image" />
+            </swiper-item>
+          </block>
+        </swiper>
+        <view class='icon_btns'>
+          <navigator url='/pages/goodsQR/goodsQR?goods_id={{goods.goods_id}}'>
+            <image src='/images/goodsIcon01.png' />
+          </navigator>
+          <view bindtap='collect'>
+            <image wx:if="{{isCollect}}" src='/images/goodsIcon03_lh.png' />
+            <image wx:else src='/images/goodsIcon03.png' />
+          </view>
+        </view>
+      </view>
+
+      <view class='weui-cells mt0'>
+        <view class='weui-cell pt0'>
+          <view class='weui-cell__bd'>
+            <view class='allMoney'>
+              <text class='fs30 fw_b'>￥</text>
+              <text class='fs52 ff'>{{fgInfo.exp_price[0]}}</text>
+              <text class='fs30 ff'>.{{fgInfo.exp_price[1]}}</text>
+              <text class='badge offset'>拼团价</text>
+              <view class='fs24 color_3'>单买价 ￥{{goods.shop_price}}</view>
+            </view>
+            <view>
+              <text class='sprice'>￥{{goods.market_price}}</text>
+            </view>
+          </view>
+        </view>
+        <view class='weui-cell border-none pt0'>
+          <view class='weui-cell__bd'>
+            <view class='title fs34 fw600 ellipsisLn2'>
+              <text class='color_r'>【{{fgInfo.success_num}}人团】</text>{{goods.goods_name}}</view>
+          </view>
+        </view>
+        <view class='weui-cell border-none pt0'>
+          <view class='weui-cell__bd'>
+            <view>
+              <text class='fs28 text-muted'>热销{{goods.sale_count}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='weui-cells'>
+      <view class='weui-cell weui-cell__ft_in-access' bindtap='openGroup'>
+
+        <view class='weui-cell__bd fs28 fw_b groupTime'>
+          <text class='color_r people'>已有{{fgInfo.all_order_num}}人参与</text> 还剩{{showTime[0]}}天
+          <view class='timeBox'>
+            <text>{{showTime[1]}}</text>:
+            <text>{{showTime[2]}}</text>:
+            <text>{{showTime[3]}}</text>
+          </view>
+        </view>
+        <view class='weui-cell__ft'>参团规则</view>
+      </view>
+    </view>
+    <view class='weui-cells' wx:if="{{fgListCount > 0}}">
+      <view class='weui-cell weui-cell__ft_in-access'>
+        <view class='weui-cell__bd'>{{fgListCount}}人在拼单</view>
+        <navigator url='/pages/groupBuying/groupBuying?fg_id={{fgInfo.fg_id}}' class='weui-cell__ft'>更多</navigator>
+      </view>
+      <view class='weui-cell groupTeam' wx:for="{{fgList}}" wx:key="keys" wx:for-item="item">
+        <view class='weui-cell__hd'><image src='{{item.headimgurl}}'></image></view>
+        <view class='weui-cell__bd'>
+        <text class='fs28 fw_b'>{{item.nick_name}}</text>
+        <view class='fs24 color_9'>还差{{fgInfo.success_num - item.order_count}}人 剩余{{showTime2[item.gid][1]}}:{{showTime2[item.gid][2]}}:{{showTime2[item.gid][3]}}</view>
+        </view>
+        <navigator url='/pages/joinBuy/joinBuy?join_id={{item.gid}}' class='weui-cell__ft fs24 color_r fw_b'>去拼团</navigator>
+      </view>
+          <!-- <view class='weui-cell groupTeam'>
+        <view class='weui-cell__hd'><image src='/images/df_tx.png'></image></view>
+        <view class='weui-cell__bd'>
+        <text class='fs28 fw_b'>狂风扫落叶</text>
+        <view class='fs24 color_9'>还差1人 剩余23:26:41</view>
+        </view>
+        <navigator url='/pages/joinBuy/joinBuy' class='weui-cell__ft fs24 color_r fw_b'>去拼团</navigator>
+      </view> -->
+    </view>
+    <view class='weui-cells'>
+      <view class='weui-cell weui-cell__ft_in-access' bindtap='openGG'>
+        <view class='weui-cell__bd fs32 fw600'>选择规格</view>
+        <view class='weui-cell__ft' wx:if="{{showSkuName == ''}}">请选择规格</view>
+        <view class='weui-cell__ft' wx:else>{{showSkuName}} / {{goodsnumber}}件</view>
+      </view>
+    </view>
+
+    <view class='weui-cells' wx:if="{{commentCount > 0}}">
+      <!-- <view class='weui-cell weui-cell__ft_in-access'>
+        <view class='weui-cell__hd'>
+          <image class='pplogo' src='/images/shoplogo.png'></image>
+        </view>
+        <view class='weui-cell__bd fs32 fw600'>阿玛尼官方旗舰店</view>
+      </view> -->
+
+      <navigator url='/pages/goodsAppraise/goodsAppraise?goods_id={{goods.goods_id}}' class='weui-cell bor_left0  weui-cell__ft_in-access'>
+        <view class='weui-cell__bd fs32 fw600'>
+          用户评价
+          <text class='text-muted'>({{commentCount}})</text>
+        </view>
+        <view class='weui-cell__ft'>更多</view>
+      </navigator>
+      <view wx:for='{{comment}}' wx:key="dfdf" >
+        <view class='weui-cell border-none pt0'>
+          <view class='weui-cell__hd'>
+            <image class='pl_tx' src='{{item.headimgurl}}'></image>
+          </view>
+          <view class='weui-cell__bd'>
+            <view class='fs28'>{{item.user_name}}</view>
+            <view class='fs24 text-muted'>{{item._time}}</view>
+          </view>
+        </view>
+        <view class='weui-cell border-none pt0'>
+          <view class='weui-cell__bd'>
+            <view class='pl_text'>{{item.content}}</view>
+            <view class='pl_imgs' wx:for='{{item.imgs}}' wx:key="xxxx" wx:for-item='imgItem'>
+              <image src='{{imgBase}}{{imgItem.thumbnail}}' />
+            </view>
+          </view>
+        </view>
+      </view>
+      <!-- <navigator url='/pages/question/question' class='weui-cell border-none  weui-cell__ft_in-access'>
+        <view class='weui-cell__bd fs32 fw600'>
+          问大家
+          <text class='text-muted'>(26)</text>
+        </view>
+        <view class='weui-cell__ft'>更多</view>
+      </navigator> -->
+
+      <!-- <view class='weui-cell border-none pt0 flex-start'>
+        <view class='weui-cell__hd'>
+          <text class='icon_wen'>问</text>
+        </view>
+        <view class='weui-cell__bd'>
+          <view class='fs28'>这款衣服色差大吗？</view>
+          <view class='fs26 mt10 text-muted'>4个回答</view>
+        </view>
+      </view> -->
+     <!--  <view class='weui-cell border-none pt0 flex-start'>
+        <view class='weui-cell__hd'>
+          <text class='icon_wen'>问</text>
+        </view>
+        <view class='weui-cell__bd'>
+          <view class='fs28'>羽绒服吗？有人鉴定过羽绒含量是99%以上吗？</view>
+          <view class='fs26 mt10 text-muted'>4个回答</view>
+        </view>
+      </view> -->
+    </view>
+
+    <view class='weui-cells mb20'>
+      <view class='weui-cell'>
+        <view class='weui-cell__bd'>
+          <view class='fs32 fw600'>商品详情</view>
+          <view class='details_content'>
+            <rich-text nodes="{{goods.m_goods_desc}}"></rich-text>
+            <!--图片内容-->
+            <!-- <image src='{{imgBase}}imgtext.png' mode='widthFix'></image>
+            <image src='{{imgBase}}imgtext.png' mode='widthFix'></image> -->
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <view class='bottom_btns'>
+    <view class='left'>
+      <view bindtap='goindex'>
+        <view class='icon'>
+          <image src='/images/tabbar_icon01.png'></image>
+        </view>
+        <view class='text'>首页</view>
+      </view>
+      <view>
+        <view class='icon' bindtap='goCustomer'>
+          <image src='/images/goodsIcon02.png'></image>
+        </view>
+        <view class='text'>客服</view>
+      </view>
+      <!-- <view bindtap='shopCart'>
+        <view class='icon'>
+          <text class='num'>8</text>
+          <image src='/images/tabbar_icon04.png'></image>
+        </view>
+        <view class='text'>购物车</view>
+      </view> -->
+    </view>
+    <view class='right'>
+      <view class='btns'>
+        <navigator class='btn1' url="/pages/productDetails/productDetails?goods_id={{goods.goods_id}}">单独购买</navigator>
+        <view class='btn2' bindtap='openGG'>发起拼团</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 弹出规格选择 -->
+
+  <view class="model  {{guigeModel?'model_show':''}}" wx:if='{{guigeModel}}'>
+    <view class='modelBg' bindtap='closeGG'></view>
+    <view class="modelContent">
+      <view class="closeBox" bindtap='closeGG'>
+        <image src='/images/close_icon.png'></image>
+      </view>
+      <view class="top">
+        <view class="left">
+          <image src='{{imgBase}}{{skuImgs}}'></image>
+        </view>
+        <view class="right">
+          <view class="money">
+            <view class="text-red fs30 num">
+              <p class="fw_b fm_p">￥</p>
+              <em class="fs52 ff">{{valprice[0]}}</em>
+              <p class="fw_b ff">.{{valprice[1]}}</p>
+            </view>
+            <text class="fs22 color_w BGcolor_r">{{fgInfo.success_num}}人团</text>
+          </view>
+          <view class="fs24 color_9 moneyPrimary">￥{{goods.market_price}}</view>
+          <p class="fs28 fw_b color_3 goodstype" style="float: left;">{{showSku}}</p>
+        </view>
+      </view>
+      <view class="cantre">
+        <view wx:if="{{goods.is_spec == 1}}" wx:for="{{skuArr}}" wx:key="ids" wx:for-index="bindex">
+          <view class="block">
+            <text class="fs32 fw_b color_3">{{item.name}}</text>
+            <view class="list color">
+              <text wx:if="{{item.is_show == 1}}" wx:for="{{item.lstVal}}" wx:key="idss" wx:for-item="vo" class="fs28 color_3 {{vo.id == coArr[bindex]?'tag_active':''}} bor-1px" data-pid="{{bindex}}" data-id="{{vo.id}}" bindtap='changColor'>{{vo.val}}</text>
+            </view>
+          </view>
+        </view>
+        <view class="block">
+          <view class="numberBox">
+            <text class="fs32 fw_b color_3">数量</text>
+            <view class="number">
+              <text class="number-sub fs30" bindtap='minus'>-</text>
+              <input class="number-input fs28" type="text" bindinput='input_num' value="{{goodsnumber}}" />
+              <text class="number-plus fs30" bindtap='add'>+</text>
+            </view>
+          </view>
+        </view>
+      </view>
+      <!-- <view class="buttBox">
+        <text class="fs28 fw_b color_w BGcolor_3" bindtap='addCart'>加入购物车</text>
+        <text class="fs28 fw_b color_w BGcolor_r" bindtap='pay'>立即购买</text>
+      </view> -->
+
+      <view class="buttBox">
+        <view class="fs28 fw_b color_w BGcolor_r" bindtap='buy_now' >发起拼团 ￥
+          <em class="fs40">{{valprice[0]}}</em>
+          <p class="fw_b ff">.{{valprice[1]}}</p>
+        </view>
+      </view>
+    </view>
+  </view>
+
+
+  <!--拼团规则-->
+  <view class="model  {{guigeGroup?'model_show':''}}" wx:if='{{guigeGroup}}'>
+    <view class='modelBg' bindtap='closeGroup'></view>
+    <view class="modelContent guigeContent">
+      <view class="closeBox" bindtap='closeGroup'>
+        <image src='/images/close_icon.png'></image>
+      </view>
+      <view class='fs36 fw_b guigetitle'>拼团规则</view>
+      <view class='guigetext'>
+        <view>
+          <text class='sign'>1</text>
+          <text class='fs26 color_9 guize'>如规定时间内团内人数不足，则订单取消，原路返还</text>
+        </view>
+        <!-- <view>
+          <text class='sign'>2</text>
+          <text class='fs26 color_9 guize'>拼团抽奖，规定时间内集齐拼团规定人数即可开奖，团内任意1人开出免单，全团都可免单</text>
+        </view>
+        <view>
+          <text class='sign'>3</text>
+          <text class='fs26 color_9 guize'>拼团抽奖，规定时间内集齐拼团规定人数即可开奖，团内任意1人开出免单，全团都可免单</text>
+        </view> -->
+      </view>
+    </view>
+  </view>
+</view>

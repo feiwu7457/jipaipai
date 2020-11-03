@@ -1,0 +1,179 @@
+/* pages/teamReview/teamReview.wxss */
+.page-bd {
+  color: #333333;
+}
+
+.page-bd .nav-tab {
+  display: flex;
+  font-size: 32rpx;
+  color: #999999;
+  background-color: #ffffff;
+}
+
+.page-bd .nav-tab .pending {
+  flex: 1;
+  padding: 34rpx 0;
+  text-align: center;
+}
+
+.page-bd .nav-tab .Processed {
+  flex: 1;
+  padding: 34rpx 0;
+  text-align: center;
+}
+
+.page-bd .nav-tab .active {
+  position: relative;
+  font-weight: bold;
+  color: #333333;
+}
+
+.page-bd .nav-tab .active::before {
+  content: " ";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  height: 10rpx;
+  width: 40rpx;
+  margin-left: -20rpx;
+  background-color: #f65236;
+}
+
+.page-bd .list-item {
+  padding: 37rpx 40rpx 37rpx 33rpx;
+  margin-top: 20rpx;
+  display: flex;
+  justify-content: space-between;
+  background-color: #ffffff;
+}
+
+.page-bd .list-item .item-left .headimg {
+  width: 80rpx;
+  height: 80rpx;
+  margin: 48rpx 30rpx 0 0;
+
+  border-radius: 50%;
+}
+
+.page-bd .list-item .item-middle {
+  flex: 1;
+}
+
+.page-bd .list-item .item-middle .nickname {
+  margin-bottom: 12rpx;
+  font-size: 28rpx;
+  font-weight: bold;
+}
+
+.page-bd .list-item .item-middle .userid,
+.page-bd .list-item .item-middle .contact {
+  font-size: 26rpx;
+  color: #999999;
+}
+
+.page-bd .list-item .item-middle .withdraw {
+  margin-top: 12rpx;
+  font-size: 26rpx;
+  color: #333333;
+}
+
+.page-bd .list-item .item-middle .withdraw .money {
+  color: #f65236;
+}
+
+.page-bd .list-item .item-right.submit-btn {
+  margin-top: 45rpx;
+  height: 56rpx;
+  line-height: 56rpx;
+  padding: 0rpx 24rpx;
+  font-size: 28rpx;
+  color: #ffffff;
+  background-color: #f65236;
+}
+
+.page-bd .list-item .item-right.issued {
+  font-size: 28rpx;
+  color: #999999;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal .modal-main {
+  width: 600rpx;
+  margin: auto;
+  margin-top: 400rpx;
+  background-color: #ffffff;
+}
+
+.modal .modal-main .modal-content {
+  padding: 83rpx 0 100rpx;
+  text-align: center;
+  font-size: 30rpx;
+  color: #333333;
+  overflow: hidden;
+}
+
+.modal .modal-main .modal-footer {
+  display: flex;
+  border-top: 1rpx solid #eeeeee;
+}
+
+.modal .modal-main .modal-footer .modal-cancel {
+  flex: 1;
+  padding: 30rpx 0;
+  text-align: center;
+  font-size: 32rpx;
+  color: #999999;
+  border-right: 1rpx solid #eeeeee;
+}
+
+.modal .modal-main .modal-footer .modal-confirm {
+  flex: 1;
+  padding: 30rpx 0;
+  text-align: center;
+  font-size: 32rpx;
+  color: #f65236;
+}
+
+/*逐渐显示*/
+
+.toShow {
+  animation: toShow 0.8s 0.5s;
+  animation-fill-mode: both !important;
+  -webkit-animation-fill-mode: both !important;
+}
+
+@keyframes toShow {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.orders-box {
+    position: absolute;
+    top: 100rpx;
+    /* margin-top: 10rpx; */
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+.no-data {
+  text-align: center;
+  color: #555;
+  height: 80rpx;
+  line-height: 80rpx;
+  margin-top: 30rpx;
+}

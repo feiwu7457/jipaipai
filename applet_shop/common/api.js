@@ -43,6 +43,7 @@ function fetchPost(url, data, callback) {
         data.devtoken = user_devtoken
         data.source = 'developers'
         data.timeStamp = new_time
+        data.is_xcx=1
         data.sign = md5.hexMD5(user_devtoken + new_time + keys)
     }
     wx.request({

@@ -1,0 +1,107 @@
+.page-bd {
+  color: #333333;
+}
+
+.page-bd .withdraw-money {
+  width: 100%;
+  text-align: center;
+  background-color: #ffffff;
+}
+
+.page-bd .withdraw-money .money-num {
+  padding: 74rpx 0 0rpx;
+  font-size: 48rpx;
+  font-weight: bold;
+}
+
+.page-bd .withdraw-money .text {
+  margin: 20rpx 0 37rpx;
+  font-size: 26rpx;
+  color: #333333;
+  opacity: 0.5;
+}
+
+.page-bd .withdraw-money .submit-btn {
+  display: inline-block;
+  width: 160rpx;
+  height: 56rpx;
+  margin-bottom: 40rpx;
+  text-align: center;
+  line-height: 56rpx;
+  color: #ffffff;
+  background-color: #f65236;
+}
+
+.page-bd .date {
+  padding: 30rpx 43rpx 30rpx 35rpx;
+  display: flex;
+  justify-content: space-between;
+  font-size: 30rpx;
+  font-weight: bold;
+}
+
+.page-bd .date image {
+  width: 32rpx;
+  height: 40rpx;
+}
+
+.page-bd .withdraw-info__list {
+  padding: 30rpx 45rpx 30rpx 35rpx;
+  background-color: #ffffff;
+}
+
+.page-bd .withdraw-info__list .list-item {
+  padding: 30rpx 0;
+}
+
+.page-bd .withdraw-info__list .list-item__top {
+  margin-bottom: 15rpx;
+  display: flex;
+  justify-content: space-between;
+  font-size: 30rpx;
+  font-weight: bold;
+}
+
+.page-bd .withdraw-info__list .list-item__bottom {
+  display: flex;
+  justify-content: space-between;
+  font-size: 24rpx;
+  color: #999999;
+}
+
+.page-bd .success {
+  color: #999999;
+}
+
+.page-bd .fail {
+  color: #f65236;
+}
+
+.page-bd .pending {
+  color: #f65236;
+}
+
+
+.emptyDataBox{
+  display: flex;
+  justify-content: center;
+  padding-bottom: 200rpx;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+}
+.emptyDataBox image{
+  width: 100vw;
+  height: 380rpx;
+}
+
+.orders-box {
+    position: absolute;
+    top: 0rpx;
+    /* margin-top: 10rpx; */
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}

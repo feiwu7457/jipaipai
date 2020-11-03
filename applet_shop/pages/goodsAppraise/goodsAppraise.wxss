@@ -1,0 +1,55 @@
+/* pages/goodsAppraise/goodsAppraise.wxss */
+page{
+  background-color: #fff;
+}
+.pplogo {
+  width: 70rpx;
+  height: 70rpx;
+  margin-right: 16rpx;
+  margin-top: -4rpx;
+  margin-bottom: -4rpx;
+}
+
+.bor_left0::before {
+  left: 0;
+}
+
+.pl_tx {
+  width: 60rpx;
+  height: 60rpx;
+  margin-right: 14rpx;
+  border-radius: 50%;
+}
+
+.pl_text {
+  font-size: 28rpx;
+  margin-bottom: 20rpx;
+}
+
+.bor-1px-b{
+  border-bottom: 1rpx solid #eee;
+}
+.weui-cell text{
+  margin-top: 20rpx;
+  display: block;
+}
+.oneimg image{
+    width: 420rpx;
+  height: 420rpx;
+}
+.twoimg image{
+  width: 204rpx;
+  height: 204rpx;
+  margin-right: 14rpx;
+}
+.threeimg image{
+  width: 130rpx;
+  height: 130rpx;
+  margin-right: 14rpx;
+}
+
+.pl_imgs image {
+  width: 210rpx;
+  height: 210rpx;
+  margin-right: 14rpx;
+}

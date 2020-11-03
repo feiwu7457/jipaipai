@@ -19,6 +19,8 @@
     "pages/groupBuyFail/groupBuyFail",
     "pages/groupBuying/groupBuying",
     "pages/groupBuy/groupBuy",
+    "pages/buyVIP/buyVIP",
+    "pages/groupGoods/groupGoods",
     "pages/mygroupBuy/mygroupBuy",
     "pages/classify/classify",
     "pages/qrcode/qrcode",
@@ -63,12 +65,24 @@
     "pages/sign/sign",
     "pages/signInRecord/signInRecord",
     "pages/authorizeLogin/authorizeLogin",
-    "pages/couponCenter/couponCenter"
+    "pages/couponCenter/couponCenter",
+    "pages/paymentGroup/paymentGroup",
+    "pages/couponsGroup/couponsGroup",
+    "pages/goodsAppraise/goodsAppraise",
+    "pages/teamReview/teamReview",
+    "pages/drawing/drawing",
+    "pages/drawInfo/drawInfo",
+    "pages/draw/draw",
+    "pages/teamAchievement/teamAchievement",
+    "pages/roomList/index",
+    "pages/roomReplay/index",
+    "pages/applyLive/applyLive",
+    "pages/customer/customer"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#F2F2F2",
-    "navigationBarTitleText": "集拍拍",
+    "navigationBarTitleText": "",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
@@ -90,7 +104,7 @@
         "text": "分类"
       },
       {
-        "pagePath": "pages/my/my",
+        "pagePath": "pages/qrcode/qrcode",
         "iconPath": "images/fxqwxz.png",
         "selectedIconPath": "images/fxqxzt.png",
         "text": "会员中心"
@@ -109,5 +123,8 @@
       }
     ]
   },
+  "navigateToMiniProgramAppIdList": [
+      "wxcbbd86b156ae4441"
+  ],
   "sitemapLocation": "sitemap.json"
 }

@@ -1,0 +1,134 @@
+<view class="check" wx:if="{{checkVIP==1 && checkState == 1}}">
+     <view class="con-check">
+        <view class="bgc-img">
+           <image style='display:inline' src="../../images/check2.png"></image>
+        </view>
+        <view class="fs30 check-text">您的申请成为“{{myOrderInfo.goods_name}}”正在审核中！</view>
+        <view class="fs30 check-text">请联系用户{{PayUser.nick_name}}</view>
+        <view class="fs30 check-text"  wx:if="{{PayUser.user_id>0}}">用户ID:{{PayUser.user_id?PayUser.user_id:'没有记录'}}</view>
+        <view class="fs30 check-text">手机号:{{PayUser.mobile?PayUser.mobile:'没有记录'}}</view>
+        <view class="fs30 check-text">微信号:{{PayUser.weixin_no?PayUser.weixin_no:'没有记录'}}</view>
+        <view class='btn_box ' bindtap="goCustomer">
+            <view  class='btn_primary fs32'>联系客服</view>
+        </view>
+    </view>
+
+</view>
+<view class="check" wx:elif="{{checkVIP==1 && checkState == 2}}">
+     <view class="con-check">
+        <view class="bgc-img">
+           <image style='display:inline' src="../../images/check2.png"></image>
+        </view>
+        <view class="fs30 check-text">您的申请成为“{{myOrderInfo.goods_name}}”平台正在审核中</view>
+        <view class="fs30 check-text">请耐心等候！</view>
+        <view class='btn_box ' bindtap="goCustomer">
+            <view  class='btn_primary fs32'>联系客服</view>
+        </view>
+    </view>
+</view>
+
+<view class="check" wx:elif="{{checkVIP==1 && checkState == 3}}">
+    <view class="con-check" >
+        <view class="bgc-img">
+           <image style='display:inline' src="../../images/check1.png"></image>
+        </view>
+        <view class="fs30 check-text">您的申请成为“{{myOrderInfo.goods_name}}”未通过审核！</view>
+        <view class="fs30 check-text">请联系用户{{PayUser.nick_name}}</view>
+        <view class="fs30 check-text"  wx:if="{{PayUser.user_id>0}}">用户ID:{{PayUser.user_id?PayUser.user_id:'没有记录'}}</view>
+        <view class="fs30 check-text">手机号:{{PayUser.mobile?PayUser.mobile:'没有记录'}}</view>
+        <view class="fs30 check-text">微信号:{{PayUser.weixin_no?PayUser.weixin_no:'没有记录'}}</view>
+        <view class='btn_box '>
+            <view  class='btn_primary fs32' bind:tap="againBuy">重新申请</view>
+        </view>
+        <view class='btn_box' bindtap="goCustomer"  style="margin-top: 0;">
+            <view  class='btn_primary fs32'>联系客服</view>
+        </view>
+    </view>
+</view>
+<view class="check" wx:elif="{{checkVIP==1 && checkState == 4}}">
+    <view class="con-check" >
+        <view class="bgc-img">
+           <image style='display:inline' src="../../images/check1.png"></image>
+        </view>
+        <view class="fs30 check-text">您的申请成为“{{myOrderInfo.goods_name}}”未通过审核！</view>
+        <view class='btn_box'>
+            <view  class='btn_primary fs32' bind:tap="againBuy">重新申请</view>
+        </view>
+        <view class='btn_box ' bindtap="goCustomer" style="margin-top: 0;">
+            <view  class='btn_primary fs32' >联系客服</view>
+        </view>
+    </view>
+</view>
+<view class="page-bd" wx:elif="{{checkVIP==0}}">
+  <!-- start 页面内容 -->
+  <view class="page-bd-main">
+    <view class="main-title">升级类型</view>
+    <!-- start 单选group 列表 -->
+    <radio-group class="type-list radio-group">
+      <view class="type-list__item" wx:for="{{lists}}" wx:key="indexs">
+        <icon>
+          <image src="{{pic_host}}{{item.goods_img}}" alt=""></image>
+        </icon>
+        <view class="item-context">
+          <text class="context-txt1">{{item.goods_name}}</text>
+          <text class="context-txt2">(交款{{item.sale_price}})</text>
+        </view>
+        <radio class="radio"  bindtouchend="radioChange" data-rg_id="{{item.rg_id}}" data-role_id="{{item.role_id}}"></radio>
+      </view>
+      <!-- <view class="type-list__item">
+        <icon>
+          <image src="../../images/ypIcon.png" alt=""></image>
+        </icon>
+        <view class="item-context">
+          <text class="context-txt1">运营图标</text>
+          <text class="context-txt2">(交款1.2w)</text>
+        </view>
+        <radio class="radio" checked=""></radio>
+      </view>
+      <view class="type-list__item">
+        <icon>
+          <image src="../../images/partner.png" alt=""></image>
+        </icon>
+        <view class="item-context">
+          <text class="context-txt1">合伙人</text>
+          <text class="context-txt2">(交款1.2w)</text>
+        </view>
+        <radio class="radio" checked=""></radio>
+      </view> -->
+    </radio-group>
+    <!-- end 单选group 列表 -->
+    <view class="precautions" wx:if="{{role_directions_status == 1}}">
+      <view class="precautions-title">注意事项</view>
+      <view class="precautions-info">
+        <rich-text nodes="{{role_directions}}"></rich-text>
+        <!-- <view class="p">1.长按保存您的推广二维码或提供给您的代理扫描</view>
+        <view class="p">2.复制您的专属邀请链接：“http：//www.youtube.com”给您的代理</view>
+        <view class="p">3.如果您是微信访问，请点击右上角，直接将分享给您的朋友或朋友圈</view> -->
+      </view>
+    </view>
+  </view>
+  <!-- end 页面内容 -->
+  <view class="submit-btn" bindtap="submitPay">提交申请</view>
+  <!-- 弹窗1 -->
+  <view class="modal1" wx:if="{{is_tishi == 1}}">
+    <view class="modal-main">
+      <view class="modal-title">{{tipTxt}}</view>
+      <view class="modal-content">
+        <view>请联系用户：{{PayUser.nick_name}} </view>
+        <view  wx:if="{{PayUser.user_id>0}}">用户ID:{{PayUser.user_id?PayUser.user_id:'没有记录'}}</view>
+        <view>手机号:{{PayUser.mobile?PayUser.mobile:'没有记录'}}</view>
+        <view>微信号:{{PayUser.weixin_no?PayUser.weixin_no:'没有记录'}}</view>
+      </view>
+      <view class="modal-footer" data-modal=".modal1" bind:tap="closeModal1">好的</view>
+    </view>
+  </view>
+  <!-- 弹窗2 -->
+  <!-- <view class="modal2" wx:if="{{is_buy==1}}">
+    <view class="modal-main">
+      <view class="modal-content">
+        <view>您已提交其他身份审核，请耐心等待</view>
+      </view>
+      <view class="modal-footer" data-modal=".modal2">好的</view>
+    </view>
+  </view> -->
+</view>

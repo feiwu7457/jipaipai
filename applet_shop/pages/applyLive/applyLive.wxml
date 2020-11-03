@@ -1,0 +1,136 @@
+<!--pages/addAddress/addAddress.wxml-->
+<block wx:if="{{is_show}}">
+<form bindsubmit="doaddress">
+    <view class="weui-cells weui-cells_form mt0">
+        <view class="weui-cell">
+            <view class="weui-cell__hd">
+                <label class="weui-label fw600">直播间标题</label>
+            </view>
+            <view class="weui-cell__bd">
+                <input class="weui-input" name="title" value='{{title}}' type="text" placeholder="请输入直播间标题" />
+            </view>
+        </view>
+        <view class="weui-cell">
+            <view class="weui-cell__hd">
+                <label class="weui-label fw600">主播昵称</label>
+            </view>
+            <view class="weui-cell__bd">
+                <input class="weui-input" name="name" value='{{name}}' type="text" placeholder="请输入主播昵称" />
+            </view>
+        </view>
+        <view class="weui-cell">
+            <view class="weui-cell__hd">
+                <label class="weui-label fw600">主播微信号</label>
+            </view>
+            <view class="weui-cell__bd">
+                <input class="weui-input" name="weixin" value='{{weixin}}' type="text" placeholder="请输入主播微信号" />
+            </view>
+        </view>
+        <view class="weui-cell">
+            <view class="weui-cell__hd">
+                <label class="weui-label fw600">主播副号</label>
+            </view>
+            <view class="weui-cell__bd">
+                <input class="weui-input" name="weixin_fu" value='{{weixin_fu}}' type="text" placeholder="请输入主播副号" />
+            </view>
+        </view>
+        <view class="weui-cell">
+            <view class="weui-cell__hd">
+                <label class="weui-label fw600">开始时间</label>
+            </view>
+            <view class="weui-cell__bd">
+                <view class="container">
+                    <picker-view indicator-style="height: 50px;" style="width: 100%; height: 150px;" value="{{value1}}" bindchange="bindChange1">
+                        <picker-view-column>
+                            <view wx:for="{{years}}" wx:key="i" style="line-height: 50px; text-align: center;">{{item}}年</view>
+                        </picker-view-column>
+                        <picker-view-column>
+                            <view wx:for="{{months}}" wx:key="i" style="line-height: 50px; text-align: center;">{{item}}月</view>
+                        </picker-view-column>
+                        <picker-view-column>
+                            <view wx:for="{{days}}" wx:key="i" style="line-height: 50px; text-align: center;">{{item}}日</view>
+                        </picker-view-column>
+                    </picker-view>
+                </view>
+            </view>
+        </view>
+        <view class="weui-cell">
+            <view class="weui-cell__hd">
+                <label class="weui-label fw600">结束时间</label>
+            </view>
+            <view class="weui-cell__bd">
+                <view class="container">
+                    <picker-view indicator-style="height: 50px;" style="width: 100%; height: 150px;" value="{{value2}}" bindchange="bindChange2">
+                        <picker-view-column>
+                            <view wx:for="{{years}}" wx:key="i" style="line-height: 50px; text-align: center;">{{item}}年</view>
+                        </picker-view-column>
+                        <picker-view-column>
+                            <view wx:for="{{months}}" wx:key="i" style="line-height: 50px; text-align: center;">{{item}}月</view>
+                        </picker-view-column>
+                        <picker-view-column>
+                            <view wx:for="{{days}}" wx:key="i" style="line-height: 50px; text-align: center;">{{item}}日</view>
+                        </picker-view-column>
+                    </picker-view>
+                </view>
+            </view>
+        </view>
+        <view class="weui-cell">
+            <view class="weui-cell__hd">
+                <label class="weui-label fw600">分享卡片封面</label>
+            </view>
+            <view class="border-none" style="flex-wrap:wrap;">
+                <block wx:if="{{img_url_1}}">
+                  <view class='upload'>
+                    <image src="{{path}}{{img_url_1}}" class="upload_img" />
+                    <image src="/images/closeImg.png" class='delete_img' data-id="1" bindtap="delImg" />
+                  </view>
+                </block>
+                <view class='add'>
+                  <image src="/images/addImg.png" class='add_img' data-id="1" bindtap="addImg" />
+                </view>
+            </view>
+        </view>
+        <view class="weui-cell">
+            <view class="weui-cell__hd">
+                <label class="weui-label fw600">直播卡片封面</label>
+            </view>
+            <view class="border-none" style="flex-wrap:wrap;">
+                <block wx:if="{{img_url_2}}">
+                  <view class='upload'>
+                    <image src="{{path}}{{img_url_2}}" class="upload_img" />
+                    <image src="/images/closeImg.png" class='delete_img' data-id="2" bindtap="delImg" />
+                  </view>
+                </block>
+                <view class='add'>
+                  <image src="/images/addImg.png" class='add_img' data-id="2" bindtap="addImg" />
+                </view>
+            </view>
+        </view>
+        <view class="weui-cell">
+            <view class="weui-cell__hd">
+                <label class="weui-label fw600">直播间背景</label>
+            </view>
+            <view class="border-none" style="flex-wrap:wrap;">
+                <block wx:if="{{img_url_3}}">
+                  <view class='upload'>
+                    <image src="{{path}}{{img_url_3}}" class="upload_img" />
+                    <image src="/images/closeImg.png" class='delete_img' data-id="3" bindtap="delImg" />
+                  </view>
+                </block>
+                <view class='add'>
+                  <image src="/images/addImg.png" class='add_img' data-id="3" bindtap="addImg" />
+                </view>
+            </view>
+        </view>
+    </view>
+
+    <view class='btn_box mt100'>
+        <button form-type="submit" class='btn_primary'>提交申请</button>
+    </view>
+</form>
+</block>
+<block wx:else>
+    <view class='live_code'>
+        <image src="{{path}}{{live_code}}" />
+    </view>
+</block>

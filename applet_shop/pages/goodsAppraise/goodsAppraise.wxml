@@ -1,0 +1,29 @@
+<!--pages/goodsAppraise/goodsAppraise.wxml-->
+<view class='weui-cell bor_left0 pb0'>
+  <view class='weui-cell__bd fs32 fw600'>
+    用户评价({{listscount}})
+  </view>
+</view>
+<block wx:if="{{listscount>0}}" wx:for='{{lists}}' wx:key='ddf'>
+  <view class='weui-cell border-none'>
+    <view class='weui-cell__hd'>
+      <image class='pl_tx' src='{{item.headimgurl}}'></image>
+    </view>
+    <view class='weui-cell__bd'>
+      <view class='fs28'>{{item.user_name}}</view>
+      <view class='fs24 text-muted'>{{item._time}}</view>
+    </view>
+  </view>
+  <view class='weui-cell border-none pt0 bor-1px-b'>
+    <view class='weui-cell__bd'>
+      <view class='pl_text'>{{item.content}}</view>
+      <view class='pl_imgs'>
+        <image wx:for='{{item.imgs}}' wx:key="xxxx" wx:for-item='imgItem' src='{{imgBase}}{{imgItem.thumbnail}}' />
+      </view>
+      <text class='fs24 text-muted'>{{item.sku_name}}</text>
+    </view>
+  </view>
+</block>
+<block wx:if="{{listscount == 0}}">
+  <view class='no-data'>-- 暂无评论 --</view>
+</block>

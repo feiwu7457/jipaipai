@@ -1,0 +1,30 @@
+<view class="page-bd">
+    <!-- 页面内容 -->
+    <view class="page-bd-main">
+        <!-- start 提款金额 -->
+        <view class="withdraw-money">
+            <view class="withdraw-money__top">提款金额（元）</view>
+            <view class="withdraw-money__middle">
+                <input type="number" value="{{mentioning}}" bindinput="chengNumber" />
+            </view>
+            <view class="withdraw-money__bottom">
+                <text>可提现金额</text>
+                <text class="totalmoney">￥{{total_mentioning}}</text>
+            </view>
+        </view>
+        <!-- end 提款金额 -->
+        <!-- start 提款人发放信息 -->
+        <view class="withdraw-info">
+            <view class="info-top">返利用户信息</view>
+            <view>
+                <view></view>
+                <view>用户：{{rebate_user.user_id?rebate_user.user_id:'平台'}} - {{rebate_user.nick_name?rebate_user.nick_name:'暂无记录'}}</view>
+                <view class="mt10">手机号：{{rebate_user.mobile?rebate_user.mobile:'暂无记录'}}</view>
+                <view class="mt10">微信号：{{rebate_user.weixin_no?rebate_user.weixin_no:'暂无记录'}}</view>
+            </view>
+        </view>
+        <!-- end 提款人发放信息 -->
+    </view>
+    <!-- 提交按钮 -->
+    <view class="submit-btn" bind:tap="postDraw">提交申请</view>
+</view>

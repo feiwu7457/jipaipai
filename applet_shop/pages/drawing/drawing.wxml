@@ -1,0 +1,55 @@
+<view class="page">
+  <view class="weui-cells border-after top">
+    <view class="weui-cell">
+      <view class="weui-cell__bd">
+        <view class="text-muted fs30 " style="text-align:center">我的返利</view>
+        <view class="fs34 fw500 ff" style="text-align: center;font-size: 80rpx;padding: 30rpx;">￥{{total_rebate}}</view>
+        <view class="text-muted fs24 mt10" style="text-align:center">
+          <text class="ml10">可提￥{{total_mentioning}}</text>
+          <text class="ml10">已提￥{{rebate}}</text>
+          <text class="ml10">冻结￥{{frozen_amount}}</text>
+        </view>
+      </view>
+      <!-- <view class="weui-cell__ft">
+        <picker bindchange="bindPickerChange" mode="date" value="{{date}}" fields='month' start="2000-01-01" end="2050-01-01" bindchange="bindDateChange">
+          <image src="/images/detail01.png" class="img1"></image>
+        </picker>
+
+      </view> -->
+    </view>
+  </view>
+  
+  <view class="weui-cells mt0 border-after" wx:if='{{!emptyData}}'>
+
+
+    <scroll-view scroll-y="true" style="width:100%;height: 750rpx;" lower-threshold="100" bindscrolltolower="scrolltloadlist" class="orders-box">
+      <view wx:for="{{lists}}" wx:for-item="list" wx:key="key">
+        <view wx:for="{{list}}" wx:for-item="item" wx:key="k">
+          
+          <view class="weui-cell">
+            <view class="weui-cell__bd">
+              <view class="fs28">可提金额：{{item.mentioning}}</view>
+
+              <view class="fs24 text-muted mt10">
+                <text>已提金额：{{item.arrival_money}}</text>
+                <text class="ml10">冻结金额：{{item.arrival_frozen}}</text>
+              </view>
+              <view class="fs24 text-muted mt10" wx:if="{{item.rebate_uid>0}}">返利用户：{{item.rebate_uid}}-{{item.d_username_name}}</view>
+              <view class="fs24 text-muted mt10" wx:else>返利用户：平台</view>
+              
+              
+            </view>
+            <view class="text-red">
+              <view class="fs30 text-muted  red" bindtap="godarwinginfo" data-rebate_uid="{{item.rebate_uid}}" style="background: #f65236;color: #fff;padding: 6rpx 30rpx;">提款</view>
+            </view>
+          </view>
+        </view>
+      </view>
+  
+  </scroll-view>
+  </view>
+  <view class='emptyDataBox' wx:if='{{emptyData}}'>
+    <image src='/images/emptyData.png'></image>
+    <text>~暂无相关数据</text>
+  </view>
+</view>

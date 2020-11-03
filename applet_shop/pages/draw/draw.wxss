@@ -1,0 +1,62 @@
+.page-bd {
+  color: #333333;
+}
+
+.page-bd .page-bd-main {
+  padding: 30rpx;
+  background-color: #ffffff;
+}
+
+.page-bd .page-bd-main .withdraw-money {
+  padding: 0 10rpx;
+}
+
+.page-bd .page-bd-main .withdraw-money .withdraw-money__top {
+  padding: 20rpx 0;
+  font-size: 26rpx;
+  color: #999999;
+}
+
+.page-bd .page-bd-main .withdraw-money .withdraw-money__middle input {
+  margin: 25rpx 0;
+  border: none;
+  outline: none;
+  font-size: 50rpx;
+  color: #333333;
+}
+
+.page-bd .page-bd-main .withdraw-money .withdraw-money__bottom {
+  margin: 40rpx 0;
+  font-size: 26rpx;
+  color: #999999;
+}
+
+.page-bd .page-bd-main .withdraw-money .withdraw-money__bottom .totalmoney {
+  color: #333333;
+}
+
+.page-bd .page-bd-main .withdraw-info {
+  padding: 34rpx;
+  margin-top: 10rpx;
+  background-color: #f5f5f5;
+  font-size: 26rpx;
+  color: #333333;
+}
+
+.page-bd .page-bd-main .withdraw-info .info-top {
+  font-size: 28rpx;
+  margin-bottom: 25rpx;
+}
+
+.page-bd .submit-btn {
+  position: fixed;
+  bottom: 27rpx;
+  left: 28rpx;
+  right: 28rpx;
+  height: 80rpx;
+  text-align: center;
+  line-height: 80rpx;
+  font-size: 32rpx;
+  color: #ffffff;
+  background-color: #f65236;
+}

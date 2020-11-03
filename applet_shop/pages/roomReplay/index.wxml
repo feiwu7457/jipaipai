@@ -1,0 +1,56 @@
+<page>
+    <video id="myVideo" src="{{videoSrc}}" style="height:100%;position:fixed;left:-2.5%;top:-60rpx;width: 105%;background-color:gray;" bindended="videoEnd"></video>
+    <view class="mode__navigation__inner__with-home">
+        <view class="live-player__profile-card">
+            <view class=" live-player__profile-card__inner">
+                <image  class="live-player-navigation-header-avatar live-player__profile-card__avatar"src="http://mmbiz.qpic.cn/mmbiz_png/32Ixica5StSl3X7zXBSWSZ6GLbrchFPo7wRxATrqko1Hu9JXwTibeOJZnY4fglvRWLDjjveiaKu0PYIeC9dHIZmYw/640?wx_fmt=png&wxfrom=200"role="img"></image>
+                <view class="live-player-navigation-header-content live-player__profile-card__body">
+                    <view bindtap="clickProfileModal"class="live-player-navigation-header-content-name live-player__profile-card__title"style="max-width: 6.5em"> 共享精灵店铺 </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view bindtap="clickStore" class="person-operation__item person-operation__store">
+        <view class="person-operation__btn person-operation__store-btn has-events"></view>
+    </view>
+    <view class="store-list {{show_store==1?'store-list-show':''}}">
+        <view class="store-list-bg">
+            <view class="store-list__inner">
+                <view class="store-list__header">
+                    <view class="store-list__title">直播商品</view>
+                </view>
+            </view>
+            <view class="store-list__body">
+                <scroll-view class="store-list__body__inner"style="max-height: 300px;" scroll-y>
+                <block wx:for="{{roomInfo.goods}}" wx:for-item="good" wx:for-index="index" wx:key="key">
+                    <view  class="store-list__item">
+                        <navigator class="store-list__item__inner" hover-class="navigator-hover" url="/{{good.url}}&room_id={{roomInfo.roomid}}" >
+                            <view class="store-list__item__header">
+                                <image class="store-list__item__avatar" mode="aspectFill" src="{{good.cover_img}}" role="img"></image>
+                                <view class="store-list__item__index">{{index+1}}</view>
+                            </view>
+                            <view class="store-list__item__body">
+                                <view class="store-list__item__title">{{good.name}}</view>
+                                <view class="store-list__item__price__container">
+                                 <view wx:if="{{good.price_type==1}}">
+                                  <text class="store-list__item__price">¥ {{good.price/100}}</text>
+                                 </view>
+                                  <view wx:if="{{good.price_type==2}}">
+                                    <text class="store-list__item__price">¥ {{good.price/100}} ~ {{good.price2/100}}</text>
+                                 </view>
+                                  <view wx:if="{{good.price_type==3}}">
+                                      <text class="store-list__item__price">¥ {{good.price2/100}}</text>
+                                    <text class="store-list__item__price store-list__item__price-before">¥ {{good.price/100}}</text>
+                                  </view>
+
+                                </view>
+                            </view>
+
+                        </navigator>
+                    </view>
+                  </block>  
+                </scroll-view>
+            </view>
+        </view>
+    </view>
+</page>

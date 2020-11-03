@@ -1,0 +1,179 @@
+page {
+  background-color: #f7f7f7;
+}
+.page-hd {
+  position: relative;
+  color: #333333;
+  background-color: #f7f7f7;
+}
+
+.page-bd-main {
+  padding: 33rpx 58rpx;
+  color: #333333;
+  background-color: #ffffff;
+}
+
+.page-bd-main .main-title {
+  padding: 44rpx 0 41rpx 0;
+  font-size: 32rpx;
+  font-weight: bold;
+}
+.page-bd-main .type-list__item {
+  /* width: 100%; */
+  height: 100rpx;
+  padding: 0 31rpx;
+  margin-bottom: 20rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f5f5f5;
+}
+.page-bd-main .type-list__item image {
+  width: 38rpx;
+  height: 41rpx;
+  vertical-align: top;
+}
+.page-bd-main .type-list__item .item-context {
+  flex: 1;
+  margin: 0 38rpx;
+}
+.item-context .context-txt1 {
+  font-size: 28rpx;
+  font-weight: bold;
+}
+.item-context .context-txt2 {
+  font-size: 24rpx;
+  color: #999999;
+}
+
+.page-bd-main .precautions {
+  margin-top: 30rpx;
+}
+.precautions-title {
+  padding: 20rpx 0 14rpx;
+  font-size: 28rpx;
+  font-weight: bold;
+}
+.precautions .precautions-info .p {
+  font-size: 26rpx;
+  color: #999999;
+  text-indent: -1em;
+  margin: 10rpx 0 13rpx 1em;
+}
+
+.submit-btn {
+  position: fixed;
+  bottom: 33rpx;
+  left: 30rpx;
+  right: 30rpx;
+  height: 80rpx;
+  text-align: center;
+  line-height: 80rpx;
+  font-size: 32rpx;
+  color: #ffffff;
+  background-color: #f65236;
+}
+
+.modal1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.modal1 .modal-main {
+  width: 600rpx;
+  margin-top: -150rpx;
+  background-color: #ffffff;
+}
+.modal-title {
+  padding: 53rpx 0 21rpx;
+  font-size: 30rpx;
+  text-align: center;
+}
+.modal-content {
+  display: inline-block;
+  margin-left: 95rpx;
+  font-size: 26rpx;
+  color: #999999;
+}
+.modal-footer {
+  height: 87rpx;
+  margin-top: 44rpx;
+  text-align: center;
+  line-height: 88rpx;
+  font-size: 32rpx;
+  color: #f65236;
+  border-top: 1rpx solid #eeeeee;
+}
+.modal2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.modal2 .modal-main {
+  width: 600rpx;
+  margin-top: -150rpx;
+  background-color: #ffffff;
+}
+.modal2 .modal-main .modal-content {
+  padding: 99rpx 0 82rpx;
+  display: inline-block;
+  margin-left: 95rpx;
+  font-size: 26rpx;
+  color: #999999;
+}
+.modal2 .modal-footer {
+  height: 87rpx;
+  text-align: center;
+  line-height: 88rpx;
+  font-size: 32rpx;
+  color: #f65236;
+  border-top: 1rpx solid #eeeeee;
+}
+/* pages/checkVIP/checkVIP.wxss */
+
+.check {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.con-sheck {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.bgc-img {
+    margin: 240rpx 0rpx 100rpx;
+    width: 454rpx;
+    height: 206rpx;
+}
+.check-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn_box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50rpx;}
+
+.btn_primary {
+    width: 222rpx;
+}

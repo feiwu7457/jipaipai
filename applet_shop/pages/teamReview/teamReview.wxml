@@ -1,0 +1,54 @@
+<view>
+    <view class="page-bd">
+        <!-- 页面内容 -->
+        <view class="nav-tab">
+            <text wx:for="{{times}}" wx:key="ssss" bind:tap="changeTab" data-type="{{item.type}}" class="pending {{item.type == type? 'active':''}}">{{item.text}}</text>
+            <!-- <text class="Processed">已审核</text> -->
+        </view>
+        <!-- start 列表 -->
+
+        <scroll-view scroll-y="true" lower-threshold="50" bindscrolltolower="scrolltloadlist" class="orders-box">
+            <view class="list" wx:if="{{listscount>0}}">
+                <view class="list-item" wx:for="{{lists}}" wx:key="keys">
+                    <view class="item-left">
+                        <image class="headimg" src="{{item.user_info.headimgurl}}" alt=""></image>
+                    </view>
+                    <view class="item-middle">
+                        <view class="nickname">{{item.user_info.nick_name}}</view>
+                        <view class="userid">ID{{item.user_info.user_id}}</view>
+                        <view class="contact">联系方式:{{item.user_info.mobile}}</view>
+                        <view class="withdraw">申请成为{{item.goods_name}}</view>
+                    </view>
+                    <view class="item-right submit-btn" bind:tap="examineUser" data-order_id='{{item.order_id}}' wx:if="{{item.user_audit == 0}}">审核通过</view>
+                    <view class="item-right issued" wx:elif='{{item.user_audit == 1}}'>已通过</view>
+                    <view class="item-right issued" wx:elif='{{item.user_audit == 1}}'>未通过</view>
+                </view>
+                <!-- <view class="list-item">
+                    <view class="item-left">
+                        <image class="headimg" src="../assets/images/fenlei01.png" alt=""></image>
+                    </view>
+                    <view class="item-middle">
+                        <view class="nickname">艾海滔滔</view>
+                        <view class="userid">ID365236</view>
+                        <view class="contact">联系方式:15893289314</view>
+                        <view class="withdraw">申请成为服务中心</view>
+                    </view>
+                    <view class="item-right issued">已审核</view>
+                </view>--> 
+            </view>
+
+            <view wx:if="{{listscount == 0}}" class='no-data'>-- 我也是有底线的 --</view>
+        </scroll-view>
+        <!-- end 列表 -->
+    </view>
+    <!-- 确认弹窗 -->
+    <view class="modal toShow" wx:if="{{false}}">
+        <view class="modal-main">
+            <view class="modal-content">是否确定通过审核？</view>
+            <view class="modal-footer">
+                <text class="modal-cancel" data-ev="cancel">取消</text>
+                <text class="modal-confirm" data-ev="confirm">确定</text>
+            </view>
+        </view>
+    </view>
+</view>

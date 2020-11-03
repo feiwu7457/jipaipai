@@ -1,0 +1,57 @@
+<!--pages/set/set.wxml-->
+<!-- <view class="weui-cells mt0"> -->
+    <!-- <navigator url='/pages/changePassword/changePassword' class="weui-cell weui-cell__ft_in-access">
+    <view class="weui-cell__bd">
+      <view class='fs28 fw600'>修改密码</view>
+    </view>
+    <view class="weui-cell__ft"></view>
+  </navigator> -->
+    <!-- <navigator url="/pages/bindTel/bindTel" class="weui-cell weui-cell__ft_in-access">
+        <view class="weui-cell__bd">
+            <view class='fs28 fw600'>账号绑定</view>
+        </view>
+        <view class="weui-cell__ft"></view>
+    </navigator>
+</view> -->
+
+<view class="weui-cells">
+    <!-- <view class="weui-cell weui-cell__ft_in-access">
+    <view class="weui-cell__bd">
+      <view class='fs28 fw600'>清除缓存</view>
+    </view>
+    <view class="weui-cell__ft">
+     <view class='fs28 text-muted'>43M</view>
+    </view>
+  </view> -->
+    <!-- <view class="weui-cell weui-cell__ft_in-access">
+        <view class="weui-cell__bd">
+            <view class='fs28 fw600'>帮助中心</view>
+        </view>
+        <view class="weui-cell__ft"></view>
+    </view> -->
+    <view class="weui-cell ">
+        <view class="weui-cell__bd">
+            <view class='fs28 fw600'>联系电话</view>
+        </view>
+        <view class="weui-cell__ft">
+            {{customer_phone}}
+        </view>
+    </view>
+    <view class="weui-cell ">
+        <view class="weui-cell__bd">
+            <view class='fs28 fw600'>微信号</view>
+        </view>
+        <view class="weui-cell__ft">
+            {{customer_wx_no}}
+        </view>
+    </view>
+    <view class="weui-cell ">
+        <view class="weui-cell__bd">
+            <view class='fs28 fw600'>微信二维码</view>
+        </view>
+        <view class="weui-cell__ft">
+            <image src='{{url_base}}{{customer_qecode}}'></image>
+        </view>
+    </view>
+</view>
+

@@ -1,0 +1,47 @@
+<view class='page'>
+      <scroll-view class="live-list" scroll-y="true" lower-threshold="100" bindscrolltolower="scrolltloadlist" >
+       <block wx:for="{{lists}}" wx:for-item="list" wx:key="key">
+          <view class='flex_item' wx:for="{{list}}" wx:for-item="item" wx:key="k">
+        <view class="live-item">
+            <view class="live-pic" style="background:url({{item.anchor_img}})no-repeat center;background-size: cover;">
+                <view class="white-bg"></view>
+                <view class="recordLeft">
+                  <view class="recordLeftW {{item.live_status<=102?'recordLeftW1':'recordLeftN'}}" wx:if="{{item.replay_status==0}}">{{item.live_status_txt}}</view>
+                 <view class="recordLeftW replay" wx:else>回播中</view>
+
+                    <view class="recordLeftN"></view>
+                </view>
+                <view class="play" style=" background: url({{domain_name}}/static/mobile/default/images/play_gray.svg) no-repeat center;background-size: cover;" ></view>
+            </view>
+            <view class="live-info">
+                <view class="live-item-title">{{item.name}}</view>
+                <view class="liver-info">
+                    <view class="liver-img" style="background-image: url({{item.cover_img}}); background-size: cover;"></view>
+                    <view class="room-name">{{item.anchor_name}}</view>
+                </view>
+                <view class="goods-list">
+                    <block  wx:for="{{item.goods}}" wx:key="index" wx:for-index="goodsIndex" wx:for-item="gitem">
+                    <view wx:if="{{goodsIndex<=2}}" catchtap="addUV" class="goods-item" style="background-image: url({{gitem.cover_img}})">
+                      <view wx:if="{{goodsIndex==2}}">
+                        <view class="goods-nums">{{item.goods_num}}件</view>
+                        <view class="goods-item-opa"></view>
+                      </view>
+                    </view>
+                    </block>
+                    
+                </view>
+            </view>
+            
+            <navigator wx:if="{{item.replay_status==0}}" class="userInfo" url="plugin-private://wx2b03c6e691cd7370/pages/live-player-plugin?room_id={{item.roomid}}&custom_params="></navigator>
+        <navigator wx:if="{{item.replay_status==1}}" class="userInfo" url="/pages/roomReplay/index?roomid={{item.roomid}}"></navigator>
+        </view>
+        </view>
+        </block>
+        <view wx:if='{{emptyData}}' class='emptyData'>
+        <image src='/images/emptyData.png'></image>
+        <view class="fs28 text-default">
+          暂无直播
+        </view>
+      </view>
+      </scroll-view>
+</view>

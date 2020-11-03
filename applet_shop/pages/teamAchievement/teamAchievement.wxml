@@ -1,0 +1,58 @@
+<view class="personal-result">
+  <view class="head">
+    <!-- <view class="head-title">2020年11月</view> -->
+    <view class="personal">
+      <image class="personal-headimg" src="{{user_info.headimgurl}}"></image>
+      <view class="user-info">
+        <view class="info-left">
+          <view class="user-nickname">{{user_info.nick_name}}</view>
+          <view class="user-member">{{user_info.role.role_name}}</view>
+        </view>
+        <view class="info-right">
+          <view>个人业绩：{{my_achievement}}</view>
+          <view class="mt10">总业绩：{{total_achievement}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <scroll-view scroll-y="true" style="width:100%;" lower-threshold="100" bindscrolltolower="scrolltloadlist" class="orders-box">
+  <view class="sub-wrap">
+    <view class="title">下级</view>
+    <view wx:if='{{!emptyData}}'>
+        
+        <view wx:for="{{lists}}" wx:for-item="list" wx:key="key">
+            <view wx:for="{{list}}" wx:for-item="item" wx:key="k">
+                <view class="sub-item">
+                  <image class="personal-headimg" src="{{item.s_user.headimgurl}}"></image>
+                  <view class="user-info">
+                    <view class="info-left">
+                      <view class="user-nickname">{{item.s_user.nick_name}}</view>
+                      <view class="user-member">{{item.s_user.role_name}}</view>
+                    </view>
+                    <view class="info-right">
+                      业绩：{{item.team_achievement}}
+                    </view>
+                  </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class='emptyDataBox' wx:if='{{emptyData}}'>
+        <image src='/images/emptyData.png'></image>
+        <text>~暂无相关数据</text>
+      </view>
+    <!-- <view class="sub-item">
+      <image class="personal-headimg" src="{{testImgUrl}}"></image>
+      <view class="user-info">
+        <view class="info-left">
+          <view class="user-nickname">坠落的烟花</view>
+          <view class="user-member">xxx会员</view>
+        </view>
+        <view class="info-right">
+          业绩11W
+        </view>
+      </view>
+    </view> -->
+  </view>
+  </scroll-view>
+</view>

@@ -19,7 +19,7 @@ class SlideModel extends BaseModel
 	/*------------------------------------------------------ */
 	//-- 获取列表
 	/*------------------------------------------------------ */
-    public static function getRows(){	
+    public static function getRows($is_xcx=0){
 		$rows = Cache::get(self::$mkey);	
 		if (empty($rows) == false) return $rows;
 		$rows = self::where('status',1)->order('sort_order DESC')->select()->toArray();

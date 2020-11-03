@@ -1,0 +1,79 @@
+<view class="page-bd">
+    <!-- 页面内容 -->
+    <view class="withdraw-money">
+        
+        <view class="money-num">{{total_mentioning}}</view>
+        <view class="text fs26">可现金提款金额（元）</view>
+        <navigator url="/pages/draw/draw?rebate_uid={{rebate_uid}}" class="submit-btn">提款</navigator>
+        <view class="text-muted fs26 mt10" style="text-align:center;padding-bottom: 60rpx;">
+          <text class="ml10">已提￥{{rebate}}</text>
+          <text class="ml10">冻结￥{{frozen_amount}}</text>
+        </view>
+    </view>
+    <view class="date">
+        <text>{{dateTime}}</text>
+        <picker bindchange="bindPickerChange" mode="date" value="{{date}}" fields='month' start="2000-01-01" end="2050-01-01" bindchange="bindDateChange">
+          <image src="../../images/datebook_03.png" alt=""></image>
+        </picker>
+        
+    </view>
+    <!-- start 提现列表详情 -->
+    <view class="weui-cells mt0 border-after" wx:if='{{!emptyData}}'>
+        <scroll-view scroll-y="true" style="width:100%;height: 310px;" lower-threshold="100" bindscrolltolower="scrolltloadlist" class="orders-box">
+            <view class="withdraw-info__list">
+                <view wx:for="{{lists}}" wx:for-item="list" wx:key="key">
+                    <view wx:for="{{list}}" wx:for-item="item" wx:key="k">
+                        <view class="list-item">
+                            <view class="list-item__top">
+                                <text>款项提现</text>
+                                <text>+{{item.arrival_money}}</text>
+                            </view>
+                            <view class="list-item__bottom">
+                                <text>{{item.add_time}}</text>
+                                <text class="success" wx:if="{{item.status == 1}}">成功</text>
+                                <text class="fail" wx:if="{{item.status == 2}}">失败</text>
+                                <text class="pending" wx:if="{{item.status == 0}}">审核中</text>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+                <!-- <view class="list-item">
+                    <view class="list-item__top">
+                        <text>款项提现</text>
+                        <text>+963</text>
+                    </view>
+                    <view class="list-item__bottom">
+                        <text>昨天 12:30</text>
+                        <text class="fail">失败</text>
+                    </view>
+                </view>
+                <view class="list-item">
+                    <view class="list-item__top">
+                        <text>款项提现</text>
+                        <text>+963</text>
+                    </view>
+                    <view class="list-item__bottom">
+                        <text>2019.01.01 12:30</text>
+                        <text class="pending">审核中</text>
+                    </view>
+                </view>
+                <view class="list-item">
+                    <view class="list-item__top">
+                        <text>款项提现</text>
+                        <text>+963</text>
+                    </view>
+                    <view class="list-item__bottom">
+                        <text>2018.12.28 12:30</text>
+                        <text class="success">成功</text>
+                    </view>
+                </view> -->
+            </view>
+        </scroll-view>
+    </view>
+
+    <view class='emptyDataBox' wx:if='{{emptyData}}'>
+        <image src='/images/emptyData.png'></image>
+        <text>~暂无相关数据</text>
+    </view>
+    <!-- end 提现列表详情 -->
+</view>

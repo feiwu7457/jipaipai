@@ -1,0 +1,170 @@
+<wxs module="filter" src="../../common/wxsfun.wxs"></wxs>
+<view class="page2">
+    <view class="weui-media-box pro-cell weui-media-box_appmsg  border-before bg-fff" style="align-items:flex-start">
+        <view class="weui-media-box__hd">
+            <image class="weui-media-box__thumb proimg" src="{{imgUrl}}{{goodsinfo.pic}}" />
+        </view>
+        <view class="weui-media-box__bd" style="width:100%;">
+            <view class="weui-media-box__title fs28 pro-title">{{goodsinfo.goods_name}}</view>
+            <p class="weui-media-box__desc mt10 fs28">{{goodsinfo.sku_name}}</p>
+            <view class="mt10 money">
+                <text class="fs24 fw_b">￥</text>
+                <text class="fs36 fw500 num ff">{{goodsinfo.exp_prcie[0]}}.{{goodsinfo.exp_prcie[1]}}</text>
+                <text class="fs28 fr payNum" style="float:right;margin-top:15rpx;">x{{goodsinfo.goods_number}}</text>
+            </view>
+        </view>
+    </view>
+    <view class="weui-cells mt0 border-after border-before pb50">
+        <view class="weui-cells__title mt0 pt30 pb30">
+            <text class="fs28 fw800 text-default">服务类型</text>
+        </view>
+        <view class="weui-flex pl30 mb60">
+            <view class="weui-cell__item btn1 fs28 fw500 tc mr10 {{service_tag_value == 1 ? 'active':''}}" bindtap='bindservicetag' data-index="1">退货退款</view>
+        </view>
+        <view class="weui-cell border-before pt0 pb30 pb0">
+            <view class="weui-cell__bd">
+                <text class="fs28 fw_b">申请退换货数量</text>
+            </view>
+            <view class="weui-cell__ft number text-default">
+                <text style='text-align: right;width:100%; font-size:32rpx;'>x {{info.goods_number}}</text>
+            </view>
+        </view>
+    </view>
+    <view class="weui-cells mt20 border-after border-before bg-none" >
+        <view class="weui-cell pt70 pb70 border-before mt20 bg-fff">
+            <view class="weui-cell__bd">
+                <text class="fs28 fw_b">退款金额</text>
+            </view>
+            <view class="weui-cell__ft number text-default">
+                <text style='text-align: right;width:100%; font-size:32rpx;'>￥{{info.return_money}}</text>
+            </view>
+        </view>
+        <view class="weui-cell pt70 pb70 border-before mt20 bg-fff">
+            <view class="weui-cell__bd">
+                <view class="fs28 fw_b">退款原因</view>
+                <text style='text-align: right;width:100%; font-size:32rpx;'>{{info.return_desc}}</text>
+            </view>
+        </view>
+        <view class="weui-cell pt40 pb40 border-before mt20 bg-fff" wx:if="{{info.imgs.length > 0}}">
+            <view class="weui-cell__bd">
+                <view class="weui-cell__title pb30">
+                    <text class="fs28 fw800">上传照片</text>
+                </view>
+                <view class="weui-cell__ctn">
+                    <view class="weui-uploader">
+                        <view class="weui-uploader__bd">
+                            <!-- 图片盒子 -->
+                            <view wx:for="{{info.imgs}}" wx:key="key" class="weui-uploader__files" id="uploaderFiles">
+                                <view class="weui-uploader__file">
+                                    <image src="{{imgUrl}}{{item}}" class="imgup" />
+                                    <!-- <view bindtap='deleteimages' data-imagesindex='{{index}}' class="dele-btn"></view> -->
+                                </view>
+                            </view>
+                            <!-- 图片盒子 -->
+                            <!-- <view class="weui-uploader__input-box">
+                                <input bindtap="uploaderimages" class="weui-uploader__input" />
+                            </view> -->
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+
+    <view class="weui-cells mt20 border-after border-before bg-none" style="padding-bottom:100rpx;" wx:if="{{info.status == 1}}">
+        <view class="weui-cell  border-before bg-fff color_9">
+            <view class="weui-cell__bd">
+                <text class="fs28 fw_b">审核失败</text>
+            </view>
+        </view>
+        <view class="weui-cell  border-before bg-fff color_9">
+            <view class="weui-cell__bd" style="width:100% ">
+                <text class="fs28 fw_b">{{info.remark}}</text>
+            </view>
+        </view>
+    </view>
+    <view class="weui-cells mt20 border-after border-before bg-none" style="{{info.status>2?'':'padding-bottom:100rpx;'}}" wx:if="{{info.status >= 2}}">
+        <view class="weui-cell  border-before mt20 bg-fff">
+            <view class="weui-cell__bd">
+                <text class="fs28 fw_b">请将商品寄回以下地址</text>
+            </view>
+        </view>
+        <view class="weui-cell  border-before bg-fff color_9 align-items__start" style="padding-top: 15rpx;">
+            <view class="width140">
+                <text class="fs28 fw_b">收货人：</text>
+            </view>
+            <view class="weui-cell__ft number text-default">
+                <text style='text-align: left;width:100%; font-size:32rpx;'>{{returnInfo.return_consignee}}</text>
+            </view>
+        </view>
+        <view class="weui-cell  border-before bg-fff color_9 align-items__start" style="padding-top: 15rpx;">
+            <view class="width140">
+                <text class="fs28 fw_b">联系电话：</text>
+            </view>
+            <view class="weui-cell__ft number text-default">
+                <text style='text-align: left;width:100%; font-size:32rpx;'>{{returnInfo.return_mobile}}</text>
+            </view>
+        </view>
+        <view class="weui-cell  border-before bg-fff color_9 align-items__start" style="padding-top: 15rpx;">
+            <view class="width140">
+                <text class="fs28 fw_b">退货地址：</text>
+            </view>
+            <view class="weui-cell__ft number text-default">
+                <text style='text-align: left;width:100%; font-size:32rpx;'>{{returnInfo.return_address}}</text>
+            </view>
+        </view>
+        <view class="weui-cell  border-before bg-fff color_9 align-items__start" style="padding-top: 15rpx;">
+            <view class="width140">
+                <text class="fs28 fw_b">退货说明：</text>
+            </view>
+            <view class="weui-cell__ft number text-default">
+                <text style='text-align: left;width:100%; font-size:32rpx;'>{{returnInfo.return_desc}}</text>
+            </view>
+        </view>
+        <view wx:if="{{info.status > 2}}">
+            <view class="weui-cell  border-before bg-fff color_9 align-items__start" style="padding-top: 15rpx;">
+                <view class="width140">
+                    <text class="fs28 fw_b">退货快递：</text>
+                </view>
+                <view class="weui-cell__ft number text-default">
+                    <text style='text-align: left;width:100%; font-size:32rpx;'>{{info.shipping_name}}</text>
+                </view>
+            </view>
+            <view class="weui-cell pb70  border-before bg-fff color_9 align-items__start" style="padding-top: 15rpx;">
+                <view class="width140">
+                    <text class="fs28 fw_b">退货单号：</text>
+                </view>
+                <view class="weui-cell__ft number text-default">
+                    <text style='text-align: left;width:100%; font-size:32rpx;'>{{info.shipping_no}}</text>
+                </view>
+            </view>
+        </view>
+
+        <view wx:if="{{info.status == 2}}">
+            <view class="weui-cell pt40 pb40 border-before bg-fff color_9" >
+                <view class="" style="width:50% ;text-align: left;">
+                    <picker value="{{index}}" range="{{shippingList}}" range-key="shipping_name" bindchange="pickerChange" >
+                        <view class="picker" style="text-align: left">
+                            {{shipping_name}}
+                        </view>
+                    </picker>
+                </view>
+                <view class="weui-cell__ft number text-default" style="width:50% ">
+                    <input style='text-align: left;width:100%; font-size:30rpx' bindinput="wshipping_no" value="{{shipping_no}}"  placeholder="{{shipping_no_str}}"></input>
+                </view>
+            </view>
+            <!-- <view class="weui-cell  border-before bg-fff color_9" style="padding-top: 15rpx;">
+                <view class="">
+                    <text class="fs28 fw_b">退货单号：</text>
+                </view>
+                <view class="weui-cell__ft number text-default">
+                    <text style='text-align: left;width:100%; font-size:32rpx;'>{{info.shipping_no}}</text>
+                </view>
+            </view> -->
+        </view>
+
+    </view>
+    <view class='btn_box'  wx:if="{{info.status == 2}}">
+        <button hover-class="none" bindtap='postSale' class='btn_primary'>提交退货信息</button>
+    </view>
+</view>
