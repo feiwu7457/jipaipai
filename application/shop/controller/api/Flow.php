@@ -381,6 +381,7 @@ class Flow extends ApiController
             $PaymentModel = new PaymentModel();
             $paymentList = $PaymentModel->getRows(true);
             $payment = $paymentList[$pay_id];
+
         }elseif($this->is_integral == 1){//积分支付
             $payment['pay_code'] = 'integral';
             $payment['is_pay'] = 1;

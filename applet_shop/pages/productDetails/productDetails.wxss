@@ -28,24 +28,21 @@
 }
 
 .icon_btns {
-  z-index: 9;
-  width: 80rpx;
-  position: absolute;
-  background-color: #333;
+  width: 18%;
   text-align: center;
-  top: 100%;
-  right: 40rpx;
-  transform: translateY(-40%);
+  display: flex;
 }
 
 .icon_btns>view {
   padding: 16rpx 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
-
+.collect {
+  margin-left: 15rpx;
+}
 .icon_btns image {
-  width: 34rpx;
-  height: 34rpx;
+  width: 55rpx;
+  height: 55rpx;
 }
 
 .pagetop .swiper-box swiper {
@@ -92,9 +89,9 @@
 .badge {
   background-color: #f65236;
   color: #fff;
-  line-height: 1em;
+  line-height: 30rpx;
   height: 30rpx;
-  padding: 0 10rpx;
+  padding: 5rpx 15rpx;
   font-size: 22rpx;
   vertical-align: middle;
   margin: 0 10rpx;
@@ -138,8 +135,8 @@
 }
 
 .pl_imgs image {
-  width: 130rpx;
-  height: 130rpx;
+  width: 205rpx;
+  height: 205rpx;
   margin-right: 14rpx;
 }
 
@@ -247,6 +244,11 @@
   font-size: 28rpx;
 }
 
+.bottom_btns .right .btns>view:nth-last-child(1):first-child{
+  width: 440rpx;
+}
+
+
 .bottom_btns .right .btns .btn2 {
   background-color: #f65236;
 }
@@ -341,10 +343,17 @@
 
 .model .top .right .moneyPrimary {
   text-decoration: line-through;
+  text-align: left;
 }
 
 .model .top .right p {
   margin-top: 10rpx;
+  text-align: left;
+float: left;
+
+}
+.color_r{
+  color: red;
 }
 
 .model .cantre {
@@ -646,4 +655,61 @@ view{
 }
 .BGcolor_r {
   background-color: #f65236;
+}
+
+/* 秒杀时间样式 */
+.seckillTime{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100rpx;
+  padding:0 28rpx 0 38rpx;
+  background-color: #ffece9;
+}
+.seckillTime-left{
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #f65236;
+}
+.seckillTime-right{
+  height: 40rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 32rpx;
+  font-weight: 600; 
+}
+.seckillTime-right>text{
+  margin-right:14rpx;
+
+}
+
+.seckillTime-right>view{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 34rpx;
+  height: 40rpx;
+  color: #fff;
+  font-size: 24rpx;
+  margin:4rpx;
+  margin-top:4px;
+  background-color: #000;
+}
+
+.tan_text{
+  width: 100%;
+  text-align: center;
+  margin-top: 15rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+
+}
+.tan_text p{
+  background-color: rgba(246, 82, 54, 0.1);
+  width: 93%;
+  display: block;
+  margin:0 auto;
+  height: 100%;
+  color: #F65236;
 }

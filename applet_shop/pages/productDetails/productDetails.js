@@ -21,12 +21,37 @@ Page({
     coArr: [], //选中的规格数组  {0:3,1:5}
     specifications: "", //选中的规格 拼接后的字符串  3:5
     skuprice: [], //规格价格数组
-    valprice: 0, //普通及规格商品显示单价
+    valprice: [], //普通及规格商品显示单价
     pinglun: [], //评论列表
     plnum: 0, //评论数
     cartInfo: [], //购物车数据
     goodsnumber: 1, //购买数量
-    maxnum: 1 //商品库存
+    maxnum: 1, //商品库存
+    role_id:0,
+    activity_is_on:0,// 是否参与活动
+    isshowBtn:1,
+    showSku:'',
+    showSkuName:'',
+    skuImgs:'',
+    skuImgsArr:[],
+    tan_text:'',
+    showTime: ['00', '00', '00'],// 显示时间
+    time:0,
+    seckilldata:[],
+    exp_price:[],
+    exp_min_price:[],
+    exp_max_price:[],
+    f_specifications:'',
+    is_tan:0,
+    live_room:0,
+    room_id: 0,
+    roomGoods: '',
+    user_share_token: '',
+  },
+  goCustomer:function(){
+    wx.navigateTo({
+      url: '/pages/customer/customer'
+    })
   },
   openGG() {
     this.setData({
@@ -47,6 +72,13 @@ Page({
         That.setData({
           isCollect: !That.data.isCollect
         });
+      } else if(res.msg == '请登陆后再操作.'){
+        var goods_id = That.data.goods_id
+        var share_token = That.data.share_token
+        wx.redirectTo({
+          url: '/pages/authorizeLogin/authorizeLogin?goods_id=' + goods_id + '&share_token=' + share_token,
+        })
+        // api.error_msg(res.msg, 2000,-1)
       } else {
         api.error_msg(res.msg)
       }
@@ -120,6 +152,7 @@ Page({
     });
     let coArr = That.data.coArr;
     let skuprice = That.data.skuprice;
+    let skuImgsArr = That.data.skuImgsArr;
     let str = "";
     for (var index in coArr) {
       if (str == "") {
@@ -129,25 +162,69 @@ Page({
       }
     }
     if (skuprice != null && skuprice[str] != undefined) {
+      let activity_is_on = That.data.activity_is_on
+      if (activity_is_on == 0) {
+        That.setData({
+          valprice: skuprice[str].exp_price,
+        })
+      }
+      let showSku = skuprice[str].sku_name.replace(',',' - ');
+      let showSkuName = skuprice[str].sku_name.replace(',',' / ');
+      let number = That.data.goodsnumber;
       //根据所选属性修改价格及库存
       That.setData({
-        valprice: skuprice[str].shop_price,
+
         maxnum: skuprice[str].goods_number,
-        specifications: str
+        specifications: str,
+        skuImgs:skuImgsArr[str],
+        showSku:showSku,
+        showSkuName:showSkuName,
+        goodsnumber:number
       })
+      That.initActivity();
     }
   },
   //添加购物车
   addcart: function() {
     let That = this;
+    let specifications = That.data.specifications;
+    if (specifications == '' && That.data.goods.is_spec == 1) {
+      api.error_msg('请选择规格.');
+      return false;
+    }
+    let sku_id = 0;
+    if (specifications != '') {
+      let skuprice = That.data.skuprice
+      sku_id = skuprice[specifications].sku_id
+    }
+    let activity_is_on = That.data.activity_is_on
+    let is_tan = That.data.is_tan
+    let prom_type = 0;
+    let prom_id = 0;
+    if (activity_is_on == 1 && is_tan == 0) {
+      prom_type = That.data.seckilldata.prom_type;
+      prom_id = That.data.seckilldata.prom_id;
+    }
+    var room_id = That.data.room_id;
     api.fetchPost(api.https_path + 'shop/api.flow/addcart', {
       goods_id: That.data.goods_id,
-      specifications: That.data.specifications,
+      specifications:specifications,
       type: "oncart",
-      number: That.data.goodsnumber
+      number: That.data.goodsnumber,
+      prom_id:prom_id,
+      prom_type:prom_type,
+      sku_id:sku_id,
+      room_id: room_id
     }, function(err, res) {
       if (res.code == 1) {
         api.success_msg(res.msg, 1000);
+      } else if(res.msg == '请登陆后再操作.'){
+        var goods_id = That.data.goods_id
+        var share_token = That.data.share_token
+        wx.redirectTo({
+          url: '/pages/authorizeLogin/authorizeLogin?goods_id=' + goods_id + '&share_token=' + share_token,
+        })
+        // api.error_msg(res.msg, 2000,-1)
       } else {
         api.error_msg(res.msg, 1500);
       }
@@ -155,18 +232,51 @@ Page({
   },
   buy_now: function() {
     let That = this;
+    let specifications = That.data.specifications;
+    if (specifications == '' && That.data.goods.is_spec == 1) {
+      api.error_msg('请选择规格.');
+      return false;
+    }
+    let sku_id = 0;
+    if (specifications != '') {
+      let skuprice = That.data.skuprice
+      sku_id = skuprice[specifications].sku_id
+    }
+
+
+    let activity_is_on = That.data.activity_is_on
+    let is_tan = That.data.is_tan
+    let prom_type = 0;
+    let prom_id = 0;
+    console.log(activity_is_on,is_tan);
+    if (activity_is_on == 1 && is_tan == 0) {
+      prom_type = That.data.seckilldata.prom_type;
+      prom_id = That.data.seckilldata.prom_id;
+    }
+    var room_id = That.data.room_id;
     api.fetchPost(api.https_path + 'shop/api.flow/addcart', {
       goods_id: That.data.goods_id,
-      specifications: That.data.specifications,
-      type: "oncart",
-      number: That.data.goodsnumber
+      specifications: specifications,
+      type: "onbuy",
+      number: That.data.goodsnumber,
+      prom_id:prom_id,
+      prom_type:prom_type,
+      sku_id:sku_id,
+      room_id: room_id
     }, function(err, res) {
       if (res.code == 1) {
         wx.navigateTo({
           url: '/pages/payment/payment?rec_id=' + res.rec_id,
         })
-      } else {
-        api.error_msg(res.msg)
+      } else if(res.msg == '请登陆后再操作.'){
+        var goods_id = That.data.goods_id
+        var share_token = That.data.share_token
+        wx.redirectTo({
+          url: '/pages/authorizeLogin/authorizeLogin?goods_id=' + goods_id + '&share_token=' + share_token,
+        })
+        // api.error_msg(res.msg, 2000,-1)
+      } else  {
+        api.error_msg(res.msg, 1500);
       }
     });
   },
@@ -176,10 +286,26 @@ Page({
    */
   onLoad: function(options) {
     let That = this;
+    var room_id = 0;
+    console.log(options);
+    if(options.room_id){
+      room_id = options.room_id;
+      That.setData({
+        room_id: room_id
+      })
+      api.putcache('room_id', room_id);
+    }
+    var room_openid = '';
+    if(options.openid){
+      That.setData({
+        room_openid: options.openid
+      })
+      api.putcache('room_openid', options.openid);
+    }
 
-  wx.showLoading({
-    title: '数据加载中',
-  })
+    wx.showLoading({
+      title: '数据加载中',
+    })
 
     let goods_id;
     let share_token;
@@ -194,6 +320,13 @@ Page({
 
       That.nologin(goods_id, share_token);
     } else {
+      share_token = options.share_token != undefined ? options.share_token : 0;
+      if (options.share_token != undefined) {
+        That.setData({
+          share_token: share_token,
+        })
+      }
+
       goods_id = options.goods_id != undefined ? options.goods_id : 0;
       if (options.goods_id != undefined) {
         That.setData({
@@ -206,11 +339,15 @@ Page({
         return false
       }
     }
-
+    if (share_token) {
+        api.putcache('share_token',share_token);
+    }
     //根据商品id请求接口获取商品数据
-    api.fetchPost(api.https_path + 'shop/api.goods/info', {
-      id: goods_id
-    }, function(err, res) {
+    var arr = [];
+    arr.id = goods_id;
+    arr.room_id = room_id;
+    arr.share_token = share_token;
+    api.fetchPost(api.https_path + 'shop/api.goods/info', arr, function(err, res) {
       console.log(res)
 
       wx.hideLoading();
@@ -222,23 +359,39 @@ Page({
           imgBase: api.https_path,
           imgUrls: res.list.imgsList,
           goods: res.list.goods,
+          roomGoods: res.list.roomGoods,
           cartInfo: res.list.cartInfo,
-          valprice: res.list.goods.shop_price,
-          isCollect: res.list.isCollect
+          isCollect: res.list.isCollect,
+          role_id:res.role_id,
+          skuImgs:res.list.goods.goods_thumb,
+          user_share_token:res.list.goods.user_share_token,
         })
+
       } else {
         return false
       }
       if (res.list.goods.is_spec == 1) {
+        let goods_img = '';
+        if (res.list.skuImgs == '') {
+          goods_img = res.list.goods.goods_thumb;
+        }else{
+          goods_img = res.list.skuImgs[res.firstcoSku]
+        }
+
         That.setData({
           skuArr: res.list.goods.lstSKUArr,
-          skuprice: res.list.goods.sub_goods
+          skuprice: res.list.goods.sub_goods,
+          skuImgsArr:res.list.skuImgs,
+          skuImgs:goods_img,
+          f_specifications:res.firstcoSku
         })
       } else {
         That.setData({
           maxnum: res.list.goods.goods_number
         })
       }
+
+      That.initActivity();
     });
     //获取商品评论
     api.fetchPost(api.https_path + 'shop/api.comment/getListByGoods', {
@@ -259,6 +412,137 @@ Page({
     })
   },
 
+  /**
+ * 初始化商品活动
+ */
+  initActivity:function () {
+      const That = this;
+      let arr = new Object;
+      arr.goods_id = That.data.goods.goods_id;
+      let sku = [];
+      let skuprice = That.data.skuprice
+      let specifications = That.data.specifications
+      if (specifications == '') {
+        specifications = That.data.f_specifications
+      }
+
+      if (skuprice != null && skuprice[specifications] != undefined) {
+        arr.sku_id = skuprice[specifications].sku_id
+      }
+      api.fetchPost(api.https_path + 'shop/api.goods/checkActivity',arr,function(err,res){
+        That.activityTheme(res.data);
+      })
+  },
+
+  //活动相关显示
+  activityTheme:function(data){
+    const That = this;
+    if (data.activity_is_on == 1) {
+      let isshowBtn = 0;
+      let tan_text='';
+      let is_tan = 0;
+      let specifications = That.data.specifications;
+      let valprice = [];
+      if (data.status == 1) {
+        isshowBtn = 2;
+        if(data.goods.stock <=0 ){
+          isshowBtn = 3;
+        }
+        if(data.goods.is_spec==1){
+            if(data.goods_info){
+                if(data.goods_info.goods_number<=0){
+                  if (specifications != '') {
+                    is_tan = 1;
+                  }
+                  tan_text = '该规格活动库存已售罄！';
+                }
+            }
+        }
+        if(!data.goods_info){
+          valprice = That.data.goods.exp_price;
+          is_tan = 1;
+          tan_text = '该规格不参与优惠！';
+        }else{
+          valprice = data.goods_info.exp_price;
+        }
+
+      }else if(data.status == 0){
+        isshowBtn = 1;
+      }else{
+        isshowBtn = 4;
+      }
+      console.valprice
+      That.setData({
+        activity_is_on:data.activity_is_on,
+        isshowBtn:isshowBtn,
+        tan_text:tan_text,
+        is_tan:is_tan,
+        time:data.diff_time * 1000,
+        seckilldata:data,
+        exp_price:data.goods.exp_min_price,
+        exp_min_price:data.goods.exp_min_price,
+        exp_max_price:data.goods.exp_max_price,
+        valprice:valprice
+      })
+      That.countdown();
+    }else{
+      let goods = That.data.goods;
+      That.setData({
+        activity_is_on:data.activity_is_on,
+        exp_price:goods.exp_price,
+        exp_min_price:goods.exp_min_price,
+        exp_max_price:goods.exp_max_price,
+        valprice: goods.exp_price,
+      })
+    }
+  },
+
+  // 倒计时
+  countdown: function() {
+    let that = this;
+    let total_micro_second = that.data.time;
+    let countDownTime;
+    if (total_micro_second <= 0) {
+      let seckilldata = that.data.seckilldata;
+      if (seckilldata.status == 0 && seckilldata.prom_type == 1) {
+        let isshowBtn = 0;
+        that.initActivity();
+      }else if(seckilldata.status == 1 && seckilldata.prom_type == 1){
+        let isshowBtn = 4;
+      }
+      that.setData({
+        time: 0,
+        showTime: ['00', '00', '00'],
+      });
+
+      return
+    } else {
+      countDownTime = that.dateformat(total_micro_second) //显示的时间
+      total_micro_second -= 1000; //剩余的毫秒数
+    }
+    that.setData({
+      time: total_micro_second,
+      showTime: countDownTime
+    });
+    setTimeout(function() {
+      that.countdown();
+    }, 1000)
+  },
+
+  // 时间格式化输出，如11天03小时25分钟19秒  每1s都会调用一次
+  dateformat: function(micro_second) {
+    // 总秒数
+    var second = Math.floor(micro_second / 1000);
+    // 天数
+    var day = Math.floor(second / 3600 / 24);
+    // 小时
+    var hr = Math.floor(second / 3600 % 24);
+    // 分钟
+    var min = Math.floor(second / 60 % 60);
+    // 秒
+    var sec = Math.floor(second % 60);
+    return [(hr < 10 ? '0' + hr : hr), (min < 10 ? '0' + min : min), (sec < 10 ? '0' + sec : sec)];
+  },
 
   nologin: function (goods_id, share_token) {
     const user_devtoken = api.getcache('user_devtoken')
@@ -314,7 +598,22 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  //   onShareAppMessage: function () {
+  onShareAppMessage: function (options) {
+    const _this = this
+    let title = _this.data.goods.goods_name
+    let goods_id = _this.data.goods.goods_id
+    let token = _this.data.user_share_token
+    // console.log(token);
 
-  //   }
+    var path = '/pages/productDetails/productDetails?scene=' + goods_id +'$' + token
+    console.log(path);
+    let imageUrl = _this.data.goods.goods_thumb
+    let shareObj = {}
+    // if (options.from == 'button') {
+      shareObj.path = path,
+      shareObj.title = title;
+      shareObj.imageUrl = api.https_path+imageUrl;
+      return shareObj;
+    // }
+  }
 })

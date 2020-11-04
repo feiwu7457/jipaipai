@@ -74,7 +74,7 @@ Page({
         })
       }else{
         //微信支付
-        api.fetchPost(api.https_path +'/shop/payment/getcode', { 'order_id': order_id, 'pay_code': pay_code }, (err, rs_data) => {
+        api.fetchPost(api.https_path +'/publics/payment/getcode', { 'order_id': order_id, 'pay_code': pay_code }, (err, rs_data) => {
           console.log(rs_data);
           if (rs_data.code == 1) {
 

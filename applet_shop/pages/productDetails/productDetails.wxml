@@ -8,36 +8,63 @@
           </swiper-item>
         </block>
       </swiper>
+
     </view>
 
     <view class='weui-cells mt0'>
-      <view class='weui-cell pt0 jubetween'>
-        <view class='weui-cell__hd'>
+      <view class='weui-cell pt0'>
+        <view class='weui-cell__bd weui_left'>
           <view>
             <text class='fs30'>￥</text>
-
-            <block wx:if="{{goods.is_spec == 0}}">
-              <em class="fs52 ff">{{goods.exp_price[0]}}</em>
-              <p class="fw_b ff">.{{goods.exp_price[1]}}</p>
+            <block wx:if="{{room_id > 0 && roomGoods}}">
+                <block wx:if="{{roomGoods.price_type == 1}}">
+                  <em class="fs52 ff">{{roomGoods.price}}</em>
+                </block>
+                <block wx:if="{{roomGoods.price_type == 2}}">
+                  <em class="fs52 ff">{{roomGoods.price}}</em>
+                  <em class="fs52 ff">~</em>
+                  <em class="fs52 ff">{{roomGoods.price2}}</em>
+                </block>
+                <block wx:if="{{roomGoods.price_type == 3}}">
+                  <em class="fs52 ff">{{roomGoods.price2}}</em>
+                </block>
             </block>
             <block wx:else>
-              <em class="fs52 ff">{{goods.exp_min_price[0]}}</em>
-              <p class="fw_b ff">.{{goods.exp_min_price[1]}}</p>
-              <em class="fs52 ff">~</em>
-              <em class="fs52 ff">{{goods.exp_max_price[0]}}</em>
-              <p class="fw_b ff">.{{goods.exp_max_price[1]}}</p>
+              <block wx:if="{{goods.is_spec == 0}}">
+                <em class="fs52 ff">{{exp_price[0]}}</em>
+                <p class="fw_b ff">.{{exp_price[1]}}</p>
+              </block>
+              <block wx:else>
+                <em class="fs52 ff">{{exp_min_price[0]}}</em>
+                <p class="fw_b ff">.{{exp_min_price[1]}}</p>
+                <em class="fs52 ff">~</em>
+                <em class="fs52 ff">{{exp_max_price[0]}}</em>
+                <p class="fw_b ff">.{{exp_max_price[1]}}</p>
+              </block>
             </block>
-            <text class='badge offset' wx:if="{{goods.is_promote>0}}">活动价</text>
+            <block wx:if="{{room_id > 0 && roomGoods}}">
+              <text class='badge offset'>直播价</text>
+            </block>
+            <block wx:else>
+              <text class='badge offset' wx:if="{{goods.is_promote>0 || activity_is_on == 1}}">活动价</text>
+            </block>
           </view>
           <view>
-            <text class='sprice'>￥{{goods.market_price}}</text>
+            <block wx:if="{{room_id > 0 && roomGoods}}">
+              <block wx:if="{{roomGoods.price_type == 3}}">
+                <text class='sprice'>原价：￥{{roomGoods.price}}</text>
+              </block>
+            </block>
+            <block wx:else>
+              <text class='sprice'>￥{{goods.market_price}}</text>
+            </block>
           </view>
         </view>
-        <view class='weui-cell__bd detail_btn_box'>
-          <view bindtap="toqrcode" class="mr20">
+        <view class='icon_btns'>
+          <view bindtap="toqrcode">
             <image src='/images/goodsIcon01_2.png' />
           </view>
-          <view bindtap='collect'>
+          <view class="collect" bindtap='collect'>
             <image wx:if="{{isCollect==1}}" src='/images/goodsIcon01_3_lh.png' />
             <image wx:else src='/images/goodsIcon01_3.png' />
           </view>
@@ -59,10 +86,44 @@
     </view>
   </view>
 
+  <view wx:if="{{activity_is_on==1}}">
+    <view wx:if="{{isshowBtn == 1}}" class="seckillTime" >
+      <view class="seckillTime-left">限时优惠即将开始</view>
+      <view id="seckillTime-right" class="seckillTime-right">
+        <text>距离开始</text>
+        <view>{{showTime[0]}}</view>:
+        <view>{{showTime[1]}}</view>:
+        <view>{{showTime[2]}}</view>
+      </view>
+    </view>
+    <view wx:elif="{{isshowBtn ==2 }}" class="seckillTime">
+      <view class="seckillTime-left">限时优惠中</view>
+      <view id="seckillTime-right" class="seckillTime-right">
+        <text>距离结束</text>
+        <view>{{showTime[0]}}</view>:
+        <view>{{showTime[1]}}</view>:
+        <view>{{showTime[2]}}</view>
+      </view>
+    </view>
+    <view wx:elif="{{isshowBtn==3}}" class="seckillTime">
+      <view class="seckillTime-left">该商品已售罄</view>
+      <view id="seckillTime-right" class="seckillTime-right">
+        <text>距离结束</text>
+        <view>{{showTime[0]}}</view>:
+        <view>{{showTime[1]}}</view>:
+        <view>{{showTime[2]}}</view>
+      </view>
+    </view>
+    <view wx:else="{{isshowBtn==4}}" class="seckillTime">
+      <view class="seckillTime-left">该商品已过秒杀时间</view>
+    </view>
+  </view>
+
   <view wx:if="{{goods.is_spec == 1}}" class='weui-cells'>
     <view class='weui-cell weui-cell__ft_in-access' bindtap='openGG'>
       <view class='weui-cell__bd fs32 fw600'>选择规格</view>
-      <view class='weui-cell__ft'>请选择规格</view>
+      <view class='weui-cell__ft' wx:if="{{showSkuName == ''}}">请选择规格</view>
+      <view class='weui-cell__ft' wx:else>{{showSkuName}} / {{goodsnumber}}件</view>
     </view>
   </view>
 
@@ -74,13 +135,13 @@
       <view class='weui-cell__bd fs32 fw600'>阿玛尼官方旗舰店</view>
     </view> -->
 
-    <view class='weui-cell bor_left0  weui-cell__ft_in-access'>
+  <navigator url='/pages/goodsAppraise/goodsAppraise?goods_id={{goods.goods_id}}' class='weui-cell bor_left0  weui-cell__ft_in-access'>
       <view class='weui-cell__bd fs32 fw600'>
         用户评价
         <text class='text-muted'>({{plnum}})</text>
       </view>
       <view class='weui-cell__ft'>更多</view>
-    </view>
+      </navigator>
 
     <view class='weui-cell border-none pt0'>
       <view class='weui-cell__hd'>
@@ -95,8 +156,8 @@
       <view class='weui-cell__bd'>
         <view class='pl_text'>{{pinglun.content}}</view>
         <view wx:if="{{pinglun.imgs}}">
-        <view wx:for="{{pinglun.imgs}}" wx:key="" class='pl_imgs'>
-          <image src='{{imgBase}}{{item.image}}'/>
+        <view class='pl_imgs'>
+          <image wx:for="{{pinglun.imgs}}" wx:key="ssss" src='{{imgBase}}{{item.image}}'/>
         </view>
         </view>
       </view>
@@ -153,13 +214,13 @@
       </view>
       <view class='text'>首页</view>
     </view>
-    <view>
+    <view  bindtap="goCustomer">
       <view class='icon'>
         <image src='/images/goodsIcon02.png'></image>
       </view>
       <view class='text'>客服</view>
     </view>
-    <view>
+    <view wx:if='{{goods.is_role != 1}}'>
       <view class='icon' bindtap='tocart'>
         <text class='num'>{{cartInfo.num}}</text>
         <image src='/images/tabbar_icon04.png'></image>
@@ -169,7 +230,7 @@
   </view>
   <view class='right'>
     <view class='btns'>
-      <view class='btn1' bindtap='openGG'>加入购物车</view>
+      <view class='btn1' bindtap='openGG' wx:if='{{goods.goods_type != 5 && room_id == 0}}'>加入购物车</view>
       <view class='btn2' bindtap='openGG'>立即购买</view>
     </view>
   </view>
@@ -184,27 +245,61 @@
     </view>
     <view class="top">
       <view class="left">
-        <image src='{{imgBase}}{{goods.goods_img}}'></image>
+        <image src='{{imgBase}}{{skuImgs}}'></image>
       </view>
       <view class="right">
         <view class="money">
           <view class="text-red fs30 num">
             <p class="fw_b fm_p">￥</p>
-            <em class="fs52 ff">{{valprice*goodsnumber}}</em>
-            <p class="fw_b ff">.00</p>
+            <block wx:if="{{room_id > 0 && roomGoods}}">
+                <block wx:if="{{roomGoods.price_type == 1}}">
+                  <em class="fs52 ff">{{roomGoods.price}}</em>
+                </block>
+                <block wx:if="{{roomGoods.price_type == 2}}">
+                  <em class="fs52 ff">{{roomGoods.price}}</em>
+                  <em class="fs52 ff">~</em>
+                  <em class="fs52 ff">{{roomGoods.price2}}</em>
+                </block>
+                <block wx:if="{{roomGoods.price_type == 3}}">
+                  <em class="fs52 ff">{{roomGoods.price2}}</em>
+                </block>
+            </block>
+            <block wx:else>
+              <em class="fs52 ff">{{goods.exp_price[0]}}</em>
+              <em class='fs32 ff'>.{{goods.exp_price[1]}}</em>
+            </block>
+            <!-- <p class="fw_b ff">.00</p> -->
           </view>
-          <text class="fs22 color_w BGcolor_r" wx:if="{{goods.is_promote>0}}">活动价</text>
+          <block wx:if="{{room_id > 0 && roomGoods}}">
+            <text class="fs22 color_w BGcolor_r">直播价</text>
+          </block>
+          <block wx:else>
+            <text class="fs22 color_w BGcolor_r" wx:if="{{(goods.is_promote>0  || activity_is_on == 1) && is_tan != 1}}">活动价</text>
+          </block>
         </view>
-        <view class="fs24 color_9 moneyPrimary">{{goods.market_price}}</view>
-        <p wx:if="{{is_spec==1}}" class="fs28 fw_b color_3 goodstype">{{goodsitem}}-{{sizeitem}}</p>
+        <block wx:if="{{room_id > 0 && roomGoods}}">
+          <block wx:if="{{roomGoods.price_type == 3}}">
+            <text class='sprice'>原价：￥{{roomGoods.price}}</text>
+          </block>
+        </block>
+        <block wx:else>
+        <view class="fs24 color_9 moneyPrimary">￥{{goods.market_price}}</view>
+        </block>
+        <view>
+          <p wx:if="{{goods.is_spec==1}}" class="fs28 fw_b color_3 goodstype">{{showSkuName}}</p>
+        </view>
+
       </view>
     </view>
+    <view class='tan_text' wx:if="{{is_tan==1 && specifications != ''}}">
+      <p  class="fs26 fw_b goodstype ">{{tan_text}}</p>
+    </view>
     <view class="cantre">
-      <view wx:if="{{goods.is_spec == 1}}" wx:for="{{skuArr}}" wx:key="" wx:for-index="bindex">
+      <view wx:if="{{goods.is_spec == 1}}" wx:for="{{skuArr}}" wx:key="fsdf" wx:for-index="bindex">
         <view class="block">
           <text class="fs32 fw_b color_3">{{item.name}}</text>
           <view class="list color">
-            <text wx:if="{{item.is_show == 1}}" wx:for="{{item.lstVal}}" wx:key="" wx:for-item="vo" class="fs28 color_3 {{vo.id == coArr[bindex]?'tag_active':''}} bor-1px" data-pid="{{bindex}}" data-id="{{vo.id}}" bindtap='changColor'>{{vo.val}}</text>
+            <text wx:if="{{item.is_show == 1}}" wx:for="{{item.lstVal}}" wx:key="ddd" wx:for-item="vo" class="fs28 color_3 {{vo.id == coArr[bindex]?'tag_active':''}} bor-1px" data-pid="{{bindex}}" data-id="{{vo.id}}" bindtap='changColor'>{{vo.val}}</text>
           </view>
         </view>
       </view>
@@ -220,7 +315,7 @@
       </view>
     </view>
     <view class="buttBox">
-      <text class="fs28 fw_b color_w BGcolor_3" bindtap='addcart'>加入购物车</text>
+      <text class="fs28 fw_b color_w BGcolor_3" bindtap='addcart' wx:if='{{goods.goods_type != 5 && room_id == 0}}'>加入购物车</text>
       <text class="fs28 fw_b color_w BGcolor_r" bindtap='buy_now'>立即购买</text>
     </view>
   </view>
