@@ -340,11 +340,10 @@ class ShopPageTheme extends BaseModel
         if (empty($page) == false) {
             return $page;
         }
-        if ($id = 0) {
+        if ($id == 0) {
             $theme = $this->where(['is_index' => 1, 'is_xcx' => 1])->find();
         } else {
             $theme = $this->where(['st_id' => $id])->find();
-
         }
         if (empty($theme)) return [];
         $host_path = config('config.host_path');

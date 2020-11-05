@@ -1,5 +1,4 @@
 <block>
-    
     <view class="page" style="height:auto;background:{{diypages.page.background}}">
         <block>
             <block wx:if="{{diypages}}">

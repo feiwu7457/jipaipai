@@ -234,7 +234,7 @@ class MiniModel extends BaseModel {
     public function getLiveRoomList()
     {
         $ACCESS_TOKEN = $this->getAccessToken(true);
-        $url = "http://api.weixin.qq.com/wxa/business/getliveinfo?access_token=$ACCESS_TOKEN";
+        $url = "https://api.weixin.qq.com/wxa/business/getliveinfo?access_token=$ACCESS_TOKEN";
         $param = array(
             "start" => 0, // 起始拉取房间，start = 0 表示从第 1 个房间开始拉取
             "limit" => 200 // 每次拉取的个数上限，不要设置过大，建议 100 以内

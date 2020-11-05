@@ -45,7 +45,7 @@ Page({
     let data = {
       page: _this.data.page + 1,
     }
-    api.fetchPost(api.https_path + "shop/api.live_room/getList", data, function (err, res)    {
+    api.fetchPost(api.https_path + "weixin/api.live_room/getList", data, function (err, res)    {
       wx.hideLoading()
       if (res.code == 0) {
         api.error_msg(res.msg)
